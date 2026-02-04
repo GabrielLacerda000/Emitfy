@@ -24,10 +24,10 @@
 ## Milestone 1: Database Foundation
 
 ### 1.1 Update Users Table
-- [ ] Add migration for new user fields
+- [x] Add migration for new user fields
   - `currency` (string) - Default currency e.g. BRL
   - `logo_url` (string, nullable) - Logo image path
-- [ ] Update `User` model with new fillable fields
+- [x] Update `User` model with new fillable fields
 
 ### 1.2 Clients Table
 - [ ] Create `clients` migration
