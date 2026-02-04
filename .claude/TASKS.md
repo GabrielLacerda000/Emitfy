@@ -80,7 +80,7 @@
   - `belongsTo` Invoice
 
 ### 1.5 Payments Table
-- [ ] Create `payments` migration
+- [x] Create `payments` migration
   - `id` (UUID, primary key)
   - `invoice_id` (UUID, FK → invoices.id)
   - `provider` (enum: stripe, paypal)
@@ -89,7 +89,7 @@
   - `status` (enum: pending, completed, failed)
   - `paid_at` (timestamp, nullable)
   - `timestamps`
-- [ ] Create `Payment` model
+- [x] Create `Payment` model
   - `belongsTo` Invoice
 
 ### 1.6 Reminder Schedules Table
