@@ -68,7 +68,7 @@
   - `hasMany` ReminderSchedules
 
 ### 1.4 Invoice Items Table
-- [ ] Create `invoice_items` migration
+- [x] Create `invoice_items` migration
   - `id` (UUID, primary key)
   - `invoice_id` (UUID, FK → invoices.id)
   - `description` (string)
@@ -76,7 +76,7 @@
   - `unit_price` (decimal)
   - `total` (decimal) - quantity × unit_price
   - `timestamps`
-- [ ] Create `InvoiceItem` model
+- [x] Create `InvoiceItem` model
   - `belongsTo` Invoice
 
 ### 1.5 Payments Table
