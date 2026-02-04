@@ -45,7 +45,14 @@
 - Never chain multiple migration-creating commands (e.g., `make:model -m`, `make:migration`) with `&&` or `;` — they may get identical timestamps. Run each command separately and wait for completion before running the next.
 - Enums: If a PHP Enum exists for a domain concept, always use its cases (or their `->value`) instead of raw strings everywhere — routes, middleware, migrations, seeds, configs, and UI defaults.
 - Don't create Controllers with just one method which just returns `view()`. Instead, use `Route::view()` with vue  file directly.
- 
+- create controllers using crud by design, using the model - `index()` - List user's clients
+  - `create()` - Show create form
+  - `store()` - Save new client
+  - `edit()` - Show edit form
+  - `update()` - Update client
+  - `destroy()` - Delete client
+  if need another fucntion ,create another contrller like the fonrtfy did
+- crete a route file for each entity or domain, for example, for invoice feature, create a folder named `Invoice` and put all routes related to invoice in this folder, the same in controllers folder inside app
 ---
  
 ## Testing instructions
