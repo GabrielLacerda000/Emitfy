@@ -93,18 +93,18 @@
   - `belongsTo` Invoice
 
 ### 1.6 Reminder Schedules Table
-- [ ] Create `reminder_schedules` migration
+- [x] Create `reminder_schedules` migration
   - `id` (UUID, primary key)
   - `invoice_id` (UUID, FK → invoices.id)
   - `type` (enum: before_due, on_due, after_due)
   - `offset_days` (integer) - e.g. -3, 0, +7
   - `sent_at` (timestamp, nullable)
   - `timestamps`
-- [ ] Create `ReminderSchedule` model
+- [x] Create `ReminderSchedule` model
   - `belongsTo` Invoice
 
 ### 1.7 Subscriptions Table
-- [ ] Create `subscriptions` migration
+- [x] Create `subscriptions` migration
   - `id` (UUID, primary key)
   - `user_id` (UUID, FK → users.id)
   - `plan` (enum: free, pro, business)
@@ -113,9 +113,9 @@
   - `status` (enum: active, canceled, past_due)
   - `current_period_end` (timestamp, nullable)
   - `timestamps`
-- [ ] Create `Subscription` model
+- [x] Create `Subscription` model
   - `belongsTo` User
-- [ ] Add `hasOne` Subscription relationship to User model
+- [x] Add `hasOne` Subscription relationship to User model
 
 ---
 
