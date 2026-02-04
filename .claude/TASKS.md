@@ -44,7 +44,7 @@
 - [x] Add `hasMany` Clients relationship to User model
 
 ### 1.3 Invoices Table
-- [ ] Create `invoices` migration
+- [x] Create `invoices` migration
   - `id` (UUID, primary key)
   - `user_id` (UUID, FK → users.id)
   - `client_id` (UUID, FK → clients.id)
@@ -60,7 +60,7 @@
   - `sent_at` (timestamp, nullable)
   - `paid_at` (timestamp, nullable)
   - `timestamps`
-- [ ] Create `Invoice` model
+- [x] Create `Invoice` model
   - `belongsTo` User
   - `belongsTo` Client
   - `hasMany` InvoiceItems
