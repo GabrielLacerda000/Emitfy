@@ -30,7 +30,7 @@
 - [x] Update `User` model with new fillable fields
 
 ### 1.2 Clients Table
-- [ ] Create `clients` migration
+- [x] Create `clients` migration
   - `id` (UUID, primary key)
   - `user_id` (UUID, FK → users.id)
   - `name` (string) - Client name
@@ -38,10 +38,10 @@
   - `company_name` (string, nullable)
   - `notes` (text, nullable)
   - `timestamps`
-- [ ] Create `Client` model
+- [x] Create `Client` model
   - `belongsTo` User
   - `hasMany` Invoices
-- [ ] Add `hasMany` Clients relationship to User model
+- [x] Add `hasMany` Clients relationship to User model
 
 ### 1.3 Invoices Table
 - [ ] Create `invoices` migration
