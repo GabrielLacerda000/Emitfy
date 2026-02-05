@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\Invoice\CalculateInvoiceTotalsAction;
-use App\Actions\Invoice\GenerateInvoiceNumberAction;
-use App\Actions\Invoice\GeneratePublicTokenAction;
-use App\Actions\Invoice\PrepareInvoiceItemsAction;
-use App\Actions\Invoice\SyncInvoiceItemsAction;
+use App\Actions\Invoice\StoreInvoiceAction;
+use App\Actions\Invoice\UpdateInvoiceAction;
 use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Requests\UpdateInvoiceRequest;
 use App\Models\Invoice;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -22,11 +18,8 @@ class InvoiceController extends Controller
      * Create a new controller instance.
      */
     public function __construct(
-        protected GenerateInvoiceNumberAction $generateInvoiceNumber,
-        protected GeneratePublicTokenAction $generatePublicToken,
-        protected CalculateInvoiceTotalsAction $calculateTotals,
-        protected PrepareInvoiceItemsAction $prepareItems,
-        protected SyncInvoiceItemsAction $syncItems,
+        protected StoreInvoiceAction $storeInvoice,
+        protected UpdateInvoiceAction $updateInvoice,
     ) {}
 
     /**
@@ -62,36 +55,10 @@ class InvoiceController extends Controller
      */
     public function store(StoreInvoiceRequest $request): RedirectResponse
     {
-        $validated = $request->validated();
+        ($this->storeInvoice)($request->user(), $request->validated());
 
-        DB::transaction(function () use ($request, $validated) {
-            // Generate invoice number and public token
-            $invoiceNumber = ($this->generateInvoiceNumber)($request->user(), $validated['issue_date']);
-            $publicToken = ($this->generatePublicToken)();
-
-            // Calculate totals
-            $totals = ($this->calculateTotals)($validated['items'], $validated['tax']);
-
-            // Create invoice
-            $invoice = $request->user()->invoices()->create([
-                'client_id' => $validated['client_id'],
-                'number' => $invoiceNumber,
-                'status' => $validated['status'],
-                'issue_date' => $validated['issue_date'],
-                'due_date' => $validated['due_date'],
-                'subtotal' => $totals['subtotal'],
-                'tax' => $validated['tax'],
-                'total' => $totals['total'],
-                'notes' => $validated['notes'] ?? null,
-                'public_token' => $publicToken,
-            ]);
-
-            // Prepare and create items
-            $preparedItems = ($this->prepareItems)($validated['items']);
-            $invoice->items()->createMany($preparedItems);
-        });
-
-        return redirect()->route('invoices.index')->with('success', 'Invoice created successfully.');
+        return redirect()->route('invoices.index')
+            ->with('success', 'Invoice created successfully.');
     }
 
     /**
@@ -136,29 +103,10 @@ class InvoiceController extends Controller
             abort(403);
         }
 
-        $validated = $request->validated();
+        ($this->updateInvoice)($invoice, $request->validated());
 
-        DB::transaction(function () use ($invoice, $validated) {
-            // Calculate new totals
-            $totals = ($this->calculateTotals)($validated['items'], $validated['tax']);
-
-            // Update invoice data (not including invoice number)
-            $invoice->update([
-                'client_id' => $validated['client_id'],
-                'status' => $validated['status'],
-                'issue_date' => $validated['issue_date'],
-                'due_date' => $validated['due_date'],
-                'subtotal' => $totals['subtotal'],
-                'tax' => $validated['tax'],
-                'total' => $totals['total'],
-                'notes' => $validated['notes'] ?? null,
-            ]);
-
-            // Sync items
-            ($this->syncItems)($invoice, $validated['items']);
-        });
-
-        return redirect()->route('invoices.index')->with('success', 'Invoice updated successfully.');
+        return redirect()->route('invoices.index')
+            ->with('success', 'Invoice updated successfully.');
     }
 
     /**
