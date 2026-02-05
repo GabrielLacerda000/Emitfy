@@ -154,7 +154,7 @@
 ## Milestone 3: Invoice Creation Feature
 
 ### 3.1 Backend - Invoice CRUD
-- [ ] Create `InvoiceController`
+- [x] Create `InvoiceController`
   - `index()` - List user's invoices with filters
   - `create()` - Show create form
   - `store()` - Save new invoice with items
@@ -162,13 +162,13 @@
   - `edit()` - Show edit form
   - `update()` - Update invoice and items
   - `destroy()` - Delete invoice
-- [ ] Create `StoreInvoiceRequest` form request
-- [ ] Create `UpdateInvoiceRequest` form request
-- [ ] Create `InvoiceService` for business logic
+- [x] Create `StoreInvoiceRequest` form request
+- [x] Create `UpdateInvoiceRequest` form request
+- [x] Create `InvoiceService` for business logic
   - Auto-generate invoice number (format: INV-YYYYMM-001)
   - Generate unique `public_token`
   - Calculate subtotal/total
-- [ ] Register invoice routes
+- [x] Register invoice routes
 
 ### 3.2 Frontend - Invoice List
 - [ ] Create `resources/js/pages/invoices/Index.vue`
