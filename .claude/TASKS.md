@@ -122,16 +122,16 @@
 ## Milestone 2: Client Management Feature
 
 ### 2.1 Backend - Client CRUD
-- [ ] Create `ClientController`
+- [x] Create `ClientController`
   - `index()` - List user's clients
   - `create()` - Show create form
   - `store()` - Save new client
   - `edit()` - Show edit form
   - `update()` - Update client
   - `destroy()` - Delete client
-- [ ] Create `StoreClientRequest` form request
-- [ ] Create `UpdateClientRequest` form request
-- [ ] Register client routes in `routes/web.php`
+- [x] Create `StoreClientRequest` form request
+- [x] Create `UpdateClientRequest` form request
+- [x] Register client routes in `routes/clients.php`
 
 ### 2.2 Frontend - Client Pages
 - [ ] Create `resources/js/pages/clients/Index.vue`
