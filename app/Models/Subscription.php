@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Subscriptions extends Model
+class Subscription extends Model
 {
-    /** @use HasFactory<\Database\Factories\SubscriptionsFactory> */
+    /** @use HasFactory<\Database\Factories\SubscriptionFactory> */
     use HasFactory;
 
     protected $fillable = [
@@ -19,7 +20,14 @@ class Subscriptions extends Model
         'current_period_end',
     ];
 
-    public function user()
+    public function casts(): array
+    {
+        return [
+            'current_period_end' => 'datetime',
+        ];
+    }
+
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

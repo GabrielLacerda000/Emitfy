@@ -12,7 +12,7 @@ trait ClientValidationRules
      *
      * @return array<string, array<int, \Illuminate\Contracts\Validation\Rule|array<mixed>|string>>
      */
-    protected function clientRules(?string $clientId = null, string $userId): array
+    protected function clientRules(?string $clientId, string $userId): array
     {
         return [
             'name' => $this->nameRules(),

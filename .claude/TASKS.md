@@ -134,20 +134,20 @@
 - [x] Register client routes in `routes/clients.php`
 
 ### 2.2 Frontend - Client Pages
-- [ ] Create `resources/js/pages/clients/Index.vue`
+- [x] Create `resources/js/pages/clients/Index.vue`
   - Clients table with name, email, company, invoice count
   - Search/filter functionality
   - Create new client button
-- [ ] Create `resources/js/pages/clients/Create.vue`
+- [x] Create `resources/js/pages/clients/Create.vue`
   - Form: name, email, company_name, notes
-- [ ] Create `resources/js/pages/clients/Edit.vue`
+- [x] Create `resources/js/pages/clients/Edit.vue`
   - Pre-filled form with existing data
-- [ ] Add "Clients" link to sidebar navigation (`AppSidebar.vue`)
+- [x] Add "Clients" link to sidebar navigation (`AppSidebar.vue`)
 
 ### 2.3 Client UI Components
-- [ ] Client delete confirmation modal
-- [ ] Empty state for no clients
-- [ ] Client card/row component
+- [x] Client delete confirmation modal
+- [x] Empty state for no clients
+- [x] Client card/row component
 
 ---
 
