@@ -179,24 +179,24 @@
   - Create new invoice button
 
 ### 3.3 Frontend - Invoice Editor
-- [ ] Create `resources/js/pages/invoices/Create.vue`
-- [ ] Create `resources/js/pages/invoices/Edit.vue`
-- [ ] Create `resources/js/pages/invoices/Show.vue` (view only)
-- [ ] Invoice form components:
-  - [ ] Client selector dropdown (with option to create new)
-  - [ ] Date pickers (issue date, due date)
-  - [ ] Line items table component
+- [x] Create `resources/js/pages/invoices/Create.vue`
+- [x] Create `resources/js/pages/invoices/Edit.vue`
+- [x] Create `resources/js/pages/invoices/Show.vue` (view only)
+- [x] Invoice form components:
+  - [x] Client selector dropdown (with option to create new)
+  - [x] Date pickers (issue date, due date)
+  - [x] Line items table component
     - Add/remove rows
     - Description, quantity, unit price inputs
     - Auto-calculate row total
-  - [ ] Subtotal, tax, total display
-  - [ ] Notes textarea
-  - [ ] Save as Draft / Save & Send buttons
+  - [x] Subtotal, tax, total display
+  - [x] Notes textarea
+  - [x] Save as Draft / Save & Send buttons
 
 ### 3.4 Invoice Actions
-- [ ] Duplicate invoice action
-- [ ] Delete invoice with confirmation modal
-- [ ] Add "Invoices" link to sidebar navigation
+- [x] Duplicate invoice action
+- [x] Delete invoice with confirmation modal
+- [x] Add "Invoices" link to sidebar navigation
 
 ---
 

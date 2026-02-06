@@ -291,6 +291,7 @@ function deleteInvoice() {
                                         variant="ghost"
                                         size="icon"
                                         @click="confirmDelete(invoice)"
+                                        class="cursor-pointer"
                                     >
                                         <Trash2
                                             class="h-4 w-4 text-destructive"

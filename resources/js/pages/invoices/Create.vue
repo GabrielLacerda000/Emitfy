@@ -233,6 +233,7 @@ function submitForm(status: 'draft' | 'sent') {
                             variant="default"
                             @click="submitForm('sent')"
                             :disabled="processing"
+                            class="cursor-pointer"
                         >
                             Save & Send
                         </Button>
