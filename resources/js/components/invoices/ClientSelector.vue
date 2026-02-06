@@ -14,6 +14,14 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectSeparator,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select';
 import type { Client } from '@/types';
 
 const page = usePage();
@@ -24,7 +32,7 @@ interface Props {
     error?: string;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
 
 const emit = defineEmits<{
     'update:modelValue': [value: number | null];
@@ -39,16 +47,23 @@ const newClientData = ref({
 });
 const createErrors = ref<Record<string, string>>({});
 const creating = ref(false);
+const selectedValue = ref<string>('');
 
-function handleChange(event: Event) {
-    const value = (event.target as HTMLSelectElement).value;
-    if (value === '__create__') {
+// Watch for special "__create__" value
+watch(selectedValue, (newValue) => {
+    if (newValue === '__create__') {
         createDialogOpen.value = true;
-        // Keep the current selection
+        // Reset to current modelValue
+        selectedValue.value = props.modelValue?.toString() ?? '';
         return;
     }
-    emit('update:modelValue', value ? Number(value) : null);
-}
+    emit('update:modelValue', newValue ? Number(newValue) : null);
+});
+
+// Sync with prop changes
+watch(() => props.modelValue, (newValue) => {
+    selectedValue.value = newValue?.toString() ?? '';
+}, { immediate: true });
 
 function createClient() {
     creating.value = true;
@@ -92,19 +107,24 @@ function formatClientName(client: Client): string {
 
 <template>
     <div class="space-y-2">
-        <select
-            :value="modelValue ?? ''"
-            @change="handleChange"
-            required
-            class="placeholder:text-muted-foreground dark:bg-input/30 border-input w-full min-w-0 rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
-        >
-            <option value="" disabled>Select a client</option>
-            <option value="__create__" class="font-medium">+ Create New Client</option>
-            <option disabled>---</option>
-            <option v-for="client in clients" :key="client.id" :value="client.id">
-                {{ formatClientName(client) }}
-            </option>
-        </select>
+        <Select v-model="selectedValue">
+            <SelectTrigger id="client-select">
+                <SelectValue placeholder="Select a client" />
+            </SelectTrigger>
+            <SelectContent>
+                <SelectItem value="__create__" class="font-medium">
+                    + Create New Client
+                </SelectItem>
+                <SelectSeparator />
+                <SelectItem
+                    v-for="client in clients"
+                    :key="client.id"
+                    :value="client.id.toString()"
+                >
+                    {{ formatClientName(client) }}
+                </SelectItem>
+            </SelectContent>
+        </Select>
         <InputError :message="error" />
 
         <Dialog v-model:open="createDialogOpen">

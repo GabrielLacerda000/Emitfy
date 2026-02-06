@@ -99,7 +99,7 @@ function submitForm(status: 'draft' | 'sent') {
 
                 <form class="mt-6 space-y-6" @submit.prevent>
                     <!-- Client & Dates -->
-                    <Card class="p-6">
+                    <Card class="p-6 ">
                         <h3 class="mb-4 text-lg font-semibold">Client & Dates</h3>
                         <div class="grid gap-6 md:grid-cols-2">
                             <div class="grid gap-2 md:col-span-2">
