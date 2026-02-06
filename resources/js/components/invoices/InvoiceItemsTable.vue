@@ -3,6 +3,8 @@ import { Trash2, Plus } from 'lucide-vue-next';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { NumberField, NumberFieldContent, NumberFieldInput } from '@/components/ui/number-field';
+import { formatBRL } from '@/lib/utils';
 import type { InvoiceItem } from '@/types';
 
 interface Props {
@@ -25,8 +27,8 @@ function addItem() {
         {
             description: '',
             quantity: 1,
-            unit_price: '0.00',
-            total: '0.00',
+            unit_price: 0,
+            total: 0,
         },
     ];
     emit('update:modelValue', newItems);
@@ -45,9 +47,9 @@ function updateItem(index: number, field: keyof InvoiceItem, value: string | num
 
     // Calculate total for this item
     if (field === 'quantity' || field === 'unit_price') {
-        const quantity = Number(newItems[index].quantity);
-        const unitPrice = Number(newItems[index].unit_price);
-        newItems[index].total = (quantity * unitPrice).toFixed(2);
+        const quantity = newItems[index].quantity;
+        const unitPrice = newItems[index].unit_price;
+        newItems[index].total = Number((quantity * unitPrice).toFixed(2));
     }
 
     emit('update:modelValue', newItems);
@@ -118,20 +120,17 @@ function updateItem(index: number, field: keyof InvoiceItem, value: string | num
                             </td>
                             <td class="px-4 py-3">
                                 <div class="space-y-1">
-                                    <Input
+                                    <NumberField
                                         v-if="!readonly"
-                                        type="number"
-                                        :value="item.quantity"
-                                        @input="
-                                            updateItem(
-                                                index,
-                                                'quantity',
-                                                Number(($event.target as HTMLInputElement).value),
-                                            )
-                                        "
-                                        min="1"
-                                        required
-                                    />
+                                        :model-value="item.quantity"
+                                        @update:model-value="(val) => updateItem(index, 'quantity', val)"
+                                        :min="1"
+                                        :format-options="{ style: 'decimal' }"
+                                    >
+                                        <NumberFieldContent>
+                                            <NumberFieldInput placeholder="1" />
+                                        </NumberFieldContent>
+                                    </NumberField>
                                     <span v-else class="text-sm">{{ item.quantity }}</span>
                                     <InputError
                                         :message="errors?.[`items.${index}.quantity`]"
@@ -140,29 +139,30 @@ function updateItem(index: number, field: keyof InvoiceItem, value: string | num
                             </td>
                             <td class="px-4 py-3">
                                 <div class="space-y-1">
-                                    <Input
+                                    <NumberField
                                         v-if="!readonly"
-                                        type="number"
-                                        :value="item.unit_price"
-                                        @input="
-                                            updateItem(
-                                                index,
-                                                'unit_price',
-                                                ($event.target as HTMLInputElement).value,
-                                            )
-                                        "
-                                        step="0.01"
-                                        min="0.01"
-                                        required
-                                    />
-                                    <span v-else class="text-sm">${{ item.unit_price }}</span>
+                                        :model-value="item.unit_price"
+                                        @update:model-value="(val) => updateItem(index, 'unit_price', val)"
+                                        :min="0.01"
+                                        :step="0.01"
+                                        :format-options="{
+                                            style: 'currency',
+                                            currency: 'BRL',
+                                            locale: 'pt-BR'
+                                        }"
+                                    >
+                                        <NumberFieldContent>
+                                            <NumberFieldInput placeholder="R$ 0,00" />
+                                        </NumberFieldContent>
+                                    </NumberField>
+                                    <span v-else class="text-sm">{{ formatBRL(item.unit_price) }}</span>
                                     <InputError
                                         :message="errors?.[`items.${index}.unit_price`]"
                                     />
                                 </div>
                             </td>
                             <td class="px-4 py-3">
-                                <div class="text-sm font-medium">${{ item.total }}</div>
+                                <div class="text-sm font-medium">{{ formatBRL(item.total) }}</div>
                             </td>
                             <td v-if="!readonly" class="px-4 py-3">
                                 <Button

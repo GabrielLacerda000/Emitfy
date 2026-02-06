@@ -21,15 +21,15 @@ export interface InvoiceItem {
     id?: number;
     description: string;
     quantity: number;
-    unit_price: string;
-    total: string;
+    unit_price: number;
+    total: number;
 }
 
 export interface InvoiceFormData {
     client_id: number | null;
     issue_date: string;
     due_date: string;
-    tax: string;
+    tax: number;
     notes: string;
     status: InvoiceStatus;
     items: InvoiceItem[];

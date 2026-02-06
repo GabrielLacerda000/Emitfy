@@ -16,7 +16,7 @@ import {
     DialogTitle,
 } from '@/components/ui/dialog';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { formatCurrency, formatDate, isOverdue } from '@/lib/utils';
+import { formatBRL, formatDate, isOverdue } from '@/lib/utils';
 import { create, edit, index, show } from '@/routes/invoices';
 import {
     type BreadcrumbItem,
@@ -246,7 +246,7 @@ function deleteInvoice() {
                                 </span>
                             </td>
                             <td class="px-4 py-3 text-sm font-medium">
-                                {{ formatCurrency(invoice.total) }}
+                                {{ formatBRL(invoice.total) }}
                             </td>
                             <td class="px-4 py-3 text-sm">
                                 <Badge

@@ -10,12 +10,21 @@ export function toUrl(href: NonNullable<InertiaLinkProps['href']>) {
     return typeof href === 'string' ? href : href?.url;
 }
 
-export function formatCurrency(amount: string | number): string {
+export function formatCurrency(
+    amount: string | number,
+    locale: string = 'pt-BR',
+    currency: string = 'BRL'
+): string {
     const numAmount = typeof amount === 'string' ? parseFloat(amount) : amount;
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat(locale, {
         style: 'currency',
-        currency: 'USD',
+        currency: currency,
     }).format(numAmount);
+}
+
+// Convenience helper for BRL
+export function formatBRL(amount: string | number): string {
+    return formatCurrency(amount, 'pt-BR', 'BRL');
 }
 
 export function formatDate(date: string | Date): string {

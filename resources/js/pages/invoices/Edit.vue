@@ -11,6 +11,14 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { NumberField, NumberFieldContent, NumberFieldInput } from '@/components/ui/number-field';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { index } from '@/routes/invoices';
 import { type BreadcrumbItem, type Client, type Invoice, type InvoiceFormData } from '@/types';
@@ -37,7 +45,7 @@ const formData = ref<InvoiceFormData>({
     client_id: props.invoice.client_id,
     issue_date: props.invoice.issue_date,
     due_date: props.invoice.due_date,
-    tax: props.invoice.tax,
+    tax: Number(props.invoice.tax),
     notes: props.invoice.notes ?? '',
     status: props.invoice.status,
     items:
@@ -45,8 +53,8 @@ const formData = ref<InvoiceFormData>({
             id: item.id,
             description: item.description,
             quantity: item.quantity,
-            unit_price: item.unit_price,
-            total: item.total,
+            unit_price: Number(item.unit_price),
+            total: Number(item.total),
         })) ?? [],
 });
 
@@ -156,17 +164,17 @@ function submitForm() {
                         <h3 class="mb-4 text-lg font-semibold">Status</h3>
                         <div class="grid gap-2">
                             <Label for="status">Invoice Status</Label>
-                            <select
-                                id="status"
-                                v-model="formData.status"
-                                required
-                                class="placeholder:text-muted-foreground dark:bg-input/30 border-input w-full min-w-0 rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
-                            >
-                                <option value="draft">Draft</option>
-                                <option value="sent">Sent</option>
-                                <option value="paid">Paid</option>
-                                <option value="overdue">Overdue</option>
-                            </select>
+                            <Select v-model="formData.status">
+                                <SelectTrigger id="status">
+                                    <SelectValue placeholder="Select status" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="draft">Draft</SelectItem>
+                                    <SelectItem value="sent">Sent</SelectItem>
+                                    <SelectItem value="paid">Paid</SelectItem>
+                                    <SelectItem value="overdue">Overdue</SelectItem>
+                                </SelectContent>
+                            </Select>
                             <InputError :message="errors.status" />
                         </div>
                     </Card>
@@ -187,15 +195,20 @@ function submitForm() {
                         <div class="space-y-6">
                             <div class="grid gap-2">
                                 <Label for="tax">Tax Amount</Label>
-                                <Input
-                                    id="tax"
+                                <NumberField
                                     v-model="formData.tax"
-                                    type="number"
-                                    step="0.01"
-                                    min="0"
-                                    required
-                                    placeholder="0.00"
-                                />
+                                    :min="0"
+                                    :step="0.01"
+                                    :format-options="{
+                                        style: 'currency',
+                                        currency: 'BRL',
+                                        locale: 'pt-BR'
+                                    }"
+                                >
+                                    <NumberFieldContent>
+                                        <NumberFieldInput id="tax" placeholder="R$ 0,00" />
+                                    </NumberFieldContent>
+                                </NumberField>
                                 <InputError :message="errors.tax" />
                             </div>
 

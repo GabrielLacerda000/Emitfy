@@ -9,8 +9,8 @@ import InvoiceItemsTable from '@/components/invoices/InvoiceItemsTable.vue';
 import InvoiceSummary from '@/components/invoices/InvoiceSummary.vue';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { NumberField, NumberFieldContent, NumberFieldInput } from '@/components/ui/number-field';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { index } from '@/routes/invoices';
 import { type BreadcrumbItem, type Client, type InvoiceFormData } from '@/types';
@@ -36,15 +36,15 @@ const formData = ref<InvoiceFormData>({
     client_id: null,
     issue_date: new Date().toISOString().split('T')[0],
     due_date: new Date().toISOString().split('T')[0],
-    tax: '0.00',
+    tax: 0,
     notes: '',
     status: 'draft',
     items: [
         {
             description: '',
             quantity: 1,
-            unit_price: '0.00',
-            total: '0.00',
+            unit_price: 0,
+            total: 0,
         },
     ],
 });
@@ -154,15 +154,19 @@ function submitForm(status: 'draft' | 'sent') {
                         <div class="space-y-6">
                             <div class="grid gap-2">
                                 <Label for="tax">Tax Amount</Label>
-                                <Input
-                                    id="tax"
+                                <NumberField
                                     v-model="formData.tax"
-                                    type="number"
-                                    step="0.01"
-                                    min="0"
-                                    required
-                                    placeholder="0.00"
-                                />
+                                    :min="0"
+                                    :step="0.01"
+                                    :format-options="{
+                                        style: 'currency',
+                                        currency: 'BRL',
+                                    }"
+                                >
+                                    <NumberFieldContent>
+                                        <NumberFieldInput id="tax" placeholder="R$ 0,00" />
+                                    </NumberFieldContent>
+                                </NumberField>
                                 <InputError :message="errors.tax" />
                             </div>
 
