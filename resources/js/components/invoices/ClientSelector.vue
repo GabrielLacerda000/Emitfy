@@ -27,7 +27,7 @@ import type { Client } from '@/types';
 const page = usePage();
 
 interface Props {
-    modelValue: number | null;
+    modelValue: string | null;
     clients: Client[];
     error?: string;
 }
@@ -35,7 +35,7 @@ interface Props {
 const props = defineProps<Props>();
 
 const emit = defineEmits<{
-    'update:modelValue': [value: number | null];
+    'update:modelValue': [value: string | null];
     'clientCreated': [client: Client];
 }>();
 
@@ -51,18 +51,22 @@ const selectedValue = ref<string>('');
 
 // Watch for special "__create__" value
 watch(selectedValue, (newValue) => {
+    console.log('[ClientSelector] selectedValue changed:', { newValue, type: typeof newValue });
     if (newValue === '__create__') {
         createDialogOpen.value = true;
         // Reset to current modelValue
-        selectedValue.value = props.modelValue?.toString() ?? '';
+        selectedValue.value = props.modelValue ?? '';
         return;
     }
-    emit('update:modelValue', newValue ? Number(newValue) : null);
+    console.log('[ClientSelector] Emitting update:modelValue:', { value: newValue || null, type: typeof (newValue || null) });
+    emit('update:modelValue', newValue || null);
 });
 
 // Sync with prop changes
 watch(() => props.modelValue, (newValue) => {
-    selectedValue.value = newValue?.toString() ?? '';
+    console.log('[ClientSelector] props.modelValue changed:', { newValue, type: typeof newValue });
+    selectedValue.value = newValue ?? '';
+    console.log('[ClientSelector] Updated selectedValue to:', { selectedValue: selectedValue.value, type: typeof selectedValue.value });
 }, { immediate: true });
 
 function createClient() {
@@ -89,7 +93,7 @@ watch(
     () => page.props.client,
     (newClient) => {
         if (newClient && createDialogOpen.value) {
-            emit('update:modelValue', (newClient as Client).id);
+            emit('update:modelValue', (newClient as Client).id.toString());
             emit('clientCreated', newClient as Client);
             createDialogOpen.value = false;
             newClientData.value = { name: '', email: '', company_name: '' };

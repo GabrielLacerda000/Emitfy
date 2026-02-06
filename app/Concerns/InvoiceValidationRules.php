@@ -37,7 +37,7 @@ trait InvoiceValidationRules
     {
         return [
             'required',
-            'integer',
+            'string',
             Rule::exists(Client::class, 'id')->where('user_id', $userId),
         ];
     }

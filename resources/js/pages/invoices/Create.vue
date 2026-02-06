@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Head, Link, router } from '@inertiajs/vue3';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import InvoiceController from '@/actions/App/Http/Controllers/InvoiceController';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
@@ -10,10 +10,18 @@ import InvoiceSummary from '@/components/invoices/InvoiceSummary.vue';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import { NumberField, NumberFieldContent, NumberFieldInput } from '@/components/ui/number-field';
+import {
+    NumberField,
+    NumberFieldContent,
+    NumberFieldInput,
+} from '@/components/ui/number-field';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { index } from '@/routes/invoices';
-import { type BreadcrumbItem, type Client, type InvoiceFormData } from '@/types';
+import {
+    type BreadcrumbItem,
+    type Client,
+    type InvoiceFormData,
+} from '@/types';
 
 type Props = {
     clients: Client[];
@@ -66,6 +74,18 @@ const total = computed(() => {
 
 const clients = ref(props.clients);
 
+// Debug: Watch client_id changes
+watch(
+    () => formData.value.client_id,
+    (newValue, oldValue) => {
+        console.log('[Create] client_id changed:', {
+            oldValue,
+            newValue,
+            type: typeof newValue,
+        });
+    },
+);
+
 function handleClientCreated(client: Client) {
     clients.value.push(client);
 }
@@ -77,6 +97,7 @@ function submitForm(status: 'draft' | 'sent') {
 
     router.post(InvoiceController.store.url(), formData.value, {
         onError: (errs) => {
+            console.log('[Create] Submission errors:', errs);
             errors.value = errs;
         },
         onFinish: () => {
@@ -99,8 +120,10 @@ function submitForm(status: 'draft' | 'sent') {
 
                 <form class="mt-6 space-y-6" @submit.prevent>
                     <!-- Client & Dates -->
-                    <Card class="p-6 ">
-                        <h3 class="mb-4 text-lg font-semibold">Client & Dates</h3>
+                    <Card class="p-6">
+                        <h3 class="mb-4 text-lg font-semibold">
+                            Client & Dates
+                        </h3>
                         <div class="grid gap-6 md:grid-cols-2">
                             <div class="grid gap-2 md:col-span-2">
                                 <Label for="client_id">Client</Label>
@@ -119,7 +142,7 @@ function submitForm(status: 'draft' | 'sent') {
                                     v-model="formData.issue_date"
                                     type="date"
                                     required
-                                    class="placeholder:text-muted-foreground dark:bg-input/30 border-input w-full min-w-0 rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                                    class="w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm dark:bg-input/30"
                                 />
                                 <InputError :message="errors.issue_date" />
                             </div>
@@ -131,7 +154,7 @@ function submitForm(status: 'draft' | 'sent') {
                                     v-model="formData.due_date"
                                     type="date"
                                     required
-                                    class="placeholder:text-muted-foreground dark:bg-input/30 border-input w-full min-w-0 rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                                    class="w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm dark:bg-input/30"
                                 />
                                 <InputError :message="errors.due_date" />
                             </div>
@@ -150,7 +173,9 @@ function submitForm(status: 'draft' | 'sent') {
 
                     <!-- Additional Details -->
                     <Card class="p-6">
-                        <h3 class="mb-4 text-lg font-semibold">Additional Details</h3>
+                        <h3 class="mb-4 text-lg font-semibold">
+                            Additional Details
+                        </h3>
                         <div class="space-y-6">
                             <div class="grid gap-2">
                                 <Label for="tax">Tax Amount</Label>
@@ -164,7 +189,10 @@ function submitForm(status: 'draft' | 'sent') {
                                     }"
                                 >
                                     <NumberFieldContent>
-                                        <NumberFieldInput id="tax" placeholder="R$ 0,00" />
+                                        <NumberFieldInput
+                                            id="tax"
+                                            placeholder="R$ 0,00"
+                                        />
                                     </NumberFieldContent>
                                 </NumberField>
                                 <InputError :message="errors.tax" />
@@ -177,7 +205,7 @@ function submitForm(status: 'draft' | 'sent') {
                                     v-model="formData.notes"
                                     rows="4"
                                     placeholder="Additional notes for this invoice (optional)"
-                                    class="placeholder:text-muted-foreground dark:bg-input/30 border-input w-full min-w-0 rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                                    class="w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm dark:bg-input/30"
                                 />
                                 <InputError :message="errors.notes" />
                             </div>

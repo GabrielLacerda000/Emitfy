@@ -26,7 +26,7 @@ export interface InvoiceItem {
 }
 
 export interface InvoiceFormData {
-    client_id: number | null;
+    client_id: string | null;
     issue_date: string;
     due_date: string;
     tax: number;
