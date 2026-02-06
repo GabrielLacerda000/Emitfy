@@ -101,14 +101,8 @@ function updateItem(index: number, field: keyof InvoiceItem, value: string | num
                                 <div class="space-y-1">
                                     <Input
                                         v-if="!readonly"
-                                        :value="item.description"
-                                        @input="
-                                            updateItem(
-                                                index,
-                                                'description',
-                                                ($event.target as HTMLInputElement).value,
-                                            )
-                                        "
+                                        :model-value="item.description"
+                                        @update:model-value="(val) => updateItem(index, 'description', val)"
                                         placeholder="Item description"
                                         required
                                     />

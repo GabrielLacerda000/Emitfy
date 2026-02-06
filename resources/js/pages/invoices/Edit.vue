@@ -42,8 +42,8 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 const formData = ref<InvoiceFormData>({
     client_id: props.invoice.client_id,
-    issue_date: props.invoice.issue_date,
-    due_date: props.invoice.due_date,
+    issue_date: props.invoice.issue_date.split('T')[0],
+    due_date: props.invoice.due_date.split('T')[0],
     tax: Number(props.invoice.tax),
     notes: props.invoice.notes ?? '',
     status: props.invoice.status,
