@@ -171,7 +171,7 @@
 - [x] Register invoice routes
 
 ### 3.2 Frontend - Invoice List
-- [ ] Create `resources/js/pages/invoices/Index.vue`
+- [x] Create `resources/js/pages/invoices/Index.vue`
   - Invoice table with number, client, amount, status, due date
   - Status filter tabs (All, Draft, Sent, Paid, Overdue)
   - Sort by date, amount, client
