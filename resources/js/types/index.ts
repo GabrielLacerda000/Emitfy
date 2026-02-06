@@ -17,6 +17,24 @@ export interface Client {
 
 export type InvoiceStatus = 'draft' | 'sent' | 'paid' | 'overdue';
 
+export interface InvoiceItem {
+    id?: number;
+    description: string;
+    quantity: number;
+    unit_price: string;
+    total: string;
+}
+
+export interface InvoiceFormData {
+    client_id: number | null;
+    issue_date: string;
+    due_date: string;
+    tax: string;
+    notes: string;
+    status: InvoiceStatus;
+    items: InvoiceItem[];
+}
+
 export interface Invoice {
     id: number;
     user_id: number;
@@ -40,6 +58,7 @@ export interface Invoice {
         email: string;
         company_name: string | null;
     };
+    items?: InvoiceItem[];
 }
 
 export type AppPageProps<
