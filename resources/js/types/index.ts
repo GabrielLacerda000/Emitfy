@@ -38,7 +38,7 @@ export interface InvoiceFormData {
 export interface Invoice {
     id: number;
     user_id: number;
-    client_id: number;
+    client_id: string;
     number: string;
     status: InvoiceStatus;
     issue_date: string;

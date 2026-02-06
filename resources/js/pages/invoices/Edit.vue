@@ -9,7 +9,6 @@ import InvoiceItemsTable from '@/components/invoices/InvoiceItemsTable.vue';
 import InvoiceSummary from '@/components/invoices/InvoiceSummary.vue';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { NumberField, NumberFieldContent, NumberFieldInput } from '@/components/ui/number-field';
 import {
@@ -202,7 +201,6 @@ function submitForm() {
                                     :format-options="{
                                         style: 'currency',
                                         currency: 'BRL',
-                                        locale: 'pt-BR'
                                     }"
                                 >
                                     <NumberFieldContent>
