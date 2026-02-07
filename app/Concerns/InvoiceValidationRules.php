@@ -2,6 +2,7 @@
 
 namespace App\Concerns;
 
+use App\Enums\InvoiceStatus;
 use App\Models\Client;
 use Illuminate\Validation\Rule;
 
@@ -89,7 +90,7 @@ trait InvoiceValidationRules
      */
     protected function statusRules(): array
     {
-        return ['required', 'string', Rule::in(['draft', 'sent', 'paid', 'overdue'])];
+        return ['required', 'string', Rule::enum(InvoiceStatus::class)];
     }
 
     /**

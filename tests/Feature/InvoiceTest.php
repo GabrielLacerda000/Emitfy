@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\InvoiceStatus;
 use App\Models\Client;
 use App\Models\Invoice;
 use App\Models\User;
@@ -36,7 +37,7 @@ test('invoices can be created', function () {
             'due_date' => '2026-02-28',
             'tax' => 10.00,
             'notes' => 'Test invoice notes',
-            'status' => 'draft',
+            'status' => InvoiceStatus::DRAFT->value,
             'items' => [
                 [
                     'description' => 'Web Development',
@@ -58,7 +59,7 @@ test('invoices can be created', function () {
     $this->assertDatabaseHas('invoices', [
         'user_id' => $user->id,
         'client_id' => $client->id,
-        'status' => 'draft',
+        'status' => InvoiceStatus::DRAFT->value,
         'subtotal' => 1750.00,
         'tax' => 10.00,
         'total' => 1760.00,
@@ -173,7 +174,7 @@ test('invoices can be updated', function () {
             'due_date' => '2026-03-10',
             'tax' => 15.00,
             'notes' => 'Updated notes',
-            'status' => 'sent',
+            'status' => InvoiceStatus::SENT->value,
             'items' => [
                 ['description' => 'Updated Service', 'quantity' => 5, 'unit_price' => 200.00],
             ],
@@ -184,7 +185,7 @@ test('invoices can be updated', function () {
         ->assertRedirect(route('invoices.index'));
 
     $invoice->refresh();
-    expect($invoice->status)->toBe('sent');
+    expect($invoice->status)->toBe(InvoiceStatus::SENT);
     expect($invoice->subtotal)->toBe('1000.00');
     expect($invoice->total)->toBe('1015.00');
 });
@@ -242,7 +243,7 @@ test('users cannot update other users invoices', function () {
             'issue_date' => '2026-02-01',
             'due_date' => '2026-02-28',
             'tax' => 0,
-            'status' => 'draft',
+            'status' => InvoiceStatus::DRAFT->value,
             'items' => [
                 ['description' => 'Hacked', 'quantity' => 1, 'unit_price' => 1],
             ],
@@ -294,7 +295,7 @@ test('due date must be after or equal to issue date', function () {
             'issue_date' => '2026-02-28',
             'due_date' => '2026-02-01',
             'tax' => 0,
-            'status' => 'draft',
+            'status' => InvoiceStatus::DRAFT->value,
             'items' => [
                 ['description' => 'Test', 'quantity' => 1, 'unit_price' => 100],
             ],
@@ -314,7 +315,7 @@ test('invoice must have at least one item', function () {
             'issue_date' => '2026-02-01',
             'due_date' => '2026-02-28',
             'tax' => 0,
-            'status' => 'draft',
+            'status' => InvoiceStatus::DRAFT->value,
             'items' => [],
         ]);
 
@@ -333,7 +334,7 @@ test('users cannot create invoices for other users clients', function () {
             'issue_date' => '2026-02-01',
             'due_date' => '2026-02-28',
             'tax' => 0,
-            'status' => 'draft',
+            'status' => InvoiceStatus::DRAFT->value,
             'items' => [
                 ['description' => 'Test', 'quantity' => 1, 'unit_price' => 100],
             ],

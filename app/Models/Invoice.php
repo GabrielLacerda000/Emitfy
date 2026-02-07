@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\InvoiceStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -31,6 +32,7 @@ class Invoice extends Model
     public function casts(): array
     {
         return [
+            'status' => InvoiceStatus::class,
             'issue_date' => 'date',
             'due_date' => 'date',
             'sent_at' => 'datetime',
@@ -64,5 +66,88 @@ class Invoice extends Model
     public function reminderSchedules(): HasMany
     {
         return $this->hasMany(ReminderSchedule::class);
+    }
+
+    /**
+     * Mark the invoice as sent and set the sent_at timestamp.
+     */
+    public function markAsSent(): bool
+    {
+        // Cannot transition from PAID status
+        if ($this->status === InvoiceStatus::PAID) {
+            return false;
+        }
+
+        return $this->update([
+            'status' => InvoiceStatus::SENT,
+            'sent_at' => now(),
+        ]);
+    }
+
+    /**
+     * Mark the invoice as paid and set the paid_at timestamp.
+     */
+    public function markAsPaid(): bool
+    {
+        return $this->update([
+            'status' => InvoiceStatus::PAID,
+            'paid_at' => now(),
+        ]);
+    }
+
+    /**
+     * Mark the invoice as overdue.
+     */
+    public function markAsOverdue(): bool
+    {
+        // Cannot transition from PAID status
+        if ($this->status === InvoiceStatus::PAID) {
+            return false;
+        }
+
+        return $this->update([
+            'status' => InvoiceStatus::OVERDUE,
+        ]);
+    }
+
+    /**
+     * Check if the invoice is in draft status.
+     */
+    public function isDraft(): bool
+    {
+        return $this->status === InvoiceStatus::DRAFT;
+    }
+
+    /**
+     * Check if the invoice is in sent status.
+     */
+    public function isSent(): bool
+    {
+        return $this->status === InvoiceStatus::SENT;
+    }
+
+    /**
+     * Check if the invoice is in paid status.
+     */
+    public function isPaid(): bool
+    {
+        return $this->status === InvoiceStatus::PAID;
+    }
+
+    /**
+     * Check if the invoice is in overdue status.
+     */
+    public function isOverdue(): bool
+    {
+        return $this->status === InvoiceStatus::OVERDUE;
+    }
+
+    /**
+     * Check if the invoice is past its due date.
+     */
+    public function isPastDue(): bool
+    {
+        return $this->status === InvoiceStatus::SENT
+            && $this->due_date->isPast();
     }
 }
