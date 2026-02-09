@@ -10,6 +10,8 @@ class GetDashboardStatsAction
 {
     public function index(User $user): array
     {
+        // COALESCE - return the first parameter if it's not null, otherwise return the second parameter
+
         // Calculate total outstanding (SENT + OVERDUE invoices)
         $totalOutstanding = $user->invoices()
             ->whereIn('status', [InvoiceStatus::SENT, InvoiceStatus::OVERDUE])
