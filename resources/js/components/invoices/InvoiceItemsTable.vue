@@ -142,7 +142,6 @@ function updateItem(index: number, field: keyof InvoiceItem, value: string | num
                                         :format-options="{
                                             style: 'currency',
                                             currency: 'BRL',
-                                            locale: 'pt-BR'
                                         }"
                                     >
                                         <NumberFieldContent>

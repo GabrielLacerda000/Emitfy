@@ -44,7 +44,7 @@ export interface Invoice {
     issue_date: string;
     due_date: string;
     subtotal: string;
-    tax: string;
+    tax: number;
     total: string;
     notes: string | null;
     public_token: string;

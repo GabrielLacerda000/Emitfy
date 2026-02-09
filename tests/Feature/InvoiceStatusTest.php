@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\InvoiceStatus;
 use App\Models\Client;
 use App\Models\Invoice;
 use App\Models\User;

@@ -4,7 +4,6 @@ namespace App\Actions\Dashboard;
 
 use App\Enums\InvoiceStatus;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 
 class GetDashboardStatsAction
 {

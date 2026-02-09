@@ -3,9 +3,8 @@
 namespace Database\Factories;
 
 use App\Enums\InvoiceStatus;
-use Database\Factories\ClientFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Auth;
+
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Invoice>
  */

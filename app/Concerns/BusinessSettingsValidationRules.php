@@ -19,7 +19,7 @@ trait BusinessSettingsValidationRules
             'string',
             'size:3',
             'regex:/^[A-Z]{3}$/',
-            'in:' . implode(',', $this->getSupportedCurrencies()),
+            'in:'.implode(',', $this->getSupportedCurrencies()),
         ];
     }
 
