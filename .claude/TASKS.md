@@ -247,6 +247,7 @@
     - New Invoice button
     - New Client button
   - [ ] Recent invoices table
+  - [ ] Recent clients table
   - [ ] Empty state for new users
 
 ---

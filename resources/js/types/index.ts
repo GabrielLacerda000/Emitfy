@@ -5,7 +5,7 @@ export * from './ui';
 import type { Auth } from './auth';
 
 export interface Client {
-    id: number;
+    id: string;
     user_id: number;
     name: string;
     email: string;
@@ -53,7 +53,7 @@ export interface Invoice {
     created_at: string;
     updated_at: string;
     client: {
-        id: number;
+        id: string;
         name: string;
         email: string;
         company_name: string | null;
