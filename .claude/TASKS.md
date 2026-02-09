@@ -278,14 +278,14 @@
 ## Milestone 7: Invoice Templates & PDF
 
 ### 7.1 Invoice PDF Template
-- [ ] Install DomPDF package (`barryvdh/laravel-dompdf`)
-- [ ] Create Blade template `resources/views/pdf/invoice.blade.php`
-  - User logo
+- [x] Install DomPDF package (`barryvdh/laravel-dompdf`)
+- [x] Create Blade template `resources/views/pdf/invoice.blade.php`
   - Invoice number, dates
   - Client details
   - Line items table
   - Subtotal, tax, total
   - Payment instructions/link
+- [x] Create CurrencyHelper for locale-aware currency formatting
 
 ### 7.2 PDF Generation
 - [ ] Create `InvoicePdfController`
@@ -307,7 +307,7 @@
 - [ ] Attach PDF to email (optional)
 
 ### 8.2 Send Invoice Action
-- [ ] Add `send()` method to `InvoiceController`
+- [ ] Create  `SendEmailInvoiceController` with __invoke method
 - [ ] Create route `POST /invoices/{invoice}/send`
 - [ ] Send email to client
 - [ ] Update invoice status to `sent`
