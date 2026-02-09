@@ -238,17 +238,17 @@
 - [x] Get recent clients (last 5)
 
 ### 5.2 Dashboard UI
-- [ ] Update `resources/js/pages/Dashboard.vue`
-  - [ ] Stats cards row
+- [x] Update `resources/js/pages/Dashboard.vue`
+  - [x] Stats cards row
     - Outstanding amount
     - Overdue amount
     - Invoices due soon
-  - [ ] Quick actions
+  - [x] Quick actions
     - New Invoice button
     - New Client button
-  - [ ] Recent invoices table
-  - [ ] Recent clients table
-  - [ ] Empty state for new users
+  - [x] Recent invoices table
+  - [x] Recent clients table
+  - [x] Empty state for new users
 
 ---
 
