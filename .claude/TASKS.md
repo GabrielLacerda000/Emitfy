@@ -288,23 +288,23 @@
 - [x] Create CurrencyHelper for locale-aware currency formatting
 
 ### 7.2 PDF Generation
-- [ ] Create `InvoicePdfController`
+- [x] Create `InvoicePdfController`
   - `download()` - Generate and download PDF
   - `stream()` - Stream PDF in browser
-- [ ] Add download PDF button to invoice view
-- [ ] Add route `/invoices/{invoice}/pdf`
+- [x] Add download PDF button to invoice view
+- [x] Add route `/invoices/{invoice}/pdf`
 
 ---
 
 ## Milestone 8: Email Delivery
 
 ### 8.1 Invoice Email
-- [ ] Create `InvoiceSentMail` Mailable class
-- [ ] Create email template `resources/views/mail/invoice-sent.blade.php`
+- [x] Create `InvoiceSentMail` Mailable class
+- [x] Create email template `resources/views/mail/invoice-sent.blade.php`
   - Invoice summary
   - View invoice button (public link)
   - Payment instructions
-- [ ] Attach PDF to email (optional)
+- [x] Attach PDF to email (optional)
 
 ### 8.2 Send Invoice Action
 - [ ] Create  `SendEmailInvoiceController` with __invoke method
