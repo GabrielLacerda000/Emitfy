@@ -255,11 +255,11 @@
 ## Milestone 6: User Business Settings
 
 ### 6.1 Business Settings Backend
-- [ ] Create `BusinessSettingsController`
+- [x] Create `BusinessSettingsController`
   - `edit()` - Show settings form
   - `update()` - Save settings
-- [ ] Create `BusinessSettingsRequest` for validation
-- [ ] Add route `/settings/business`
+- [x] Create `BusinessSettingsRequest` for validation
+- [x] Add route `/settings/business`
 
 ### 6.2 Business Settings UI
 - [ ] Create `resources/js/pages/settings/Business.vue`
