@@ -15,9 +15,18 @@ defineProps<Props>();
 
 <template>
     <Card class="transition-all hover:ring-2 hover:ring-primary">
-        <CardContent class="p-6">
+        <CardContent class="p-3">
             <div class="flex items-start justify-between">
-                <div class="flex-1">
+                <div class="flex flex-col flex-1 gap-3">
+                    <div
+                        :class="[
+                            'flex h-12 w-12 items-center justify-center rounded-full bg-muted/50',
+                            iconClass,
+                        ]"
+                    >
+                        <component :is="icon" class="h-6 w-6" />
+                    </div>
+
                     <p class="text-sm font-medium text-muted-foreground">
                         {{ title }}
                     </p>
@@ -27,14 +36,6 @@ defineProps<Props>();
                     <p class="mt-1 text-sm text-muted-foreground">
                         {{ description }}
                     </p>
-                </div>
-                <div
-                    :class="[
-                        'flex h-12 w-12 items-center justify-center rounded-full bg-muted/50',
-                        iconClass,
-                    ]"
-                >
-                    <component :is="icon" class="h-6 w-6" />
                 </div>
             </div>
         </CardContent>
