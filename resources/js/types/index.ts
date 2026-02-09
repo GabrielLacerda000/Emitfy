@@ -61,6 +61,20 @@ export interface Invoice {
     items?: InvoiceItem[];
 }
 
+export interface DashboardStats {
+    totalOutstanding: string;
+    totalOverdue: string;
+    overdueCount: number;
+    dueSoonCount: number;
+    dueSoonTotal: string;
+}
+
+export interface DashboardData {
+    stats: DashboardStats;
+    recentInvoices: Invoice[];
+    recentClients: (Client & { invoices_count: number })[];
+}
+
 export type AppPageProps<
     T extends Record<string, unknown> = Record<string, unknown>,
 > = T & {

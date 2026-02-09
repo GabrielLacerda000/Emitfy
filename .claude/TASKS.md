@@ -203,14 +203,14 @@
 ## Milestone 4: Invoice Status Tracking
 
 ### 4.1 Status Management Backend
-- [ ] Create `InvoiceStatus` enum
+- [x] Create `InvoiceStatus` enum
   - `DRAFT`, `SENT`, `PAID`, `OVERDUE`
-- [ ] Add status methods to Invoice model
+- [x] Add status methods to Invoice model
   - `markAsSent()` - Set status, sent_at timestamp
   - `markAsPaid()` - Set status, paid_at timestamp
   - `markAsOverdue()` - Set status
   - `isDraft()`, `isSent()`, `isPaid()`, `isOverdue()` helpers
-- [ ] Create scheduled command `MarkOverdueInvoices`
+- [x] Create scheduled command `MarkOverdueInvoices`
   - Run daily, find sent invoices past due_date
   - Update status to overdue
 
@@ -228,14 +228,14 @@
 ## Milestone 5: Dashboard Feature
 
 ### 5.1 Dashboard Backend
-- [ ] Create `DashboardController`
-- [ ] Calculate stats:
+- [x] Create `DashboardController`
+- [x] Calculate stats:
   - Total outstanding (sent + overdue invoices)
   - Total overdue amount
   - Count of overdue invoices
   - Invoices due in next 7 days
-- [ ] Get recent invoices (last 5)
-- [ ] Get recent clients (last 5)
+- [x] Get recent invoices (last 5)
+- [x] Get recent clients (last 5)
 
 ### 5.2 Dashboard UI
 - [ ] Update `resources/js/pages/Dashboard.vue`
