@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 
 class Invoice extends Model
 {
@@ -86,13 +87,19 @@ class Invoice extends Model
 
     /**
      * Mark the invoice as paid and set the paid_at timestamp.
+     * Also deletes any pending (unsent) reminder schedules.
      */
     public function markAsPaid(): bool
     {
-        return $this->update([
-            'status' => InvoiceStatus::PAID,
-            'paid_at' => now(),
-        ]);
+        return DB::transaction(function () {
+            // Delete pending reminder schedules (sent_at is null)
+            $this->reminderSchedules()->whereNull('sent_at')->delete();
+
+            return $this->update([
+                'status' => InvoiceStatus::PAID,
+                'paid_at' => now(),
+            ]);
+        });
     }
 
     /**

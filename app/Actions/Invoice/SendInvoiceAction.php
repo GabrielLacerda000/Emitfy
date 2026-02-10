@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\DB;
 
 class SendInvoiceAction
 {
+    public function __construct(
+        protected CreateReminderSchedulesAction $createReminderSchedules,
+    ) {}
+
     /**
      * Send an invoice via email.
      *
@@ -21,10 +25,11 @@ class SendInvoiceAction
         }
 
         DB::transaction(function () use ($invoice) {
-            // If invoice is DRAFT, mark it as SENT (updates status and sent_at)
             if ($invoice->status === InvoiceStatus::DRAFT) {
                 $invoice->markAsSent();
-                dd($invoice);
+
+                // Create reminder schedules for newly sent invoice
+                ($this->createReminderSchedules)($invoice);
             } else {
                 // For SENT/OVERDUE invoices, just update sent_at timestamp
                 $invoice->update(['sent_at' => now()]);

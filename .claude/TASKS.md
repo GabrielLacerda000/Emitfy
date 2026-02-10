@@ -325,15 +325,15 @@
 ## Milestone 9: Automated Reminders
 
 ### 9.1 Reminder Email
-- [ ] Create `InvoiceReminderMail` Mailable class
-- [ ] Create email template `resources/views/mail/invoice-reminder.blade.php`
+- [x] Create `InvoiceReminderMail` Mailable class
+- [x] Create email template `resources/views/mail/invoice-reminder.blade.php`
   - Different copy for before/on/after due date
 
 ### 9.2 Reminder Scheduling
-- [ ] Create `CreateReminderSchedules` action class
+- [x] Create `CreateReminderSchedules` action class
   - Create 3 reminders per invoice: -3, 0, +7 days
-- [ ] Auto-create reminders when invoice is sent
-- [ ] Delete reminders when invoice is paid
+- [x] Auto-create reminders when invoice is sent
+- [x] Delete reminders when invoice is paid
 
 ### 9.3 Reminder Command
 - [ ] Create `SendInvoiceReminders` Artisan command

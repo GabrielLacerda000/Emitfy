@@ -1,7 +1,9 @@
 <?php
 
+use App\Enums\InvoiceStatus;
 use App\Models\Client;
 use App\Models\Invoice;
+use App\Models\ReminderSchedule;
 use App\Models\User;
 
 test('invoice can be marked as sent', function () {
@@ -164,4 +166,62 @@ test('isPastDue correctly identifies overdue invoices', function () {
         'due_date' => now()->subDay(),
     ]);
     expect($paidInvoice->isPastDue())->toBeFalse();
+});
+
+test('marking invoice as paid deletes pending reminder schedules', function () {
+    $user = User::factory()->create();
+    $client = Client::factory()->create(['user_id' => $user->id]);
+    $invoice = Invoice::factory()->create([
+        'user_id' => $user->id,
+        'client_id' => $client->id,
+        'status' => InvoiceStatus::SENT,
+    ]);
+
+    // Create unsent reminders
+    ReminderSchedule::factory()->count(3)->create([
+        'invoice_id' => $invoice->id,
+        'sent_at' => null,
+    ]);
+
+    expect($invoice->reminderSchedules)->toHaveCount(3);
+
+    $invoice->markAsPaid();
+
+    expect($invoice->fresh()->reminderSchedules)->toHaveCount(0);
+    expect($invoice->isPaid())->toBeTrue();
+});
+
+test('marking invoice as paid preserves sent reminder schedules', function () {
+    $user = User::factory()->create();
+    $client = Client::factory()->create(['user_id' => $user->id]);
+    $invoice = Invoice::factory()->create([
+        'user_id' => $user->id,
+        'client_id' => $client->id,
+        'status' => InvoiceStatus::SENT,
+    ]);
+
+    // Create mix of sent and unsent reminders
+    $sentReminder = ReminderSchedule::factory()->create([
+        'invoice_id' => $invoice->id,
+        'type' => 'before_due',
+        'sent_at' => now()->subDays(2),
+    ]);
+    ReminderSchedule::factory()->create([
+        'invoice_id' => $invoice->id,
+        'type' => 'on_due',
+        'sent_at' => null,
+    ]);
+    ReminderSchedule::factory()->create([
+        'invoice_id' => $invoice->id,
+        'type' => 'after_due',
+        'sent_at' => null,
+    ]);
+
+    expect($invoice->reminderSchedules)->toHaveCount(3);
+
+    $invoice->markAsPaid();
+
+    $invoice->refresh();
+    expect($invoice->reminderSchedules)->toHaveCount(1);
+    expect($invoice->reminderSchedules->first()->id)->toBe($sentReminder->id);
 });
