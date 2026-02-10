@@ -57,6 +57,10 @@ class InvoiceReminderMail extends Mailable
     {
         return new Content(
             markdown: 'mail.invoice-reminder',
+            with: [
+                'reminder' => $this->reminder,
+                'daysContext' => $this->getDaysContext(),
+            ],
         );
     }
 
@@ -65,25 +69,23 @@ class InvoiceReminderMail extends Mailable
      *
      * @return array<int, \Illuminate\Mail\Mailables\Attachment>
      */
-    public function attachments(): array
+   public function attachments(): array
 {
     if (! $this->includePdf) {
         return [];
     }
 
-    $pdf = Pdf::loadView('pdf.invoice', [
-        'invoice' => $this->invoice,
-        'user' => $this->user,
-    ])->setPaper('A4', 'portrait')
-      ->output();
-
     return [
         Attachment::fromData(
-            $pdf,
+            fn () => Pdf::loadView('pdf.invoice', [
+                'invoice' => $this->invoice,
+                'user' => $this->user,
+            ])->setPaper('A4', 'portrait')->output(),
             "invoice-{$this->invoice->number}.pdf"
         )->withMime('application/pdf'),
     ];
 }
+
 
 
     /**

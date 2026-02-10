@@ -3,9 +3,7 @@
 
 Hello {{ $invoice->client->name }},
 
-@php
-    $daysContext = $mail->getDaysContext();
-@endphp
+{{-- $daysContext and $reminder are passed directly from the mailable --}}
 
 @if($reminder->type === 'before_due')
 This is a friendly reminder that you have an upcoming payment due for Invoice **{{ $invoice->number }}** from **{{ $user->name }}**.
