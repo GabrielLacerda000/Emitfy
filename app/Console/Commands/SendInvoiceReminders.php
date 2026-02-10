@@ -6,6 +6,7 @@ use App\Enums\InvoiceStatus;
 use App\Jobs\SendInvoiceReminderJob;
 use App\Models\ReminderSchedule;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class SendInvoiceReminders extends Command
@@ -43,16 +44,15 @@ class SendInvoiceReminders extends Command
 
         $this->info("Checking reminders for date: {$date->format('Y-m-d')}");
 
-        ReminderSchedule::query()
+        $query = ReminderSchedule::query()
             ->whereNull('sent_at')
             ->whereHas('invoice', function ($query) {
                 $query->whereIn('status', [InvoiceStatus::SENT, InvoiceStatus::OVERDUE]);
-            })
-            ->whereRaw("date(
-                (SELECT due_date FROM invoices WHERE id = reminder_schedules.invoice_id),
-                offset_days || ' days'
-            ) = ?", [$date->format('Y-m-d')])
-            ->with(['invoice.client', 'invoice.user'])
+            });
+
+        $this->buildReminderDateQuery($query, $date->format('Y-m-d'));
+
+        $query->with(['invoice.client', 'invoice.user'])
             ->chunk(100, function ($reminders) use (&$queued, &$failed, $dryRun) {
                 foreach ($reminders as $reminder) {
                     if ($dryRun) {
@@ -60,7 +60,7 @@ class SendInvoiceReminders extends Command
                         $queued++;
                     } else {
                         try {
-                            SendInvoiceReminderJob::dispatch($reminder);
+                            SendInvoiceReminderJob::dispatch($reminder->id);
                             $queued++;
                         } catch (\Throwable $e) {
                             $failed++;
@@ -80,5 +80,31 @@ class SendInvoiceReminders extends Command
         }
 
         return Command::SUCCESS;
+    }
+
+    /**
+     * Build database-agnostic reminder date query.
+     */
+    private function buildReminderDateQuery($query, string $date): void
+    {
+        $driver = DB::connection()->getDriverName();
+
+        if ($driver === 'sqlite') {
+            $query->whereRaw("date(
+                (SELECT due_date FROM invoices WHERE id = reminder_schedules.invoice_id),
+                offset_days || ' days'
+            ) = ?", [$date]);
+        } elseif ($driver === 'pgsql') {
+            $query->whereRaw("DATE(
+                (SELECT due_date FROM invoices WHERE id = reminder_schedules.invoice_id) +
+                (offset_days || ' days')::INTERVAL
+            ) = ?::DATE", [$date]);
+        } else {
+            // Fallback to SQLite syntax
+            $query->whereRaw("date(
+                (SELECT due_date FROM invoices WHERE id = reminder_schedules.invoice_id),
+                offset_days || ' days'
+            ) = ?", [$date]);
+        }
     }
 }

@@ -336,14 +336,14 @@
 - [x] Delete reminders when invoice is paid
 
 ### 9.3 Reminder Command
-- [ ] Create `SendInvoiceReminders` Artisan command
-- [ ] Query reminder_schedules where:
+- [x] Create `SendInvoiceReminders` Artisan command
+- [x] Query reminder_schedules where:
   - `sent_at` is null
   - Scheduled date matches today
-  - [ ] create a job to send the reminder email
-- [ ] Send reminder email
-- [ ] Update `sent_at` timestamp
-- [ ] Schedule command to run daily
+  - [x] create a job to send the reminder email
+- [x] Send reminder email
+- [x] Update `sent_at` timestamp
+- [x] Schedule command to run daily
 
 ---
 
@@ -415,7 +415,7 @@
 - [ ] Add charts to dashboard panel
 
 ### 13.4 Initial page
-- [ ] Update initial page
+- [ ] Update initial page to remove starter kit panel
 
 ### 13.5 Support to portuguese language
 - [ ] Add support to portuguese language

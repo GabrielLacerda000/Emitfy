@@ -19,6 +19,8 @@ class InvoiceReminderMail extends Mailable
 
     private bool $includePdf = false;
 
+    private ReminderSchedule $reminder;
+
     public Invoice $invoice;
 
     public User $user;
@@ -26,8 +28,10 @@ class InvoiceReminderMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(public ReminderSchedule $reminder)
+    public function __construct(ReminderSchedule $reminder)
     {
+        $this->reminder = $reminder;
+
         // Load relationships
         $this->reminder->load('invoice.client', 'invoice.items', 'invoice.user');
         $this->invoice = $this->reminder->invoice;
@@ -62,23 +66,25 @@ class InvoiceReminderMail extends Mailable
      * @return array<int, \Illuminate\Mail\Mailables\Attachment>
      */
     public function attachments(): array
-    {
-        if (! $this->includePdf) {
-            return [];
-        }
-
-        $pdf = Pdf::loadView('pdf.invoice', [
-            'invoice' => $this->invoice,
-            'user' => $this->user,
-        ]);
-
-        $pdf->setPaper('A4', 'portrait');
-
-        return [
-            Attachment::fromData(fn () => $pdf->output(), "invoice-{$this->invoice->number}.pdf")
-                ->withMime('application/pdf'),
-        ];
+{
+    if (! $this->includePdf) {
+        return [];
     }
+
+    $pdf = Pdf::loadView('pdf.invoice', [
+        'invoice' => $this->invoice,
+        'user' => $this->user,
+    ])->setPaper('A4', 'portrait')
+      ->output();
+
+    return [
+        Attachment::fromData(
+            $pdf,
+            "invoice-{$this->invoice->number}.pdf"
+        )->withMime('application/pdf'),
+    ];
+}
+
 
     /**
      * Enable PDF attachment for this email.

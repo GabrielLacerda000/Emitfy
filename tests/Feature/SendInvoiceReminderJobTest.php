@@ -36,7 +36,7 @@ test('sends email with pdf to client', function () {
         'sent_at' => null,
     ]);
 
-    $job = new SendInvoiceReminderJob($reminder);
+    $job = new SendInvoiceReminderJob($reminder->id);
     $job->handle();
 
     Mail::assertSent(InvoiceReminderMail::class, function ($mail) use ($client) {
@@ -71,7 +71,7 @@ test('updates sent_at timestamp', function () {
 
     expect($reminder->sent_at)->toBeNull();
 
-    $job = new SendInvoiceReminderJob($reminder);
+    $job = new SendInvoiceReminderJob($reminder->id);
     $job->handle();
 
     $reminder->refresh();
@@ -98,7 +98,7 @@ test('skips already sent reminders', function () {
         'sent_at' => now()->subDay(),
     ]);
 
-    $job = new SendInvoiceReminderJob($reminder);
+    $job = new SendInvoiceReminderJob($reminder->id);
     $job->handle();
 
     Mail::assertNotSent(InvoiceReminderMail::class);
@@ -124,7 +124,7 @@ test('skips reminders for paid invoices', function () {
         'sent_at' => null,
     ]);
 
-    $job = new SendInvoiceReminderJob($reminder);
+    $job = new SendInvoiceReminderJob($reminder->id);
     $job->handle();
 
     Mail::assertNotSent(InvoiceReminderMail::class);
@@ -153,7 +153,7 @@ test('logs failure information', function () {
         'sent_at' => null,
     ]);
 
-    $job = new SendInvoiceReminderJob($reminder);
+    $job = new SendInvoiceReminderJob($reminder->id);
     $exception = new \Exception('Mail server down');
 
     $job->failed($exception);
@@ -184,7 +184,7 @@ test('has retry configuration', function () {
         'sent_at' => null,
     ]);
 
-    $job = new SendInvoiceReminderJob($reminder);
+    $job = new SendInvoiceReminderJob($reminder->id);
 
     expect($job->tries)->toBe(3);
     expect($job->backoff)->toBe(60);

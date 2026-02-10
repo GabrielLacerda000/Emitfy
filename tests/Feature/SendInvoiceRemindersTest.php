@@ -34,7 +34,7 @@ test('sends before_due reminder 3 days before', function () {
         ->assertSuccessful();
 
     Queue::assertPushed(SendInvoiceReminderJob::class, function ($job) use ($reminder) {
-        return $job->reminder->id === $reminder->id;
+        return $job->reminderId === $reminder->id;
     });
 });
 
@@ -60,7 +60,7 @@ test('sends on_due reminder on due date', function () {
         ->assertSuccessful();
 
     Queue::assertPushed(SendInvoiceReminderJob::class, function ($job) use ($reminder) {
-        return $job->reminder->id === $reminder->id;
+        return $job->reminderId === $reminder->id;
     });
 });
 
@@ -86,7 +86,7 @@ test('sends after_due reminder 7 days after', function () {
         ->assertSuccessful();
 
     Queue::assertPushed(SendInvoiceReminderJob::class, function ($job) use ($reminder) {
-        return $job->reminder->id === $reminder->id;
+        return $job->reminderId === $reminder->id;
     });
 });
 
@@ -212,7 +212,7 @@ test('date option overrides today', function () {
         ->assertSuccessful();
 
     Queue::assertPushed(SendInvoiceReminderJob::class, function ($job) use ($reminder) {
-        return $job->reminder->id === $reminder->id;
+        return $job->reminderId === $reminder->id;
     });
 });
 

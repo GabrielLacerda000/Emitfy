@@ -25,7 +25,7 @@ class SendInvoiceReminderJob implements ShouldQueue
      * Create a new job instance.
      */
     public function __construct(
-        public ReminderSchedule $reminder,
+        public int $reminderId,
     ) {}
 
     /**
@@ -33,26 +33,32 @@ class SendInvoiceReminderJob implements ShouldQueue
      */
     public function handle(): void
     {
-        // Skip if already sent or deleted
-        if (! $this->reminder || $this->reminder->sent_at) {
+        // Query reminder with relationships
+        $reminder = ReminderSchedule::with('invoice.client', 'invoice.user')
+            ->find($this->reminderId);
+
+        // Skip if reminder not found or deleted
+        if (! $reminder) {
             return;
         }
 
-        // Load invoice with relationships if not already loaded
-        $this->reminder->loadMissing('invoice.client', 'invoice.user');
+        // Skip if already sent or deleted
+        if ($reminder->sent_at) {
+            return;
+        }
 
         // Verify invoice is still SENT or OVERDUE (defensive check)
-        $invoice = $this->reminder->invoice;
+        $invoice = $reminder->invoice;
         if (! in_array($invoice->status, [InvoiceStatus::SENT, InvoiceStatus::OVERDUE])) {
             return;
         }
 
         // Send email with PDF attachment
         Mail::to($invoice->client->email)
-            ->send((new InvoiceReminderMail($this->reminder))->withPdf());
+            ->send((new InvoiceReminderMail($reminder))->withPdf());
 
         // Mark as sent
-        $this->reminder->update(['sent_at' => now()]);
+        $reminder->update(['sent_at' => now()]);
     }
 
     /**
@@ -61,9 +67,7 @@ class SendInvoiceReminderJob implements ShouldQueue
     public function failed(\Throwable $exception): void
     {
         Log::error('Failed to send invoice reminder email', [
-            'reminder_id' => $this->reminder->id,
-            'invoice_id' => $this->reminder->invoice_id,
-            'type' => $this->reminder->type,
+            'reminder_id' => $this->reminderId,
             'error' => $exception->getMessage(),
             'trace' => $exception->getTraceAsString(),
         ]);
