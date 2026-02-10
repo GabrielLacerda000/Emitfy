@@ -63,6 +63,8 @@ export interface Invoice {
 
 export interface DashboardStats {
     totalOutstanding: string;
+    totalPaid: string;
+    totalPaidCount: number;
     totalOverdue: string;
     overdueCount: number;
     dueSoonCount: number;

@@ -16,6 +16,11 @@ class GetDashboardStatsAction
             ->whereIn('status', [InvoiceStatus::SENT, InvoiceStatus::OVERDUE])
             ->sum('total');
 
+            $totalPaidStats = $user->invoices()
+            ->where('status', InvoiceStatus::PAID)
+            ->selectRaw('COALESCE(SUM(total), 0) as total, COUNT(*) as count')
+            ->first();
+
         // Calculate overdue stats (amount + count)
         $overdueStats = $user->invoices()
             ->where('status', InvoiceStatus::OVERDUE)
@@ -46,6 +51,8 @@ class GetDashboardStatsAction
         return [
             'stats' => [
                 'totalOutstanding' => number_format($totalOutstanding, 2, '.', ''),
+                'totalPaid' => number_format($totalPaidStats->total ?? 0, 2, '.', ''),
+                'totalPaidCount' => $totalPaidStats->count ?? 0,
                 'totalOverdue' => number_format($overdueStats->total ?? 0, 2, '.', ''),
                 'overdueCount' => $overdueStats->count ?? 0,
                 'dueSoonCount' => $dueSoonStats->count ?? 0,

@@ -67,6 +67,13 @@ const clientsIndexUrl = clientsIndexRoute().url;
                     icon-class="bg-blue-100 text-blue-600 dark:bg-blue-950 dark:text-blue-400"
                 />
                 <DashboardStatCard
+                    title="TOTAL PAID"
+                    :amount="formatBRL(props.stats.totalPaid)"
+                    :description="`${props.stats.totalPaidCount} invoices paid`"
+                    :icon="TrendingUp"
+                    icon-class="bg-green-100 text-green-600 dark:bg-green-950 dark:text-green-400"
+                />
+                <DashboardStatCard
                     title="DUE SOON"
                     :amount="formatBRL(props.stats.dueSoonTotal)"
                     :description="`${props.stats.dueSoonCount} invoices due in the next 7 days`"

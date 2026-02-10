@@ -379,13 +379,13 @@
 - [x] PDF download from invoice view (from M7)
 
 ### 11.2 Invoice List Export
-- [ ] Create `ExportController`
+- [x] Create `ExportController`
   - `invoicesCsv()` - Export to CSV
-- [ ] Add export button to invoice list page
-- [ ] Export columns: number, client, issue_date, due_date, status, total
-- [ ] Support date range filter
-- [ ] Support status filter
-- [ ] Add route `GET /invoices/export`
+- [x] Add export button to invoice list page
+- [x] Export columns: number, client, issue_date, due_date, status, total
+- [x] Support date range filter
+- [x] Support status filter
+- [x] Add route `GET /invoices/export`
 
 ---
 
