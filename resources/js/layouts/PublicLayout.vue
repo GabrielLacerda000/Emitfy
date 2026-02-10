@@ -36,5 +36,5 @@ defineProps<Props>();
             </div>
         </footer>
     </div>
-    <Toaster />
+    <Toaster rich-colors/>
 </template>
