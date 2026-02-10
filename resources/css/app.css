@@ -120,6 +120,18 @@
 
     --destructive: oklch(0.62 0.22 29);
     --destructive-foreground: oklch(0.98 0 0);
+
+    --success: oklch(0.72 0.18 145);
+    --success-foreground: oklch(0.98 0 0);
+
+    --error: oklch(0.62 0.25 25);
+    --error-foreground: oklch(0.98 0 0);
+
+    --warning: oklch(0.85 0.17 85);
+    --warning-foreground: oklch(0.22 0 0);
+
+    --info: oklch(0.7 0.16 240);
+    --info-foreground: oklch(0.98 0 0);
 }
 
 .dark {
@@ -167,6 +179,11 @@
 
     --destructive: oklch(0.66 0.23 29);
     --destructive-foreground: oklch(0.98 0 0);
+
+    --success: oklch(0.65 0.18 145);
+    --error: oklch(0.55 0.25 25);
+    --warning: oklch(0.78 0.17 85);
+    --info: oklch(0.65 0.16 240);
 }
 
 @theme inline {
@@ -336,3 +353,20 @@
         @apply bg-background text-foreground;
     }
 }
+
+@layer components {
+  .sonner {
+    --success-bg: var(--success);
+    --success-text: var(--success-foreground);
+
+    --error-bg: var(--error);
+    --error-text: var(--error-foreground);
+
+    --warning-bg: var(--warning);
+    --warning-text: var(--warning-foreground);
+
+    --info-bg: var(--info);
+    --info-text: var(--info-foreground);
+  }
+}
+
