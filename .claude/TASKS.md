@@ -313,10 +313,10 @@
 - [x] Set `sent_at` timestamp
 
 ### 8.3 Public Invoice View
-- [ ] Create `PublicInvoiceController`
+- [x] Create `PublicInvoiceController`
   - `show()` - Display invoice via public_token
-- [ ] Create route `GET /i/{public_token}` (short public URL)
-- [ ] Create `resources/js/pages/invoices/Public.vue`
+- [x] Create route `GET /i/{public_token}` (short public URL)
+- [x] Create `resources/js/pages/invoices/Public.vue`
   - Invoice details (no auth required)
   - Pay now button
 
@@ -340,6 +340,7 @@
 - [ ] Query reminder_schedules where:
   - `sent_at` is null
   - Scheduled date matches today
+  - [ ] create a job to send the reminder email
 - [ ] Send reminder email
 - [ ] Update `sent_at` timestamp
 - [ ] Schedule command to run daily

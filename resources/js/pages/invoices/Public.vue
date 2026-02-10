@@ -56,7 +56,6 @@ function downloadPdf() {
 }
 
 function payNow() {
-    console.log('payNow');
     toast.info('Payment integration will be available soon.');
 }
 </script>
