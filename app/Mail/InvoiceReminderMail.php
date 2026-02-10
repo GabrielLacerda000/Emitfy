@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use App\Models\Invoice;
+use App\Models\ReminderSchedule;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Bus\Queueable;
@@ -12,21 +13,25 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class InvoiceSentMail extends Mailable
+class InvoiceReminderMail extends Mailable
 {
     use Queueable, SerializesModels;
 
     private bool $includePdf = false;
 
+    public Invoice $invoice;
+
+    public User $user;
+
     /**
      * Create a new message instance.
      */
-    public function __construct(
-        public Invoice $invoice,
-        public User $user
-    ) {
-        // Load relationships if not already loaded
-        $this->invoice->load('client', 'items');
+    public function __construct(public ReminderSchedule $reminder)
+    {
+        // Load relationships
+        $this->reminder->load('invoice.client', 'invoice.items', 'invoice.user');
+        $this->invoice = $this->reminder->invoice;
+        $this->user = $this->invoice->user;
     }
 
     /**
@@ -35,7 +40,7 @@ class InvoiceSentMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: "Invoice {$this->invoice->number} from {$this->user->name}",
+            subject: $this->getSubject(),
             to: [$this->invoice->client->email],
             replyTo: [$this->user->email],
         );
@@ -47,7 +52,7 @@ class InvoiceSentMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'mail.invoice-sent',
+            markdown: 'mail.invoice-reminder',
         );
     }
 
@@ -83,5 +88,36 @@ class InvoiceSentMail extends Mailable
         $this->includePdf = true;
 
         return $this;
+    }
+
+    /**
+     * Get the subject line based on reminder type.
+     */
+    private function getSubject(): string
+    {
+        return match ($this->reminder->type) {
+            'before_due' => "Upcoming payment due for Invoice {$this->invoice->number}",
+            'on_due' => "Payment due today for Invoice {$this->invoice->number}",
+            'after_due' => "Overdue payment reminder for Invoice {$this->invoice->number}",
+            default => "Payment reminder for Invoice {$this->invoice->number}",
+        };
+    }
+
+    /**
+     * Get the days context for the template.
+     *
+     * @return array{days: int, is_past: bool, is_today: bool}
+     */
+    public function getDaysContext(): array
+    {
+        $now = now()->startOfDay();
+        $dueDate = $this->invoice->due_date->startOfDay();
+        $daysUntilDue = (int) $now->diffInDays($dueDate, false);
+
+        return [
+            'days' => abs($daysUntilDue),
+            'is_past' => $daysUntilDue < 0,
+            'is_today' => abs($daysUntilDue) === 0,
+        ];
     }
 }

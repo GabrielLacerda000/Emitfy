@@ -36,7 +36,7 @@ class SendInvoiceEmailJob implements ShouldQueue
         // $invoice = Invoice::with(['client', 'items', 'user'])->find($this->invoiceId);
 
         if (! $this->invoice) {
-            Log::error("Invoice not found for SendInvoiceEmailJob", ['invoice_id' => $this->invoice->id]);
+            Log::error('Invoice not found for SendInvoiceEmailJob', ['invoice_id' => $this->invoice->id]);
 
             return;
         }

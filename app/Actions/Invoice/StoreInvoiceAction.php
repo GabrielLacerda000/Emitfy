@@ -2,10 +2,10 @@
 
 namespace App\Actions\Invoice;
 
+use App\Enums\InvoiceStatus;
 use App\Models\Invoice;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
-use App\Enums\InvoiceStatus;
 
 class StoreInvoiceAction
 {
