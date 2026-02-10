@@ -14,26 +14,28 @@ defineProps<Props>();
 </script>
 
 <template>
-    <Card class="transition-all hover:ring-2 hover:ring-primary">
-        <CardContent class="p-3">
-            <div class="flex items-start justify-between">
-                <div class="flex flex-col flex-1 gap-3">
+    <Card class="transition-all hover:ring-1 hover:ring-primary/50 shadow-sm">
+        <CardContent class="p-4">
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between">
+                    <p class="text-md font-semibold tracking-tight text-muted-foreground uppercase">
+                        {{ title }}
+                    </p>
                     <div
                         :class="[
-                            'flex h-12 w-12 items-center justify-center rounded-full bg-muted/50',
+                            'flex h-8 w-8 items-center justify-center rounded-md',
                             iconClass,
                         ]"
                     >
-                        <component :is="icon" class="h-6 w-6" />
+                        <component :is="icon" class="h-4 w-4" />
                     </div>
+                </div>
 
-                    <p class="text-sm font-medium text-muted-foreground">
-                        {{ title }}
-                    </p>
-                    <p class="mt-2 text-3xl font-bold">
+                <div>
+                    <p class="text-xl font-bold tracking-tight">
                         {{ amount }}
                     </p>
-                    <p class="mt-1 text-sm text-muted-foreground">
+                    <p class="text-sm text-muted-foreground leading-none mt-1">
                         {{ description }}
                     </p>
                 </div>
