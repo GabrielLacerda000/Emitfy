@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Invoice\SendInvoiceAction;
 use App\Actions\Invoice\StoreInvoiceAction;
 use App\Actions\Invoice\UpdateInvoiceAction;
 use App\Http\Requests\StoreInvoiceRequest;
@@ -20,6 +21,7 @@ class InvoiceController extends Controller
     public function __construct(
         protected StoreInvoiceAction $storeInvoice,
         protected UpdateInvoiceAction $updateInvoice,
+        protected SendInvoiceAction $sendInvoice,
     ) {}
 
     /**
@@ -121,5 +123,30 @@ class InvoiceController extends Controller
         $invoice->delete();
 
         return redirect()->route('invoices.index')->with('success', 'Invoice deleted successfully.');
+    }
+
+    /**
+     * Send the invoice via email.
+     */
+    public function send(Request $request, Invoice $invoice): RedirectResponse
+    {
+        if ($invoice->user_id !== $request->user()->id) {
+            abort(403);
+        }
+
+        try {
+            // Check if this is a resend BEFORE sending
+            $isResend = $invoice->sent_at !== null;
+
+            ($this->sendInvoice)($invoice);
+
+            $message = $isResend
+                ? 'Invoice resent successfully.'
+                : 'Invoice sent successfully.';
+
+            return back()->with('success', $message);
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
     }
 }

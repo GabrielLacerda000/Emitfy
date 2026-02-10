@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Head, Link, router } from '@inertiajs/vue3';
-import { Download, Pencil, Trash2, Eye } from 'lucide-vue-next';
+import { Download, Mail, Pencil, Trash2, Eye } from 'lucide-vue-next';
 import { ref } from 'vue';
 import InvoiceController from '@/actions/App/Http/Controllers/InvoiceController';
 import InvoicePdfController from '@/actions/App/Http/Controllers/InvoicePdfController';
@@ -69,6 +69,7 @@ function getStatusConfig(status: string) {
 const deleteDialogOpen = ref(false);
 const deleting = ref(false);
 const downloadingPdf = ref(false);
+const sending = ref(false);
 
 function confirmDelete() {
     deleteDialogOpen.value = true;
@@ -103,6 +104,19 @@ function viewPdf() {
 
     // Abre em uma nova aba
     window.open(url, '_blank');
+}
+
+function sendInvoice() {
+    sending.value = true;
+    router.post(
+        InvoiceController.send.url({ invoice: props.invoice.id }),
+        {},
+        {
+            onFinish: () => {
+                sending.value = false;
+            },
+        },
+    );
 }
 </script>
 
@@ -139,6 +153,18 @@ function viewPdf() {
                                 <Pencil class="mr-2 h-4 w-4" />
                                 Edit
                             </Link>
+                        </Button>
+                        <Button
+                            variant="default"
+                            :disabled="sending || invoice.status === 'paid'"
+                            @click="sendInvoice"
+                        >
+                            <Mail class="mr-2 h-4 w-4" />
+                            {{
+                                invoice.status === 'draft'
+                                    ? 'Send Invoice'
+                                    : 'Resend Invoice'
+                            }}
                         </Button>
                         <Button variant="outline" @click="viewPdf">
                             <Eye class="mr-2 h-4 w-4" />

@@ -307,9 +307,8 @@
 - [x] Attach PDF to email (optional)
 
 ### 8.2 Send Invoice Action
-- [ ] Create  `SendEmailInvoiceController` with __invoke method
-- [ ] Create route `POST /invoices/{invoice}/send`
-- [ ] Send email to client
+- [ ] Create job `SendInvoiceEmailJob`
+- [ ] Send email to client after creating invoice 
 - [ ] Update invoice status to `sent`
 - [ ] Set `sent_at` timestamp
 
@@ -331,7 +330,7 @@
   - Different copy for before/on/after due date
 
 ### 9.2 Reminder Scheduling
-- [ ] Create `CreateReminderSchedules` service
+- [ ] Create `CreateReminderSchedules` action class
   - Create 3 reminders per invoice: -3, 0, +7 days
 - [ ] Auto-create reminders when invoice is sent
 - [ ] Delete reminders when invoice is paid

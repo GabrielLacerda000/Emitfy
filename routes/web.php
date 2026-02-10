@@ -21,6 +21,7 @@ Route::get('dashboard', [DashboardController::class, 'index'])
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('clients', ClientController::class)->except(['show']);
     Route::resource('invoices', InvoiceController::class);
+    Route::post('invoices/{invoice}/send', [InvoiceController::class, 'send'])->name('invoices.send');
     Route::get('invoices/{invoice}/pdf', [InvoicePdfController::class, 'show'])->name('invoices.pdf');
 });
 
