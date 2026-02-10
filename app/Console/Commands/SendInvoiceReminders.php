@@ -39,7 +39,7 @@ class SendInvoiceReminders extends Command
         $failed = 0;
 
         if ($dryRun) {
-            $this->info("DRY RUN MODE - No reminders will be sent");
+            $this->info('DRY RUN MODE - No reminders will be sent');
         }
 
         $this->info("Checking reminders for date: {$date->format('Y-m-d')}");

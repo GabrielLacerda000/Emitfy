@@ -69,24 +69,22 @@ class InvoiceReminderMail extends Mailable
      *
      * @return array<int, \Illuminate\Mail\Mailables\Attachment>
      */
-   public function attachments(): array
-{
-    if (! $this->includePdf) {
-        return [];
+    public function attachments(): array
+    {
+        if (! $this->includePdf) {
+            return [];
+        }
+
+        return [
+            Attachment::fromData(
+                fn () => Pdf::loadView('pdf.invoice', [
+                    'invoice' => $this->invoice,
+                    'user' => $this->user,
+                ])->setPaper('A4', 'portrait')->output(),
+                "invoice-{$this->invoice->number}.pdf"
+            )->withMime('application/pdf'),
+        ];
     }
-
-    return [
-        Attachment::fromData(
-            fn () => Pdf::loadView('pdf.invoice', [
-                'invoice' => $this->invoice,
-                'user' => $this->user,
-            ])->setPaper('A4', 'portrait')->output(),
-            "invoice-{$this->invoice->number}.pdf"
-        )->withMime('application/pdf'),
-    ];
-}
-
-
 
     /**
      * Enable PDF attachment for this email.

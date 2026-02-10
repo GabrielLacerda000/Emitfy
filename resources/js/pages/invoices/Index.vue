@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { Head, Link, router } from '@inertiajs/vue3';
-import { Pencil, Plus, Trash2 } from 'lucide-vue-next';
-import { computed, ref } from 'vue';
+import { Download, Pencil, Plus, Trash2, X } from 'lucide-vue-next';
+import { computed, ref, watch } from 'vue';
+import ExportController from '@/actions/App/Http/Controllers/ExportController';
 import InvoiceController from '@/actions/App/Http/Controllers/InvoiceController';
 import Heading from '@/components/Heading.vue';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 import {
     Dialog,
     DialogClose,
@@ -15,14 +17,11 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { formatBRL, formatDate, isOverdue } from '@/lib/utils';
 import { create, edit, index, show } from '@/routes/invoices';
-import {
-    type BreadcrumbItem,
-    type Invoice,
-    type InvoiceStatus,
-} from '@/types';
+import { type BreadcrumbItem, type Invoice, type InvoiceStatus } from '@/types';
 
 interface PaginationLink {
     url: string | null;
@@ -42,6 +41,11 @@ interface PaginatedInvoices {
 type Props = {
     invoices: PaginatedInvoices;
     status?: InvoiceStatus | null;
+    filters?: {
+        status?: InvoiceStatus | null;
+        date_from?: string;
+        date_to?: string;
+    };
 };
 
 const props = defineProps<Props>();
@@ -61,7 +65,7 @@ const statusFilters = [
     { value: 'overdue', label: 'Overdue' },
 ] as const;
 
-const activeStatus = computed(() => props.status ?? null);
+const activeStatus = computed(() => props.filters?.status || null);
 
 function getStatusConfig(status: InvoiceStatus) {
     const configs = {
@@ -93,12 +97,71 @@ const deleteDialogOpen = ref(false);
 const invoiceToDelete = ref<Invoice | null>(null);
 const deleting = ref(false);
 
+// Date filters
+const dateFrom = ref(props.filters?.date_from ?? '');
+const dateTo = ref(props.filters?.date_to ?? '');
+
+// Export state
+const exportingCsv = ref(false);
+
 function changeStatusFilter(status: InvoiceStatus | null) {
-    if (status === null) {
-        router.get(index().url, {}, { preserveScroll: true });
-    } else {
-        router.get(index().url, { status }, { preserveScroll: true });
+    const params: Record<string, string> = {};
+
+    if (status !== null) {
+        params.status = status;
     }
+
+    if (dateFrom.value) {
+        params.date_from = dateFrom.value;
+    }
+
+    if (dateTo.value) {
+        params.date_to = dateTo.value;
+    }
+
+    router.get(index().url, params, { preserveScroll: true });
+}
+
+function applyFilters() {
+    const params: Record<string, string> = {};
+
+    if (activeStatus.value) {
+        params.status = activeStatus.value;
+    }
+
+    if (dateFrom.value) {
+        console.log(dateFrom.value);
+        params.date_from = dateFrom.value;
+        console.log(params.date_from);
+    }
+
+    if (dateTo.value) {
+        params.date_to = dateTo.value;
+    }
+
+    router.get(index().url, params, { preserveScroll: true });
+}
+
+function clearDateFilters() {
+    dateFrom.value = '';
+    dateTo.value = '';
+    applyFilters();
+}
+
+function exportCsv() {
+    exportingCsv.value = true;
+
+    // Build URL with current filters
+    const params = new URLSearchParams();
+    if (activeStatus.value) params.append('status', activeStatus.value);
+    if (dateFrom.value) params.append('date_from', dateFrom.value);
+    if (dateTo.value) params.append('date_to', dateTo.value);
+
+    const url = ExportController.invoicesCsv.url();
+    const fullUrl = params.toString() ? `${url}?${params}` : url;
+    window.location.href = fullUrl;
+
+    setTimeout(() => (exportingCsv.value = false), 2000);
 }
 
 function confirmDelete(invoice: Invoice) {
@@ -122,6 +185,10 @@ function deleteInvoice() {
         },
     );
 }
+
+watch([dateFrom, dateTo], () => {
+    applyFilters();
+});
 </script>
 
 <template>
@@ -134,37 +201,79 @@ function deleteInvoice() {
                     title="Invoices"
                     description="Manage your invoices and track payments"
                 />
-                <Button as-child>
-                    <Link :href="create().url">
-                        <Plus class="mr-2 h-4 w-4" />
-                        New Invoice
-                    </Link>
-                </Button>
+                <div class="flex items-center gap-2">
+                    <Button
+                        variant="outline"
+                        :disabled="exportingCsv"
+                        @click="exportCsv"
+                    >
+                        <Download class="mr-2 h-4 w-4" />
+                        {{ exportingCsv ? 'Exporting...' : 'Export CSV' }}
+                    </Button>
+                    <Button as-child>
+                        <Link :href="create().url">
+                            <Plus class="mr-2 h-4 w-4" />
+                            New Invoice
+                        </Link>
+                    </Button>
+                </div>
             </div>
 
             <!-- Status Filter Bar -->
             <div
-                class="inline-flex gap-1 rounded-lg bg-neutral-100 p-1 dark:bg-neutral-800"
+                class="inline-flex gap-1 rounded-lg bg-muted p-1 dark:bg-muted/50"
             >
                 <button
                     v-for="filter in statusFilters"
                     :key="filter.label"
                     @click="changeStatusFilter(filter.value)"
                     :class="[
-                        'flex items-center rounded-md px-3.5 py-1.5 transition-colors',
+                        'flex items-center rounded-md px-3.5 py-1.5 transition-all duration-200',
                         activeStatus === filter.value
-                            ? 'bg-white shadow-xs dark:bg-neutral-700 dark:text-neutral-100'
-                            : 'text-neutral-500 hover:bg-neutral-200/60 hover:text-black dark:text-neutral-400 dark:hover:bg-neutral-700/60',
+                            ? 'bg-background text-foreground shadow-sm'
+                            : 'text-muted-foreground hover:bg-background/50 hover:text-foreground',
                     ]"
                 >
-                    <span class="text-sm">{{ filter.label }}</span>
+                    <span class="text-sm font-medium">{{ filter.label }}</span>
                 </button>
             </div>
+
+            <!-- Date Range Filter -->
+            <Card class="p-4">
+                <div class="flex items-end gap-4">
+                    <div class="flex-1">
+                        <label
+                            for="date-from"
+                            class="mb-1.5 block text-sm font-medium"
+                        >
+                            From Date
+                        </label>
+                        <Input id="date-from" v-model="dateFrom" type="date" />
+                    </div>
+                    <div class="flex-1">
+                        <label
+                            for="date-to"
+                            class="mb-1.5 block text-sm font-medium"
+                        >
+                            To Date
+                        </label>
+                        <Input id="date-to" v-model="dateTo" type="date" />
+                    </div>
+                    <Button
+                        variant="outline"
+                        :disabled="!dateFrom && !dateTo"
+                        @click="clearDateFilters"
+                    >
+                        <X class="mr-2 h-4 w-4" />
+                        Clear Dates
+                    </Button>
+                </div>
+            </Card>
 
             <!-- Empty State -->
             <div
                 v-if="props.invoices.data.length === 0"
-                class="flex flex-1 flex-col items-center justify-center rounded-xl border border-dashed border-sidebar-border/70 p-8 dark:border-sidebar-border"
+                class="border-sidebar-border/70 dark:border-sidebar-border flex flex-1 flex-col items-center justify-center rounded-xl border border-dashed p-8"
             >
                 <div class="text-center">
                     <h3 class="text-lg font-medium">No invoices yet</h3>
@@ -183,12 +292,12 @@ function deleteInvoice() {
             <!-- Invoices Table -->
             <div
                 v-else
-                class="rounded-xl border border-sidebar-border/70 dark:border-sidebar-border"
+                class="border-sidebar-border/70 dark:border-sidebar-border rounded-xl border"
             >
                 <table class="w-full">
                     <thead>
                         <tr
-                            class="border-b border-sidebar-border/70 dark:border-sidebar-border"
+                            class="border-sidebar-border/70 dark:border-sidebar-border border-b"
                         >
                             <th
                                 class="px-4 py-3 text-left text-sm font-medium text-muted-foreground"
@@ -226,7 +335,7 @@ function deleteInvoice() {
                         <tr
                             v-for="invoice in props.invoices.data"
                             :key="invoice.id"
-                            class="border-b border-sidebar-border/70 last:border-b-0 dark:border-sidebar-border"
+                            class="border-sidebar-border/70 dark:border-sidebar-border border-b last:border-b-0"
                         >
                             <td class="px-4 py-3 text-sm">
                                 <Link
@@ -250,8 +359,12 @@ function deleteInvoice() {
                             </td>
                             <td class="px-4 py-3 text-sm">
                                 <Badge
-                                    :variant="getStatusConfig(invoice.status).variant"
-                                    :class="getStatusConfig(invoice.status).class"
+                                    :variant="
+                                        getStatusConfig(invoice.status).variant
+                                    "
+                                    :class="
+                                        getStatusConfig(invoice.status).class
+                                    "
                                 >
                                     {{ getStatusConfig(invoice.status).label }}
                                 </Badge>
@@ -307,7 +420,7 @@ function deleteInvoice() {
                 <!-- Pagination -->
                 <div
                     v-if="props.invoices.last_page > 1"
-                    class="flex items-center justify-between border-t border-sidebar-border/70 px-4 py-3 dark:border-sidebar-border"
+                    class="border-sidebar-border/70 dark:border-sidebar-border flex items-center justify-between border-t px-4 py-3"
                 >
                     <p class="text-sm text-muted-foreground">
                         Page {{ props.invoices.current_page }} of

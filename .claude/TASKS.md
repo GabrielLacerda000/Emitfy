@@ -409,7 +409,7 @@
 - [ ] Add flash messages, add inter font and reset form when create data
 
 ### 13.2 Light mode colors scheme
-- [ ] Update ligth mode colors scheme
+- [x] Update ligth mode colors scheme
 
 ### 13.3 Dashboard charts
 - [ ] Add charts to dashboard panel

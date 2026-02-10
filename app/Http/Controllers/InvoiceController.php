@@ -28,19 +28,32 @@ class InvoiceController extends Controller
      * Display a listing of the user's invoices.
      */
     public function index(Request $request): Response
-    {
-        $query = $request->user()->invoices()
-            ->with('client:id,name,email,company_name');
+{
+    $query = $request->user()->invoices()
+        ->with('client:id,name,email,company_name');
 
-        // Apply status filter if provided
-        if ($request->has('status')) {
-            $query->where('status', $request->input('status'));
-        }
-
-        return Inertia::render('invoices/Index', [
-            'invoices' => $query->latest()->paginate(15),
-        ]);
+    if ($request->filled('status')) {
+        $query->where('status', $request->status);
     }
+
+    if ($request->filled('date_from')) {
+        $query->whereDate('issue_date', '>=', $request->date_from);
+    }
+
+    if ($request->filled('date_to')) {
+        $query->whereDate('issue_date', '<=', $request->date_to);
+    }
+
+    return Inertia::render('invoices/Index', [
+        'invoices' => $query->latest()->paginate(15),
+        'filters' => $request->only([
+            'status',
+            'date_from',
+            'date_to',
+        ]),
+    ]);
+}
+
 
     /**
      * Show the form for creating a new invoice.
