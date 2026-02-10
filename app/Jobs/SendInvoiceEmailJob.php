@@ -24,7 +24,7 @@ class SendInvoiceEmailJob implements ShouldQueue
      * Create a new job instance.
      */
     public function __construct(
-        public int $invoiceId,
+        public Invoice $invoice,
     ) {}
 
     /**
@@ -33,17 +33,16 @@ class SendInvoiceEmailJob implements ShouldQueue
     public function handle(): void
     {
         // Fetch fresh invoice with relationships
-        $invoice = Invoice::with(['client', 'items', 'user'])->find($this->invoiceId);
+        // $invoice = Invoice::with(['client', 'items', 'user'])->find($this->invoiceId);
 
-        if (! $invoice) {
-            Log::error("Invoice not found for SendInvoiceEmailJob", ['invoice_id' => $this->invoiceId]);
+        if (! $this->invoice) {
+            Log::error("Invoice not found for SendInvoiceEmailJob", ['invoice_id' => $this->invoice->id]);
 
             return;
         }
-
         // Send email with PDF attachment
-        Mail::to($invoice->client->email)
-            ->send((new InvoiceSentMail($invoice, $invoice->user))->withPdf());
+        Mail::to($this->invoice->client->email)
+            ->send((new InvoiceSentMail($this->invoice, $this->invoice->user))->withPdf());
     }
 
     /**
@@ -52,7 +51,7 @@ class SendInvoiceEmailJob implements ShouldQueue
     public function failed(\Throwable $exception): void
     {
         Log::error('Failed to send invoice email', [
-            'invoice_id' => $this->invoiceId,
+            'invoice_id' => $this->invoice->id,
             'error' => $exception->getMessage(),
             'trace' => $exception->getTraceAsString(),
         ]);

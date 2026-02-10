@@ -307,10 +307,10 @@
 - [x] Attach PDF to email (optional)
 
 ### 8.2 Send Invoice Action
-- [ ] Create job `SendInvoiceEmailJob`
-- [ ] Send email to client after creating invoice 
-- [ ] Update invoice status to `sent`
-- [ ] Set `sent_at` timestamp
+- [x] Create job `SendInvoiceEmailJob`
+- [x] Send email to client after creating invoice 
+- [x] Update invoice status to `sent`
+- [x] Set `sent_at` timestamp
 
 ### 8.3 Public Invoice View
 - [ ] Create `PublicInvoiceController`
@@ -375,7 +375,7 @@
 ## Milestone 11: Export Feature
 
 ### 11.1 Single Invoice PDF
-- [ ] PDF download from invoice view (from M7)
+- [x] PDF download from invoice view (from M7)
 
 ### 11.2 Invoice List Export
 - [ ] Create `ExportController`
@@ -401,6 +401,23 @@
 - [ ] Stripe subscription checkout
 - [ ] Webhook for subscription events
 - [ ] Plan upgrade/downgrade logic
+
+## 13 Gneral ui/ux improvements
+
+### 13.1 Flash messages and minor changes
+- [ ] Add flash messages, add inter font and reset form when create data
+
+### 13.2 Light mode colors scheme
+- [ ] Update ligth mode colors scheme
+
+### 13.3 Dashboard charts
+- [ ] Add charts to dashboard panel
+
+### 13.4 Initial page
+- [ ] Update initial page
+
+### 13.5 Support to portuguese language
+- [ ] Add support to portuguese language
 
 ---
 

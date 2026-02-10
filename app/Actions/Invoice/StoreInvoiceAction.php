@@ -5,6 +5,7 @@ namespace App\Actions\Invoice;
 use App\Models\Invoice;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use App\Enums\InvoiceStatus;
 
 class StoreInvoiceAction
 {
@@ -13,6 +14,7 @@ class StoreInvoiceAction
         protected GeneratePublicTokenAction $generatePublicToken,
         protected CalculateInvoiceTotalsAction $calculateTotals,
         protected PrepareInvoiceItemsAction $prepareItems,
+        protected SendInvoiceAction $sendInvoice,
     ) {}
 
     public function __invoke(User $user, array $validated): Invoice
@@ -42,6 +44,11 @@ class StoreInvoiceAction
             // Prepare and create invoice items
             $preparedItems = ($this->prepareItems)($validated['items']);
             $invoice->items()->createMany($preparedItems);
+
+            // Send the invoice if status is not DRAFT
+            if ($invoice->status !== InvoiceStatus::DRAFT) {
+                ($this->sendInvoice)($invoice);
+            }
 
             return $invoice;
         });

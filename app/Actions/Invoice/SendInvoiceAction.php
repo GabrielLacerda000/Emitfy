@@ -24,13 +24,14 @@ class SendInvoiceAction
             // If invoice is DRAFT, mark it as SENT (updates status and sent_at)
             if ($invoice->status === InvoiceStatus::DRAFT) {
                 $invoice->markAsSent();
+                dd($invoice);
             } else {
                 // For SENT/OVERDUE invoices, just update sent_at timestamp
                 $invoice->update(['sent_at' => now()]);
             }
 
             // Dispatch email job
-            SendInvoiceEmailJob::dispatch($invoice->id);
+            SendInvoiceEmailJob::dispatch($invoice);
         });
 
         return true;
