@@ -28,6 +28,7 @@ class UpdateInvoiceAction
                 'tax' => $validated['tax'],
                 'total' => $totals['total'],
                 'notes' => $validated['notes'] ?? null,
+                'paid_at' => $validated['paid_at'] ?? null,
             ]);
 
             // Sync invoice items

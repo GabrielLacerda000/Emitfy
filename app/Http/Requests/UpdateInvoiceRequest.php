@@ -41,6 +41,7 @@ class UpdateInvoiceRequest extends FormRequest
             'tax' => 'tax amount',
             'notes' => 'notes',
             'status' => 'status',
+            'paid_at' => 'paid date',
             'items' => 'items',
             'items.*.description' => 'item description',
             'items.*.quantity' => 'item quantity',

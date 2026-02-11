@@ -32,6 +32,7 @@ export interface InvoiceFormData {
     tax: number;
     notes: string;
     status: InvoiceStatus;
+    paid_at: string;
     items: InvoiceItem[];
 }
 

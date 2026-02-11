@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Head, Link, router } from '@inertiajs/vue3';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import InvoiceController from '@/actions/App/Http/Controllers/InvoiceController';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
@@ -47,6 +47,7 @@ const formData = ref<InvoiceFormData>({
     tax: Number(props.invoice.tax),
     notes: props.invoice.notes ?? '',
     status: props.invoice.status,
+    paid_at: props.invoice.paid_at ? props.invoice.paid_at.split('T')[0] : '',
     items:
         props.invoice.items?.map((item) => ({
             id: item.id,
@@ -74,6 +75,20 @@ const total = computed(() => {
 });
 
 const clients = ref(props.clients);
+
+// Auto-populate or clear paid_at when status changes
+watch(
+    () => formData.value.status,
+    (newStatus, oldStatus) => {
+        if (newStatus === 'paid' && oldStatus !== 'paid' && !formData.value.paid_at) {
+            // Status changed to paid and no paid_at exists - default to today
+            formData.value.paid_at = new Date().toISOString().split('T')[0];
+        } else if (newStatus !== 'paid' && oldStatus === 'paid') {
+            // Status changed from paid to something else - clear paid_at
+            formData.value.paid_at = '';
+        }
+    }
+);
 
 function handleClientCreated(client: Client) {
     clients.value.push(client);
@@ -161,20 +176,35 @@ function submitForm() {
                     <!-- Status -->
                     <Card class="p-6">
                         <h3 class="mb-4 text-lg font-semibold">Status</h3>
-                        <div class="grid gap-2">
-                            <Label for="status">Invoice Status</Label>
-                            <Select v-model="formData.status">
-                                <SelectTrigger id="status">
-                                    <SelectValue placeholder="Select status" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="draft">Draft</SelectItem>
-                                    <SelectItem value="sent">Sent</SelectItem>
-                                    <SelectItem value="paid">Paid</SelectItem>
-                                    <SelectItem value="overdue">Overdue</SelectItem>
-                                </SelectContent>
-                            </Select>
-                            <InputError :message="errors.status" />
+                        <div class="space-y-6">
+                            <div class="grid gap-2">
+                                <Label for="status">Invoice Status</Label>
+                                <Select v-model="formData.status">
+                                    <SelectTrigger id="status">
+                                        <SelectValue placeholder="Select status" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="draft">Draft</SelectItem>
+                                        <SelectItem value="sent">Sent</SelectItem>
+                                        <SelectItem value="paid">Paid</SelectItem>
+                                        <SelectItem value="overdue">Overdue</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                                <InputError :message="errors.status" />
+                            </div>
+
+                            <!-- Paid Date (conditional) -->
+                            <div v-if="formData.status === 'paid'" class="grid gap-2">
+                                <Label for="paid_at">Paid Date</Label>
+                                <input
+                                    id="paid_at"
+                                    v-model="formData.paid_at"
+                                    type="date"
+                                    required
+                                    class="placeholder:text-muted-foreground dark:bg-input/30 border-input w-full min-w-0 rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                                />
+                                <InputError :message="errors.paid_at" />
+                            </div>
                         </div>
                     </Card>
 

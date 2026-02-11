@@ -22,6 +22,7 @@ trait InvoiceValidationRules
             'tax' => $this->taxRules(),
             'notes' => $this->notesRules(),
             'status' => $this->statusRules(),
+            'paid_at' => $this->paidAtRules(),
             'items' => $this->itemsRules(),
             'items.*.description' => $this->itemDescriptionRules(),
             'items.*.quantity' => $this->itemQuantityRules(),
@@ -91,6 +92,22 @@ trait InvoiceValidationRules
     protected function statusRules(): array
     {
         return ['required', 'string', Rule::enum(InvoiceStatus::class)];
+    }
+
+    /**
+     * Get the validation rules used to validate paid_at.
+     *
+     * @return array<int, \Illuminate\Contracts\Validation\Rule|array<mixed>|string>
+     */
+    protected function paidAtRules(): array
+    {
+        return [
+            'nullable',
+            'date',
+            'after_or_equal:issue_date',
+            'before_or_equal:today',
+            'required_if:status,paid',
+        ];
     }
 
     /**
