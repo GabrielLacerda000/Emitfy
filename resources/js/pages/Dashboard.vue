@@ -8,6 +8,7 @@ import {
 } from 'lucide-vue-next';
 import RecentClientsList from '@/components/dashboard/RecentClientsList.vue';
 import RecentInvoicesList from '@/components/dashboard/RecentInvoicesList.vue';
+import RevenueChart from '@/components/dashboard/RevenueChart.vue';
 import DashboardStatCard from '@/components/DashboardStatCard.vue';
 import Heading from '@/components/Heading.vue';
 import { Button } from '@/components/ui/button';
@@ -22,9 +23,12 @@ type Props = {
     stats: DashboardData['stats'];
     recentInvoices: DashboardData['recentInvoices'];
     recentClients: DashboardData['recentClients'];
+    monthlyRevenue: DashboardData['monthlyRevenue'];
 }
 
 const props = defineProps<Props>();
+
+    console.log('monthlyRevenue', props.monthlyRevenue)
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -88,6 +92,9 @@ const clientsIndexUrl = clientsIndexRoute().url;
                     icon-class="bg-red-100 text-red-600 dark:bg-red-950 dark:text-red-400"
                 />
             </div>
+
+            <!-- Revenue Chart -->
+            <RevenueChart :data="props.monthlyRevenue" />
 
             <!-- Recent Data Section -->
             <div class="grid gap-4 md:grid-cols-2">

@@ -60,6 +60,43 @@ class GetDashboardStatsAction
             ],
             'recentInvoices' => $recentInvoices,
             'recentClients' => $recentClients,
+            'monthlyRevenue' => $this->getMonthlyRevenue($user),
+        ];
+    }
+
+    private function getMonthlyRevenue(User $user): array
+    {
+        $sixMonthsAgo = now()->subMonths(5)->startOfMonth();
+
+        // Fetch paid invoices from last 6 months (database-agnostic)
+        $paidInvoices = $user->invoices()
+            ->where('status', InvoiceStatus::PAID)
+            ->where('paid_at', '>=', $sixMonthsAgo)
+            ->get(['paid_at', 'total']);
+
+        // Group by month in PHP using Carbon
+        $grouped = $paidInvoices->groupBy(function ($invoice) {
+            return $invoice->paid_at->format('Y-m');
+        })->map(function ($group) {
+            return $group->sum('total');
+        });
+
+        // Build 6-month array (fill missing months with 0)
+        $months = [];
+        $data = [];
+
+        for ($i = 5; $i >= 0; $i--) {
+            $date = now()->subMonths($i);
+            $monthKey = $date->format('Y-m');
+            $monthLabel = $date->format('M Y');
+
+            $months[] = $monthLabel;
+            $data[] = $grouped->get($monthKey, 0);
+        }
+
+        return [
+            'labels' => $months,
+            'data' => $data,
         ];
     }
 }

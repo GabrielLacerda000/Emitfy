@@ -15,8 +15,6 @@ export function useFlashToast() {
         return
     }
 
-    console.log('caiu akidasdasdasd',page.props.flash)
-
     // Track last shown message to prevent duplicates on navigation
     let lastMessage = ''
 

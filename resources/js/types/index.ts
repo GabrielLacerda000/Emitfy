@@ -71,10 +71,16 @@ export interface DashboardStats {
     dueSoonTotal: string;
 }
 
+export interface MonthlyRevenueData {
+    labels: string[];
+    data: number[];
+}
+
 export interface DashboardData {
     stats: DashboardStats;
     recentInvoices: Invoice[];
     recentClients: (Client & { invoices_count: number })[];
+    monthlyRevenue: MonthlyRevenueData;
 }
 
 export interface FlashMessage {
