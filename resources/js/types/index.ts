@@ -77,11 +77,17 @@ export interface DashboardData {
     recentClients: (Client & { invoices_count: number })[];
 }
 
+export interface FlashMessage {
+    message: string | null;
+    type: 'success' | 'error' | 'info' | 'warning';
+}
+
 export type AppPageProps<
     T extends Record<string, unknown> = Record<string, unknown>,
 > = T & {
     name: string;
     auth: Auth;
     sidebarOpen: boolean;
+    flash: FlashMessage;
     [key: string]: unknown;
 };

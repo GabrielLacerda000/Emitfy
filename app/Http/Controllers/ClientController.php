@@ -38,11 +38,11 @@ class ClientController extends Controller
         $client = $request->user()->clients()->create($request->validated());
 
         // Check if this is an Inertia request (e.g., from modal)
-        if ($request->header('X-Inertia')) {
-            return back()->with('client', $client->only(['id', 'name', 'email', 'company_name']));
-        }
+        // if ($request->header('X-Inertia')) {
+        //     return back()->with('client', $client->only(['id', 'name', 'email', 'company_name']));
+        // }
 
-        return redirect()->route('clients.index');
+        return redirect()->route('clients.index')->with('success', 'Client created successfully.');
     }
 
     /**

@@ -403,22 +403,25 @@
 - [ ] Webhook for subscription events
 - [ ] Plan upgrade/downgrade logic
 
-## 13 Gneral ui/ux improvements
+## 13 General ui/ux improvements
 
 ### 13.1 Flash messages and minor changes
-- [ ] Add flash messages, add inter font and reset form when create data
+- [x] Add flash messages, add inter font and reset form when create data
 
 ### 13.2 Light mode colors scheme
 - [x] Update ligth mode colors scheme
 
 ### 13.3 Dashboard charts
-- [ ] Add charts to dashboard panel
+- [ ] Add line chart for cash flow in dashboard panel to display the revenues in the last 6 months
 
 ### 13.4 Initial page
 - [ ] Update initial page to remove starter kit panel
 
 ### 13.5 Support to portuguese language
 - [ ] Add support to portuguese language
+
+### 13.6 Add pagination to clients and invoices tables
+- [ ] Add pagination to clients and invoices tables
 
 ---
 
