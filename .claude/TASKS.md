@@ -423,18 +423,18 @@
 ## Milestone 14 client page
 
 ### 14.1 Client page
-- [ ] Create client page
-- [ ] Create ClientDetailsController
-- [ ] display the client info data
-- [ ] display how much profit with this client
+- [x] Create client page
+- [x] Create ClientDetailsController
+- [x] display the client info data
+- [x] display how much profit with this client
 
 
 ### 14.2 Client relevant data
-- [ ] display total paid
-- [ ] display total pending
-- [ ] display total overdue
-- [ ] invocies count
-- [ ] last invoice sent
+- [x] display total paid
+- [x] display total pending
+- [x] display total overdue
+- [x] invocies count
+- [x] last invoice sent
 
 
 ---
