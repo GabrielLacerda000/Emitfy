@@ -15,7 +15,7 @@ import {
     DialogTitle,
 } from '@/components/ui/dialog';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { index, create, edit } from '@/routes/clients';
+import { index, create, edit, show } from '@/routes/clients';
 import { type BreadcrumbItem, type Client } from '@/types';
 
 interface PaginationLink {
@@ -146,7 +146,8 @@ function deleteClient() {
                         <tr
                             v-for="client in props.clients.data"
                             :key="client.id"
-                            class="border-b border-sidebar-border/70 last:border-b-0 dark:border-sidebar-border"
+                            class="border-b border-sidebar-border/70 last:border-b-0 dark:border-sidebar-border hover:bg-muted/50 cursor-pointer"
+                            @click="router.visit(show({ client: client.id }).url)"
                         >
                             <td class="px-4 py-3 text-sm font-medium">
                                 {{ client.name }}
@@ -165,6 +166,7 @@ function deleteClient() {
                                         variant="ghost"
                                         size="icon"
                                         as-child
+                                        @click.stop
                                     >
                                         <Link
                                             :href="
@@ -178,7 +180,7 @@ function deleteClient() {
                                     <Button
                                         variant="ghost"
                                         size="icon"
-                                        @click="confirmDelete(client)"
+                                        @click.stop="confirmDelete(client)"
                                     >
                                         <Trash2
                                             class="h-4 w-4 text-destructive"

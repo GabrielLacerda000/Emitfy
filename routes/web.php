@@ -24,7 +24,7 @@ Route::get('dashboard', [DashboardController::class, 'index'])
     ->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::resource('clients', ClientController::class)->except(['show']);
+    Route::resource('clients', ClientController::class);
     Route::get('invoices/export', [ExportController::class, 'invoicesCsv'])->name('invoices.export');
     Route::resource('invoices', InvoiceController::class);
     Route::post('invoices/{invoice}/send', [InvoiceController::class, 'send'])->name('invoices.send');

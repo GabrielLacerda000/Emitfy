@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Client\GetClientStatsAction;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
 use App\Models\Client;
@@ -56,6 +57,29 @@ class ClientController extends Controller
 
         return Inertia::render('clients/Edit', [
             'client' => $client,
+        ]);
+    }
+
+    /**
+     * Display the specified client with stats and invoices.
+     */
+    public function show(Request $request, Client $client): Response
+    {
+        if ($client->user_id !== $request->user()->id) {
+            abort(403);
+        }
+
+        $statsAction = new GetClientStatsAction();
+        $stats = $statsAction->execute($client);
+
+        $invoices = $client->invoices()
+            ->latest()
+            ->paginate(10);
+
+        return Inertia::render('clients/Show', [
+            'client' => $client,
+            'stats' => $stats,
+            'invoices' => $invoices,
         ]);
     }
 

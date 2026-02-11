@@ -15,6 +15,33 @@ export interface Client {
     updated_at: string;
 }
 
+export interface ClientStats {
+    totalPaid: string;
+    totalPaidCount: number;
+    totalPending: string;
+    totalPendingCount: number;
+    totalOverdue: string;
+    totalOverdueCount: number;
+    totalDraft: string;
+    totalDraftCount: number;
+    lastInvoiceSent: Invoice | null;
+}
+
+export interface PaginatedInvoices {
+    data: Invoice[];
+    links: PaginationLink[];
+    current_page: number;
+    last_page: number;
+    per_page: number;
+    total: number;
+}
+
+interface PaginationLink {
+    url: string | null;
+    label: string;
+    active: boolean;
+}
+
 export type InvoiceStatus = 'draft' | 'sent' | 'paid' | 'overdue';
 
 export interface InvoiceItem {

@@ -2,6 +2,7 @@
 import { Link } from '@inertiajs/vue3';
 import { ArrowRight, Plus, User, Users } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button';
+import { show } from '@/routes/clients';
 import type { Client } from '@/types';
 
 type Props = {
@@ -27,10 +28,11 @@ defineProps<Props>();
 
         <!-- Clients list or Empty State -->
         <div v-if="clients.length > 0" class="flex flex-col gap-2">
-            <div
+            <Link
                 v-for="client in clients"
                 :key="client.id"
-                class="group flex items-center justify-between rounded-xl border border-sidebar-border/70 p-4 transition-colors hover:bg-muted/50 dark:border-sidebar-border"
+                :href="show({ client: client.id }).url"
+                class="group flex items-center justify-between rounded-xl border border-sidebar-border/70 p-4 transition-colors hover:bg-muted/50 dark:border-sidebar-border cursor-pointer"
             >
                 <div class="flex items-center gap-3">
                     <div
@@ -53,7 +55,7 @@ defineProps<Props>();
                         class="h-4 w-4 transition-transform group-hover:translate-x-1"
                     />
                 </div>
-            </div>
+            </Link>
         </div>
 
         <!-- Empty state -->

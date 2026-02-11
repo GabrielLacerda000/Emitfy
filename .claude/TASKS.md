@@ -406,13 +406,13 @@
 ## 13 General ui/ux improvements
 
 ### 13.1 Flash messages and minor changes
-- [x] Add flash messages, add inter font and reset form when create data
+- [x] Add flash messages, add inter font
 
 ### 13.2 Light mode colors scheme
 - [x] Update ligth mode colors scheme
 
 ### 13.3 Dashboard charts
-- [ ] Add line chart for cash flow in dashboard panel to display the revenues in the last 6 months
+- [x] Add line chart for cash flow in dashboard panel to display the revenues in the last 6 months
 
 ### 13.4 Initial page
 - [ ] Update initial page to remove starter kit panel
@@ -420,8 +420,22 @@
 ### 13.5 Support to portuguese language
 - [ ] Add support to portuguese language
 
-### 13.6 Add pagination to clients and invoices tables
-- [ ] Add pagination to clients and invoices tables
+## Milestone 14 client page
+
+### 14.1 Client page
+- [ ] Create client page
+- [ ] Create ClientDetailsController
+- [ ] display the client info data
+- [ ] display how much profit with this client
+
+
+### 14.2 Client relevant data
+- [ ] display total paid
+- [ ] display total pending
+- [ ] display total overdue
+- [ ] invocies count
+- [ ] last invoice sent
+
 
 ---
 
