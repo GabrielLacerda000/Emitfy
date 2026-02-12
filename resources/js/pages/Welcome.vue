@@ -109,7 +109,7 @@ withDefaults(
         <!-- Main Content -->
         <main>
             <LpHero />
-            <LpProblem />
+        <LpProblem />
             <LpHowItWorks />
             <LpBenefits />
             <LpScreenshot />

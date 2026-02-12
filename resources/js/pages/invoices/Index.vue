@@ -1,13 +1,21 @@
 <script setup lang="ts">
 import { Head, Link, router } from '@inertiajs/vue3';
-import { Download, Pencil, Plus, Trash2, X } from 'lucide-vue-next';
+import {
+    Download,
+    Pencil,
+    Plus,
+    Trash2,
+    X,
+    Calendar as CalendarIcon,
+    FileText,
+    ArrowUpRight,
+} from 'lucide-vue-next';
 import { computed, ref, watch } from 'vue';
 import ExportController from '@/actions/App/Http/Controllers/ExportController';
 import InvoiceController from '@/actions/App/Http/Controllers/InvoiceController';
 import Heading from '@/components/Heading.vue';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import {
     Dialog,
     DialogClose,
@@ -23,12 +31,12 @@ import { formatBRL, formatDate, isOverdue } from '@/lib/utils';
 import { create, edit, index, show } from '@/routes/invoices';
 import { type BreadcrumbItem, type Invoice, type InvoiceStatus } from '@/types';
 
+// ... (Mantenha as interfaces e props originais)
 interface PaginationLink {
     url: string | null;
     label: string;
     active: boolean;
 }
-
 interface PaginatedInvoices {
     data: Invoice[];
     links: PaginationLink[];
@@ -37,7 +45,6 @@ interface PaginatedInvoices {
     per_page: number;
     total: number;
 }
-
 type Props = {
     invoices: PaginatedInvoices;
     status?: InvoiceStatus | null;
@@ -47,14 +54,10 @@ type Props = {
         date_to?: string;
     };
 };
-
 const props = defineProps<Props>();
 
 const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Invoices',
-        href: index().url,
-    },
+    { title: 'Invoices', href: index().url },
 ];
 
 const statusFilters = [
@@ -72,73 +75,48 @@ function getStatusConfig(status: InvoiceStatus) {
         draft: {
             variant: 'secondary' as const,
             label: 'Draft',
-            class: '',
+            class: 'bg-slate-100 text-slate-600 border-slate-200 dark:bg-slate-900/40 dark:text-slate-400 dark:border-slate-800',
         },
         sent: {
             variant: 'default' as const,
             label: 'Sent',
-            class: '',
+            class: 'bg-blue-50 text-blue-600 border-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800',
         },
         paid: {
             variant: 'outline' as const,
             label: 'Paid',
-            class: 'border-green-600 text-green-700 dark:border-green-500 dark:text-green-400',
+            class: 'bg-emerald-50 text-emerald-600 border-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-400 dark:border-emerald-800',
         },
         overdue: {
             variant: 'destructive' as const,
             label: 'Overdue',
-            class: '',
+            class: 'bg-rose-50 text-rose-600 border-rose-200 dark:bg-rose-900/30 dark:text-rose-400 dark:border-rose-800',
         },
     };
     return configs[status];
 }
 
+// Logic (Mantenha as funções de filtro, delete e export originais)
 const deleteDialogOpen = ref(false);
 const invoiceToDelete = ref<Invoice | null>(null);
 const deleting = ref(false);
-
-// Date filters
 const dateFrom = ref(props.filters?.date_from ?? '');
 const dateTo = ref(props.filters?.date_to ?? '');
-
-// Export state
 const exportingCsv = ref(false);
 
 function changeStatusFilter(status: InvoiceStatus | null) {
     const params: Record<string, string> = {};
-
-    if (status !== null) {
-        params.status = status;
-    }
-
-    if (dateFrom.value) {
-        params.date_from = dateFrom.value;
-    }
-
-    if (dateTo.value) {
-        params.date_to = dateTo.value;
-    }
-
+    if (status !== null) params.status = status;
+    if (dateFrom.value) params.date_from = dateFrom.value;
+    if (dateTo.value) params.date_to = dateTo.value;
     router.get(index().url, params, { preserveScroll: true });
 }
 
 function applyFilters() {
     const params: Record<string, string> = {};
-
-    if (activeStatus.value) {
-        params.status = activeStatus.value;
-    }
-
-    if (dateFrom.value) {
-        console.log(dateFrom.value);
-        params.date_from = dateFrom.value;
-        console.log(params.date_from);
-    }
-
-    if (dateTo.value) {
-        params.date_to = dateTo.value;
-    }
-
+    if (activeStatus.value) params.status = activeStatus.value;
+    if (dateFrom.value) params.date_from = dateFrom.value;
+    if (dateTo.value) params.date_to = dateTo.value;
     router.get(index().url, params, { preserveScroll: true });
 }
 
@@ -150,17 +128,12 @@ function clearDateFilters() {
 
 function exportCsv() {
     exportingCsv.value = true;
-
-    // Build URL with current filters
     const params = new URLSearchParams();
     if (activeStatus.value) params.append('status', activeStatus.value);
     if (dateFrom.value) params.append('date_from', dateFrom.value);
     if (dateTo.value) params.append('date_to', dateTo.value);
-
     const url = ExportController.invoicesCsv.url();
-    const fullUrl = params.toString() ? `${url}?${params}` : url;
-    window.location.href = fullUrl;
-
+    window.location.href = params.toString() ? `${url}?${params}` : url;
     setTimeout(() => (exportingCsv.value = false), 2000);
 }
 
@@ -171,7 +144,6 @@ function confirmDelete(invoice: Invoice) {
 
 function deleteInvoice() {
     if (!invoiceToDelete.value) return;
-
     deleting.value = true;
     router.delete(
         InvoiceController.destroy.url({ invoice: invoiceToDelete.value.id }),
@@ -186,31 +158,38 @@ function deleteInvoice() {
     );
 }
 
-watch([dateFrom, dateTo], () => {
-    applyFilters();
-});
+watch([dateFrom, dateTo], () => applyFilters());
+
+const thClass =
+    'px-6 py-4 text-left text-[10px] font-black tracking-[0.2em] text-muted-foreground/80 uppercase';
 </script>
 
 <template>
     <Head title="Invoices" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="flex h-full flex-1 flex-col gap-4 p-4">
-            <div class="flex items-center justify-between">
+        <div class="flex h-full flex-1 flex-col gap-6 bg-muted/5 p-6">
+            <div
+                class="flex flex-col justify-between gap-4 md:flex-row md:items-end"
+            >
                 <Heading
                     title="Invoices"
-                    description="Manage your invoices and track payments"
+                    description="Financial overview and billing management"
                 />
-                <div class="flex items-center gap-2">
+                <div class="flex items-center gap-3">
                     <Button
                         variant="outline"
                         :disabled="exportingCsv"
                         @click="exportCsv"
+                        class="h-11 rounded-xl border-border/60 font-bold shadow-sm hover:bg-background"
                     >
                         <Download class="mr-2 h-4 w-4" />
-                        {{ exportingCsv ? 'Exporting...' : 'Export CSV' }}
+                        {{ exportingCsv ? 'Exporting...' : 'CSV' }}
                     </Button>
-                    <Button as-child>
+                    <Button
+                        as-child
+                        class="h-11 rounded-xl bg-primary px-6 font-black shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:shadow-primary/30"
+                    >
                         <Link :href="create().url">
                             <Plus class="mr-2 h-4 w-4" />
                             New Invoice
@@ -219,235 +198,233 @@ watch([dateFrom, dateTo], () => {
                 </div>
             </div>
 
-            <!-- Status Filter Bar -->
-            <div
-                class="inline-flex gap-1 rounded-lg bg-muted p-1 dark:bg-muted/50"
-            >
-                <button
-                    v-for="filter in statusFilters"
-                    :key="filter.label"
-                    @click="changeStatusFilter(filter.value)"
-                    :class="[
-                        'flex items-center rounded-md px-3.5 py-1.5 transition-all duration-200',
-                        activeStatus === filter.value
-                            ? 'bg-background text-foreground shadow-sm'
-                            : 'text-muted-foreground hover:bg-background/50 hover:text-foreground',
-                    ]"
+            <div class="grid grid-cols-1 items-center gap-4 lg:grid-cols-12">
+                <div
+                    class="flex w-fit flex-wrap gap-1 rounded-2xl border border-border/40 bg-muted/40 p-1.5 lg:col-span-7"
                 >
-                    <span class="text-sm font-medium">{{ filter.label }}</span>
-                </button>
-            </div>
+                    <button
+                        v-for="filter in statusFilters"
+                        :key="filter.label"
+                        @click="changeStatusFilter(filter.value)"
+                        :class="[
+                            'flex items-center rounded-xl px-4 py-2 text-xs font-bold transition-all duration-200',
+                            activeStatus === filter.value
+                                ? 'bg-background text-primary shadow-sm ring-1 ring-border/50'
+                                : 'text-muted-foreground hover:text-foreground',
+                        ]"
+                    >
+                        {{ filter.label }}
+                    </button>
+                </div>
 
-            <!-- Date Range Filter -->
-            <Card class="p-4">
-                <div class="flex items-end gap-4">
-                    <div class="flex-1">
-                        <label
-                            for="date-from"
-                            class="mb-1.5 block text-sm font-medium"
-                        >
-                            From Date
-                        </label>
-                        <Input id="date-from" v-model="dateFrom" type="date" />
+                <div class="flex items-center gap-2 lg:col-span-5">
+                    <div class="relative flex-1">
+                        <CalendarIcon
+                            class="absolute top-1/2 left-3 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground/50"
+                        />
+                        <Input
+                            v-model="dateFrom"
+                            type="date"
+                            class="h-10 rounded-xl border-border/40 bg-background/50 pl-9 transition-all focus:bg-background"
+                        />
                     </div>
-                    <div class="flex-1">
-                        <label
-                            for="date-to"
-                            class="mb-1.5 block text-sm font-medium"
-                        >
-                            To Date
-                        </label>
-                        <Input id="date-to" v-model="dateTo" type="date" />
+                    <div class="relative flex-1">
+                        <CalendarIcon
+                            class="absolute top-1/2 left-3 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground/50"
+                        />
+                        <Input
+                            v-model="dateTo"
+                            type="date"
+                            class="h-10 rounded-xl border-border/40 bg-background/50 pl-9 transition-all focus:bg-background"
+                        />
                     </div>
                     <Button
-                        variant="outline"
-                        :disabled="!dateFrom && !dateTo"
+                        v-if="dateFrom || dateTo"
+                        variant="ghost"
+                        size="icon"
                         @click="clearDateFilters"
+                        class="h-10 w-10 rounded-xl text-muted-foreground transition-colors hover:text-destructive"
                     >
-                        <X class="mr-2 h-4 w-4" />
-                        Clear Dates
-                    </Button>
-                </div>
-            </Card>
-
-            <!-- Empty State -->
-            <div
-                v-if="props.invoices.data.length === 0"
-                class="border-sidebar-border/70 dark:border-sidebar-border flex flex-1 flex-col items-center justify-center rounded-xl border border-dashed p-8"
-            >
-                <div class="text-center">
-                    <h3 class="text-lg font-medium">No invoices yet</h3>
-                    <p class="mt-1 text-sm text-muted-foreground">
-                        Get started by creating your first invoice.
-                    </p>
-                    <Button class="mt-4" as-child>
-                        <Link :href="create().url">
-                            <Plus class="mr-2 h-4 w-4" />
-                            New Invoice
-                        </Link>
+                        <X class="h-4 w-4" />
                     </Button>
                 </div>
             </div>
 
-            <!-- Invoices Table -->
+            <div
+                v-if="props.invoices.data.length === 0"
+                class="flex flex-1 flex-col items-center justify-center rounded-3xl border border-dashed border-border/60 bg-background/40 p-12"
+            >
+                <div
+                    class="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-muted/50"
+                >
+                    <FileText class="h-8 w-8 text-muted-foreground/30" />
+                </div>
+                <h3 class="text-lg font-bold">No invoices found</h3>
+                <p class="mt-1 mb-6 text-sm text-muted-foreground">
+                    Try adjusting your filters or create a new one.
+                </p>
+                <Button variant="outline" as-child class="rounded-xl border-2">
+                    <Link :href="create().url">Generate First Invoice</Link>
+                </Button>
+            </div>
+
             <div
                 v-else
-                class="border-sidebar-border/70 dark:border-sidebar-border rounded-xl border"
+                class="overflow-hidden rounded-2xl border border-border/60 bg-background shadow-sm"
             >
-                <table class="w-full">
-                    <thead>
-                        <tr
-                            class="border-sidebar-border/70 dark:border-sidebar-border border-b"
-                        >
-                            <th
-                                class="px-4 py-3 text-left text-sm font-medium text-muted-foreground"
-                            >
-                                Number
-                            </th>
-                            <th
-                                class="px-4 py-3 text-left text-sm font-medium text-muted-foreground"
-                            >
-                                Client
-                            </th>
-                            <th
-                                class="px-4 py-3 text-left text-sm font-medium text-muted-foreground"
-                            >
-                                Amount
-                            </th>
-                            <th
-                                class="px-4 py-3 text-left text-sm font-medium text-muted-foreground"
-                            >
-                                Status
-                            </th>
-                            <th
-                                class="px-4 py-3 text-left text-sm font-medium text-muted-foreground"
-                            >
-                                Due Date
-                            </th>
-                            <th
-                                class="px-4 py-3 text-right text-sm font-medium text-muted-foreground"
-                            >
-                                Actions
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr
-                            v-for="invoice in props.invoices.data"
-                            :key="invoice.id"
-                            class="border-sidebar-border/70 dark:border-sidebar-border border-b last:border-b-0"
-                        >
-                            <td class="px-4 py-3 text-sm">
-                                <Link
-                                    :href="show({ invoice: invoice.id }).url"
-                                    class="font-medium text-foreground hover:underline"
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b border-border/60 bg-muted/30">
+                                <th :class="thClass">Invoice</th>
+                                <th :class="thClass">Client</th>
+                                <th :class="thClass">Amount</th>
+                                <th :class="thClass">Status</th>
+                                <th :class="thClass">Due Date</th>
+                                <th
+                                    class="px-6 py-4 text-right text-[10px] font-black tracking-[0.2em] text-muted-foreground/80 uppercase"
                                 >
-                                    {{ invoice.number }}
-                                </Link>
-                            </td>
-                            <td class="px-4 py-3 text-sm text-muted-foreground">
-                                {{ invoice.client.name }}
-                                <span
-                                    v-if="invoice.client.company_name"
-                                    class="text-xs"
-                                >
-                                    ({{ invoice.client.company_name }})
-                                </span>
-                            </td>
-                            <td class="px-4 py-3 text-sm font-medium">
-                                {{ formatBRL(invoice.total) }}
-                            </td>
-                            <td class="px-4 py-3 text-sm">
-                                <Badge
-                                    :variant="
-                                        getStatusConfig(invoice.status).variant
-                                    "
-                                    :class="
-                                        getStatusConfig(invoice.status).class
-                                    "
-                                >
-                                    {{ getStatusConfig(invoice.status).label }}
-                                </Badge>
-                            </td>
-                            <td
-                                class="px-4 py-3 text-sm"
-                                :class="{
-                                    'text-destructive':
-                                        isOverdue(
-                                            invoice.due_date,
-                                            invoice.paid_at,
-                                        ) && invoice.status !== 'paid',
-                                }"
+                                    Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-border/40">
+                            <tr
+                                v-for="invoice in props.invoices.data"
+                                :key="invoice.id"
+                                class="group cursor-pointer transition-colors hover:bg-muted/10"
+                                @click="
+                                    router.visit(
+                                        show({ invoice: invoice.id }).url,
+                                    )
+                                "
                             >
-                                {{ formatDate(invoice.due_date) }}
-                            </td>
-                            <td class="px-4 py-3 text-right">
-                                <div
-                                    class="flex items-center justify-end gap-2"
-                                >
-                                    <Button
-                                        variant="ghost"
-                                        size="icon"
-                                        as-child
+                                <td class="px-6 py-4">
+                                    <span
+                                        class="flex items-center gap-1 text-sm font-black tracking-tight text-primary"
                                     >
-                                        <Link
-                                            :href="
-                                                edit({ invoice: invoice.id })
-                                                    .url
-                                            "
-                                        >
-                                            <Pencil class="h-4 w-4" />
-                                            <span class="sr-only">Edit</span>
-                                        </Link>
-                                    </Button>
-                                    <Button
-                                        variant="ghost"
-                                        size="icon"
-                                        @click="confirmDelete(invoice)"
-                                        class="cursor-pointer"
-                                    >
-                                        <Trash2
-                                            class="h-4 w-4 text-destructive"
+                                        {{ invoice.number }}
+                                        <ArrowUpRight
+                                            class="h-3 w-3 -translate-y-0.5 opacity-0 transition-all group-hover:opacity-100"
                                         />
-                                        <span class="sr-only">Delete</span>
-                                    </Button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex flex-col">
+                                        <span
+                                            class="text-sm font-bold tracking-tight"
+                                            >{{ invoice.client.name }}</span
+                                        >
+                                        <span
+                                            v-if="invoice.client.company_name"
+                                            class="text-[11px] font-medium tracking-tighter text-muted-foreground uppercase"
+                                        >
+                                            {{ invoice.client.company_name }}
+                                        </span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span
+                                        class="font-mono text-sm font-bold tracking-tight"
+                                    >
+                                        {{ formatBRL(invoice.total) }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <Badge
+                                        variant="outline"
+                                        :class="[
+                                            'rounded-lg border px-2.5 py-0.5 text-[11px] font-bold tracking-wider uppercase shadow-none',
+                                            getStatusConfig(invoice.status)
+                                                .class,
+                                        ]"
+                                    >
+                                        {{
+                                            getStatusConfig(invoice.status)
+                                                .label
+                                        }}
+                                    </Badge>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span
+                                        :class="[
+                                            'text-sm font-medium',
+                                            isOverdue(
+                                                invoice.due_date,
+                                                invoice.paid_at,
+                                            ) && invoice.status !== 'paid'
+                                                ? 'font-bold text-rose-500'
+                                                : 'text-muted-foreground',
+                                        ]"
+                                    >
+                                        {{ formatDate(invoice.due_date) }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 text-right" @click.stop>
+                                    <div
+                                        class="flex items-center justify-end gap-1"
+                                    >
+                                        <Button
+                                            variant="ghost"
+                                            size="icon"
+                                            class="h-8 w-8 rounded-lg shadow-none hover:bg-background hover:shadow-sm"
+                                            as-child
+                                        >
+                                            <Link
+                                                :href="
+                                                    edit({
+                                                        invoice: invoice.id,
+                                                    }).url
+                                                "
+                                            >
+                                                <Pencil class="h-3.5 w-3.5" />
+                                            </Link>
+                                        </Button>
+                                        <Button
+                                            variant="ghost"
+                                            size="icon"
+                                            class="h-8 w-8 rounded-lg text-destructive hover:bg-destructive/5"
+                                            @click="confirmDelete(invoice)"
+                                        >
+                                            <Trash2 class="h-3.5 w-3.5" />
+                                        </Button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-                <!-- Pagination -->
                 <div
                     v-if="props.invoices.last_page > 1"
-                    class="border-sidebar-border/70 dark:border-sidebar-border flex items-center justify-between border-t px-4 py-3"
+                    class="flex items-center justify-between border-t border-border/60 bg-muted/10 px-6 py-4"
                 >
-                    <p class="text-sm text-muted-foreground">
+                    <p
+                        class="text-[10px] font-black tracking-widest text-muted-foreground/60 uppercase"
+                    >
                         Page {{ props.invoices.current_page }} of
-                        {{ props.invoices.last_page }} ({{
-                            props.invoices.total
-                        }}
-                        total)
+                        {{ props.invoices.last_page }}
                     </p>
-                    <div class="flex gap-1">
+                    <div class="flex gap-2">
                         <template
                             v-for="link in props.invoices.links"
                             :key="link.label"
                         >
                             <Button
                                 v-if="link.url"
-                                variant="outline"
+                                variant="ghost"
                                 size="sm"
-                                :class="{ 'bg-accent': link.active }"
+                                :class="[
+                                    'h-8 rounded-lg px-3 text-xs font-bold transition-all',
+                                    link.active
+                                        ? 'border border-border/60 bg-background text-primary shadow-sm'
+                                        : 'text-muted-foreground',
+                                ]"
                                 as-child
                             >
-                                <Link :href="link.url">
-                                    <span v-html="link.label" />
-                                </Link>
-                            </Button>
-
-                            <Button v-else variant="outline" size="sm" disabled>
-                                <span v-html="link.label" />
+                                <Link :href="link.url"
+                                    ><span v-html="link.label"
+                                /></Link>
                             </Button>
                         </template>
                     </div>
@@ -455,27 +432,49 @@ watch([dateFrom, dateTo], () => {
             </div>
         </div>
 
-        <!-- Delete Confirmation Dialog -->
         <Dialog v-model:open="deleteDialogOpen">
-            <DialogContent>
+            <DialogContent
+                class="rounded-2xl border-none shadow-2xl sm:max-w-[425px]"
+            >
                 <DialogHeader>
-                    <DialogTitle>Delete Invoice</DialogTitle>
-                    <DialogDescription>
+                    <div
+                        class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-rose-50 dark:bg-rose-900/20"
+                    >
+                        <Trash2 class="h-7 w-7 text-rose-500" />
+                    </div>
+
+                    <DialogTitle class="text-center text-xl font-bold">
+                        Delete Invoice?
+                    </DialogTitle>
+
+                    <DialogDescription class="pt-2 text-center">
                         Are you sure you want to delete invoice
-                        <strong>{{ invoiceToDelete?.number }}</strong
-                        >? This action cannot be undone.
+                        <span class="font-bold text-foreground">
+                            {{ invoiceToDelete?.number }}
+                        </span>
+                        ? This action is irreversible.
                     </DialogDescription>
                 </DialogHeader>
-                <DialogFooter class="gap-2">
+
+                <DialogFooter
+                    class="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end"
+                >
                     <DialogClose as-child>
-                        <Button variant="secondary">Cancel</Button>
+                        <Button
+                            variant="outline"
+                            class="flex-1 rounded-xl border-2 font-bold"
+                        >
+                            Cancel
+                        </Button>
                     </DialogClose>
+
                     <Button
                         variant="destructive"
+                        class="flex-1 rounded-xl font-bold shadow-lg shadow-rose-500/20"
                         :disabled="deleting"
                         @click="deleteInvoice"
                     >
-                        Delete
+                        {{ deleting ? 'Deleting...' : 'Delete Invoice' }}
                     </Button>
                 </DialogFooter>
             </DialogContent>

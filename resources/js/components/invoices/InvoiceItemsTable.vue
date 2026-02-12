@@ -305,7 +305,7 @@ function updateItem(
 
         <div
             v-if="!readonly && modelValue.length < 50"
-            class="flex justify-center pt-2"
+            class="flex justify-center p-3"
         >
             <Button
                 type="button"
