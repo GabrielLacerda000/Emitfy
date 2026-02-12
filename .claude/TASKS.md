@@ -420,6 +420,9 @@
 ### 13.5 Support to portuguese language
 - [ ] Add support to portuguese language
 
+### 13.6 Update login and register page design
+- [ ] Update login and register page design
+
 ## Milestone 14 client page
 
 ### 14.1 Client page
