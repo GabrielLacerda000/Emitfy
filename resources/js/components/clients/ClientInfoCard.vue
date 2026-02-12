@@ -21,7 +21,7 @@ defineProps<Props>();
             </div>
             <div>
                 <dt class="font-medium text-muted-foreground">Email</dt>
-                <dd class="mt-1">{{ client.email }}</dd>
+                <dd class="mt-1 break-words">{{ client.email }}</dd>
             </div>
             <div v-if="client.company_name">
                 <dt class="font-medium text-muted-foreground">Company</dt>

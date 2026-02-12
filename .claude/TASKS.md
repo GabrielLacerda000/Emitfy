@@ -415,7 +415,7 @@
 - [x] Add line chart for cash flow in dashboard panel to display the revenues in the last 6 months
 
 ### 13.4 Initial page
-- [ ] Update initial page to remove starter kit panel
+- [x] Update initial page to remove starter kit panel
 
 ### 13.5 Support to portuguese language
 - [ ] Add support to portuguese language

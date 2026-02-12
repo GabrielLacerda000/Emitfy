@@ -121,12 +121,12 @@ function deleteClient() {
                                 class="shadow-md border-primary/10"
                             />
                         </section>
-                        
-                        <div class="rounded-2xl bg-primary p-6 text-primary-foreground shadow-lg shadow-primary/20">
+                        <!-- TODO: Add quick support section BACK END -->
+                        <!-- <div class="rounded-2xl bg-primary p-6 text-primary-foreground shadow-lg shadow-primary/20">
                             <h3 class="font-bold text-lg mb-2">Quick Support</h3>
                             <p class="text-sm opacity-90 mb-4">Need to export all data for this specific client?</p>
                             <Button variant="secondary" class="w-full font-bold">Export Report (CSV)</Button>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

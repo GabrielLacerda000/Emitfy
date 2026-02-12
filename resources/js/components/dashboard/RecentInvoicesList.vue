@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { ArrowRight, FileText, Plus } from 'lucide-vue-next';
+import { ArrowRight, FileText, Plus, Calendar, User2, ExternalLink } from 'lucide-vue-next';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { getStatusConfig } from '@/composables/useInvoiceStatus';
@@ -17,96 +17,115 @@ defineProps<Props>();
 </script>
 
 <template>
-    <div class="flex flex-col gap-4">
-        <div class="flex items-center justify-between">
-            <h3 class="text-lg font-semibold">Recent Invoices</h3>
-            <Button variant="ghost" size="sm" as-child>
+    <div class="flex flex-col gap-5">
+        <div class="flex items-center justify-between px-1">
+            <div>
+                <h3 class="text-lg font-bold tracking-tight">Recent Invoices</h3>
+                <p class="text-xs text-muted-foreground font-medium">Manage your latest billing activities</p>
+            </div>
+            <Button variant="outline" size="sm" class="h-9 rounded-lg border-border/60 hover:bg-primary/5 hover:text-primary transition-all" as-child>
                 <Link :href="viewAllUrl">
                     View all
-                    <ArrowRight class="ml-2 h-4 w-4" />
+                    <ArrowRight class="ml-2 h-3.5 w-3.5" />
                 </Link>
             </Button>
         </div>
 
-        <!-- Table or Empty State -->
-        <div
-            v-if="invoices.length > 0"
-            class="overflow-x-auto rounded-xl border border-sidebar-border/70 dark:border-sidebar-border"
-        >
-            <table class="w-full min-w-[600px]">
-                <thead>
-                    <tr
-                        class="border-b border-sidebar-border/70 bg-muted/30 dark:border-sidebar-border"
-                    >
-                        <th class="p-3 text-left text-xs font-medium text-muted-foreground">
-                            INVOICE
-                        </th>
-                        <th class="p-3 text-left text-xs font-medium text-muted-foreground">
-                            CLIENT
-                        </th>
-                        <th class="p-3 text-left text-xs font-medium text-muted-foreground">
-                            STATUS
-                        </th>
-                        <th class="p-3 text-right text-xs font-medium text-muted-foreground">
-                            AMOUNT
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr
-                        v-for="invoice in invoices"
-                        :key="invoice.id"
-                        class="border-b border-sidebar-border/70 transition-colors hover:bg-muted/50 last:border-0 dark:border-sidebar-border"
-                    >
-                        <td class="p-3">
-                            <div class="font-medium">
-                                {{ invoice.number }}
-                            </div>
-                            <div class="text-xs text-muted-foreground">
-                                Due on {{ formatDate(invoice.due_date) }}
-                            </div>
-                        </td>
-                        <td class="p-3">
-                            <div class="font-medium">
-                                {{ invoice.client.name }}
-                            </div>
-                            <div class="text-xs text-muted-foreground">
-                                {{
-                                    invoice.client.company_name ||
-                                    invoice.client.email
-                                }}
-                            </div>
-                        </td>
-                        <td class="p-3">
-                            <Badge
-                                :variant="getStatusConfig(invoice.status).variant"
-                                :class="getStatusConfig(invoice.status).class"
-                            >
-                                {{ getStatusConfig(invoice.status).label }}
-                            </Badge>
-                        </td>
-                        <td class="p-3 text-right font-medium">
-                            {{ formatBRL(invoice.total) }}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div v-if="invoices.length > 0" class="relative overflow-hidden rounded-2xl border border-border/50 bg-card shadow-sm">
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="border-b border-border/50 bg-muted/20">
+                            <th class="h-11 px-4 text-left align-middle text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                                Invoice
+                            </th>
+                            <th class="h-11 px-4 text-left align-middle text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                                Client
+                            </th>
+                            <th class="h-11 px-4 text-left align-middle text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                                Status
+                            </th>
+                            <th class="h-11 px-4 text-right align-middle text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                                Amount
+                            </th>
+                            <th class="h-11 w-10"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-border/40">
+                        <tr 
+                            v-for="invoice in invoices" 
+                            :key="invoice.id"
+                            class="group transition-colors hover:bg-muted/30"
+                        >
+                            <td class="p-4 align-middle">
+                                <div class="flex flex-col gap-1">
+                                    <span class="font-bold text-foreground group-hover:text-primary transition-colors">
+                                        {{ invoice.number }}
+                                    </span>
+                                    <div class="flex items-center gap-1.5 text-xs text-muted-foreground">
+                                        <Calendar class="h-3 w-3" />
+                                        Due {{ formatDate(invoice.due_date) }}
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="p-4 align-middle">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-muted/60 text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+                                        <User2 class="h-4 w-4" />
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="font-semibold text-foreground leading-none">
+                                            {{ invoice.client.name }}
+                                        </span>
+                                        <span class="text-[11px] text-muted-foreground mt-1 truncate max-w-[150px]">
+                                            {{ invoice.client.company_name || invoice.client.email }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="p-4 align-middle">
+                                <Badge
+                                    :variant="getStatusConfig(invoice.status).variant"
+                                    :class="[
+                                        getStatusConfig(invoice.status).class,
+                                        'rounded-md px-2 py-0.5 font-bold text-[10px] uppercase tracking-wider'
+                                    ]"
+                                >
+                                    {{ getStatusConfig(invoice.status).label }}
+                                </Badge>
+                            </td>
+                            <td class="p-4 align-middle text-right">
+                                <span class="font-black text-foreground tracking-tight">
+                                    {{ formatBRL(invoice.total) }}
+                                </span>
+                            </td>
+                            <td class="p-4 align-middle text-right">
+                                <Button size="icon" variant="ghost" class="h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity" as-child>
+                                    <Link :href="`/invoices/${invoice.id}`"> <ExternalLink class="h-4 w-4" />
+                                    </Link>
+                                </Button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <!-- Empty state -->
         <div
             v-else
-            class="flex flex-col items-center justify-center rounded-xl border border-dashed border-sidebar-border/70 p-8 text-center dark:border-sidebar-border"
+            class="group flex flex-col items-center justify-center rounded-4xl border-2 border-dashed border-border/60 p-12 text-center transition-all hover:border-primary/20 bg-muted/5 group"
         >
-            <FileText class="h-12 w-12 text-muted-foreground" />
-            <h3 class="mt-4 text-lg font-medium">No invoices yet</h3>
-            <p class="mt-1 text-sm text-muted-foreground">
-                Start by creating your first invoice
+            <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-background shadow-sm border border-border group-hover:scale-110 transition-transform duration-500">
+                <FileText class="h-8 w-8 text-muted-foreground/60 group-hover:text-primary/60 transition-colors" />
+            </div>
+            <h3 class="mt-6 text-lg font-bold">No invoices generated</h3>
+            <p class="mt-2 text-sm text-muted-foreground max-w-[220px]">
+                Ready to get paid? Create your professional invoice in seconds.
             </p>
-            <Button class="mt-4" as-child>
+            <Button class="mt-8 rounded-full px-8 shadow-lg shadow-primary/20 hover:shadow-primary/30" as-child>
                 <Link :href="createInvoiceUrl">
                     <Plus class="mr-2 h-4 w-4" />
-                    Create Invoice
+                    New Invoice
                 </Link>
             </Button>
         </div>
