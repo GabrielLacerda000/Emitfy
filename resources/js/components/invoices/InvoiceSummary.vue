@@ -22,9 +22,9 @@ defineProps<Props>();
 
         <div class="relative space-y-4">
             <div class="mb-2 flex items-center gap-2">
-                <Calculator class="h-4 w-4 text-muted-foreground/50" />
+                <Calculator class="h-4 w-4" />
                 <h3
-                    class="text-[10px] font-black tracking-[0.2em] text-muted-foreground/70 uppercase"
+                    class="text-[10px] font-black tracking-[0.2em] uppercase"
                 >
                     Financial Summary
                 </h3>
@@ -32,7 +32,7 @@ defineProps<Props>();
 
             <div class="space-y-3">
                 <div class="flex items-center justify-between">
-                    <span class="text-sm font-bold text-muted-foreground italic"
+                    <span class="text-sm font-bold italic"
                         >Subtotal</span
                     >
                     <span class="text-sm font-bold text-foreground">
@@ -41,7 +41,7 @@ defineProps<Props>();
                 </div>
 
                 <div class="flex items-center justify-between">
-                    <span class="text-sm font-bold text-muted-foreground italic"
+                    <span class="text-sm font-bold italic"
                         >Taxes & Fees</span
                     >
                     <span class="text-sm font-bold text-rose-500/80">
@@ -68,7 +68,7 @@ defineProps<Props>();
                             Grand Total
                         </span>
                         <span
-                            class="mt-1 text-xs font-medium text-muted-foreground italic"
+                            class="mt-1 text-xs font-medium italic"
                             >Final amount to receive</span
                         >
                     </div>
@@ -82,16 +82,6 @@ defineProps<Props>();
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div
-            class="-mx-6 mt-6 -mb-6 border-t border-border/20 bg-muted/30 px-6 py-3"
-        >
-            <p
-                class="text-center text-[10px] font-bold tracking-tighter text-muted-foreground/60 uppercase"
-            >
-                Values calculated according to contract terms
-            </p>
         </div>
     </Card>
 </template>

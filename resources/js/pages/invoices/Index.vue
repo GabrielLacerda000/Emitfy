@@ -188,7 +188,7 @@ const thClass =
                     </Button>
                     <Button
                         as-child
-                        class="h-11 rounded-xl bg-primary px-6 font-black shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:shadow-primary/30"
+                        class="h-11 rounded-xl bg-primary px-6 shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:shadow-primary/30"
                     >
                         <Link :href="create().url">
                             <Plus class="mr-2 h-4 w-4" />

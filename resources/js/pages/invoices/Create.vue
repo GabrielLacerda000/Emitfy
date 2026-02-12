@@ -277,7 +277,7 @@ const cardClass =
 
                             <Button
                                 type="button"
-                                class="h-12 rounded-xl bg-primary px-8 font-black text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:shadow-primary/30"
+                                class="h-12 rounded-xl bg-primary px-8 text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:shadow-primary/30"
                                 @click="submitForm('sent')"
                                 :disabled="processing"
                             >

@@ -198,7 +198,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                         <Button
                             type="submit"
                             :disabled="processing"
-                            class="h-12 rounded-xl bg-primary px-8 font-black shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:shadow-primary/30"
+                            class="h-12 rounded-xl bg-primary px-8 shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:shadow-primary/30"
                         >
                             <LoaderCircle v-if="processing" class="mr-2" />
                             Save Client Info
