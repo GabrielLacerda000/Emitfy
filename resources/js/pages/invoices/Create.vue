@@ -242,7 +242,7 @@ const cardClass = "rounded-2xl border border-border/60 bg-background shadow-sm o
                                 @click="submitForm('sent')"
                                 :disabled="processing"
                             >
-                                <Send class="mr-2 h-4 w-4" /> Send Invoice
+                                <Send class="mr-2 h-4 w-4" /> Send
                             </Button>
                         </div>
                     </div>
