@@ -63,6 +63,16 @@ export interface InvoiceFormData {
     items: InvoiceItem[];
 }
 
+export interface CreateInvoiceData {
+    client_id: string | null;
+    issue_date: string;
+    due_date: string;
+    tax: number;
+    notes: string;
+    status: InvoiceStatus;
+    items: InvoiceItem[];
+}
+
 export interface Invoice {
     id: number;
     user_id: number;

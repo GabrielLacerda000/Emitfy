@@ -17,10 +17,11 @@ import {
 } from '@/components/ui/number-field';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { index } from '@/routes/invoices';
+import type {
+    CreateInvoiceData} from '@/types';
 import {
     type BreadcrumbItem,
     type Client,
-    type InvoiceFormData,
 } from '@/types';
 
 type Props = {
@@ -40,7 +41,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-const formData = ref<InvoiceFormData>({
+const formData = ref<CreateInvoiceData>({
     client_id: null,
     issue_date: new Date().toISOString().split('T')[0],
     due_date: new Date().toISOString().split('T')[0],
