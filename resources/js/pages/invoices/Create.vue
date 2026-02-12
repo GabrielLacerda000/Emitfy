@@ -221,7 +221,7 @@ const cardClass = "rounded-2xl border border-border/60 bg-background shadow-sm o
                     <div class="flex items-center justify-between border-t border-border/60 pt-8 mt-4">
                         <Button variant="ghost" as-child class="rounded-xl h-12 px-6 hover:bg-destructive/5 hover:text-destructive transition-colors">
                             <Link :href="index().url">
-                                <X class="mr-2 h-4 w-4" /> Cancelar
+                                <X class="mr-2 h-4 w-4" /> Cancel
                             </Link>
                         </Button>
                         
@@ -233,7 +233,7 @@ const cardClass = "rounded-2xl border border-border/60 bg-background shadow-sm o
                                 @click="submitForm('draft')"
                                 :disabled="processing"
                             >
-                                <Save class="mr-2 h-4 w-4" /> Rascunho
+                                <Save class="mr-2 h-4 w-4" /> Draft
                             </Button>
                             
                             <Button
@@ -242,7 +242,7 @@ const cardClass = "rounded-2xl border border-border/60 bg-background shadow-sm o
                                 @click="submitForm('sent')"
                                 :disabled="processing"
                             >
-                                <Send class="mr-2 h-4 w-4" /> Finalizar Invoice
+                                <Send class="mr-2 h-4 w-4" /> Send Invoice
                             </Button>
                         </div>
                     </div>
