@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { ArrowRight, Plus, User, Users } from 'lucide-vue-next';
+import { ArrowRight, Plus, Users, Mail, Building2 } from 'lucide-vue-next';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { show } from '@/routes/clients';
 import type { Client } from '@/types';
@@ -12,66 +13,85 @@ type Props = {
 };
 
 defineProps<Props>();
+
+// Função para pegar iniciais do nome para o avatar
+const getInitials = (name: string) => {
+    return name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+};
 </script>
 
 <template>
-    <div class="flex flex-col gap-4">
-        <div class="flex items-center justify-between">
-            <h3 class="text-lg font-semibold">Recent Clients</h3>
-            <Button variant="ghost" size="sm" as-child>
+    <div class="flex flex-col gap-6">
+        <div class="flex items-center justify-between px-1">
+            <div>
+                <h3 class="text-lg font-bold tracking-tight text-foreground">Recent Clients</h3>
+                <p class="text-xs text-muted-foreground font-medium">Your latest active partnerships</p>
+            </div>
+            <Button variant="outline" size="sm" class="h-9 rounded-lg border-border/60 hover:bg-primary/5 hover:text-primary transition-all" as-child>
                 <Link :href="viewAllUrl">
-                    Manage Clients
-                    <ArrowRight class="ml-2 h-4 w-4" />
+                    Manage All
+                    <ArrowRight class="ml-2 h-3.5 w-3.5" />
                 </Link>
             </Button>
         </div>
 
-        <!-- Clients list or Empty State -->
-        <div v-if="clients.length > 0" class="flex flex-col gap-2">
+        <div v-if="clients.length > 0" class="grid gap-3">
             <Link
                 v-for="client in clients"
                 :key="client.id"
                 :href="show({ client: client.id }).url"
-                class="group flex items-center justify-between rounded-xl border border-sidebar-border/70 p-4 transition-colors hover:bg-muted/50 dark:border-sidebar-border cursor-pointer"
+                class="group relative flex items-center justify-between rounded-2xl border border-border/40 bg-card p-4 transition-all duration-300 hover:border-primary/30 hover:shadow-md hover:shadow-primary/5 hover:-translate-y-0.5 cursor-pointer overflow-hidden"
             >
-                <div class="flex items-center gap-3">
-                    <div
-                        class="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10"
-                    >
-                        <User class="h-5 w-5 text-primary" />
+                <div class="absolute inset-0 bg-linear-to-r from-primary/3 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                <div class="relative flex items-center gap-4">
+                    <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary font-bold text-sm transition-transform group-hover:scale-105">
+                        {{ getInitials(client.name) }}
                     </div>
 
-                    <div>
-                        <div class="font-medium">{{ client.name }}</div>
-                        <div class="text-sm text-muted-foreground">
-                            {{ client.company_name || client.email }}
+                    <div class="flex flex-col">
+                        <span class="font-bold text-foreground group-hover:text-primary transition-colors">
+                            {{ client.name }}
+                        </span>
+                        <div class="flex items-center gap-3 text-xs text-muted-foreground mt-0.5">
+                            <span v-if="client.company_name" class="flex items-center gap-1">
+                                <Building2 class="h-3 w-3" /> {{ client.company_name }}
+                            </span>
+                            <span v-else class="flex items-center gap-1">
+                                <Mail class="h-3 w-3" /> {{ client.email }}
+                            </span>
                         </div>
                     </div>
                 </div>
 
-                <div class="flex items-center gap-2 text-sm text-muted-foreground">
-                    <span>{{ client.invoices_count }} invoices</span>
-                    <ArrowRight
-                        class="h-4 w-4 transition-transform group-hover:translate-x-1"
-                    />
+                <div class="relative flex items-center gap-4">
+                    <div class="hidden sm:flex flex-col items-end gap-1">
+                        <Badge variant="secondary" class="bg-muted/50 font-semibold group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+                            {{ client.invoices_count }} {{ client.invoices_count === 1 ? 'invoice' : 'invoices' }}
+                        </Badge>
+                    </div>
+                    <div class="h-8 w-8 flex items-center justify-center rounded-full border border-border/50 group-hover:border-primary/30 group-hover:bg-primary/5 transition-all">
+                        <ArrowRight class="h-4 w-4 text-muted-foreground group-hover:text-primary transition-transform group-hover:translate-x-0.5" />
+                    </div>
                 </div>
             </Link>
         </div>
 
-        <!-- Empty state -->
         <div
             v-else
-            class="flex flex-col items-center justify-center rounded-xl border border-dashed border-sidebar-border/70 p-8 text-center dark:border-sidebar-border"
+            class="group flex flex-col items-center justify-center rounded-4xl border-2 border-dashed border-border/60 p-12 text-center transition-colors hover:border-primary/30 bg-muted/20"
         >
-            <Users class="h-12 w-12 text-muted-foreground" />
-            <h3 class="mt-4 text-lg font-medium">No clients yet</h3>
-            <p class="mt-1 text-sm text-muted-foreground">
-                Add your first client to get started
+            <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-background shadow-sm border border-border group-hover:scale-110 transition-transform duration-500">
+                <Users class="h-8 w-8 text-muted-foreground/60" />
+            </div>
+            <h3 class="mt-6 text-xl font-bold">Your client list is empty</h3>
+            <p class="mt-2 text-sm text-muted-foreground max-w-[200px]">
+                Ready to send your first professional invoice?
             </p>
-            <Button class="mt-4" as-child>
+            <Button class="mt-8 rounded-full px-8 shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all" as-child>
                 <Link :href="manageClientsUrl">
                     <Plus class="mr-2 h-4 w-4" />
-                    Add Client
+                    Add Your First Client
                 </Link>
             </Button>
         </div>
