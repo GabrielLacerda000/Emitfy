@@ -1,93 +1,82 @@
 <script setup lang="ts">
+import { Check, Info } from 'lucide-vue-next';
 import { Button } from '@/components/ui/button';
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from '@/components/ui/card';
-import { Check, X } from 'lucide-vue-next';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 defineProps<{
     name: string;
     price: string;
     description: string;
-    features: Array<{ text: string; included: boolean }>;
+    features: Array<{ text: string; included: boolean; info?: string }>;
     cta: string;
     ctaHref: string;
     highlighted?: boolean;
+    savings?: string; // Ex: "Save 20%" ou "Matemática pronta"
 }>();
 </script>
 
 <template>
     <Card
         :class="[
-            'relative h-full transition-shadow hover:shadow-lg',
+            'relative flex flex-col transition-all duration-300',
             highlighted
-                ? 'border-primary/50 shadow-md ring-2 ring-primary/20'
-                : 'border-border/40',
+                ? 'border-primary shadow-2xl shadow-primary/10 ring-1 ring-primary scale-105 z-10'
+                : 'border-border/60 opacity-90 lg:translate-y-4',
         ]"
     >
-        <div
-            v-if="highlighted"
-            class="absolute -top-4 left-1/2 -translate-x-1/2"
-        >
-            <span
-                class="inline-block rounded-full bg-primary px-4 py-1 text-xs font-semibold text-primary-foreground"
-            >
-                Most Popular
+        <div v-if="highlighted || savings" class="absolute -top-4 left-0 right-0 flex justify-center">
+            <span :class="[
+                'rounded-full px-4 py-1 text-xs font-bold uppercase tracking-tighter shadow-sm',
+                highlighted ? 'bg-primary text-primary-foreground' : 'bg-emerald-500 text-white'
+            ]">
+                {{ highlighted ? 'Most Popular' : savings }}
             </span>
         </div>
-        <CardHeader class="text-center">
-            <CardTitle class="text-2xl">{{ name }}</CardTitle>
-            <div class="mt-4">
-                <span class="text-4xl font-bold">{{ price }}</span>
-                <span
-                    v-if="price !== 'Free'"
-                    class="text-muted-foreground"
-                    >/month</span
-                >
+
+        <CardHeader class="space-y-2 pb-8">
+            <CardTitle class="text-xl font-bold">{{ name }}</CardTitle>
+            <div class="flex items-baseline gap-1">
+                <span class="text-4xl font-extrabold tracking-tight">{{ price }}</span>
+                <span v-if="price !== 'Free'" class="text-muted-foreground font-medium text-sm">/month</span>
             </div>
-            <CardDescription class="mt-2">{{ description }}</CardDescription>
+            <p class="text-sm text-muted-foreground leading-relaxed">{{ description }}</p>
         </CardHeader>
-        <CardContent>
-            <ul class="space-y-3">
-                <li
-                    v-for="(feature, index) in features"
-                    :key="index"
-                    class="flex items-start gap-3"
-                >
-                    <component
-                        :is="feature.included ? Check : X"
-                        :class="[
-                            'mt-0.5 h-5 w-5 flex-shrink-0',
-                            feature.included
-                                ? 'text-primary'
-                                : 'text-muted-foreground/40',
-                        ]"
-                    />
-                    <span
-                        :class="[
-                            'text-sm',
-                            feature.included
-                                ? 'text-foreground'
-                                : 'text-muted-foreground/60 line-through',
-                        ]"
-                    >
-                        {{ feature.text }}
-                    </span>
+
+        <CardContent class="grow border-t border-border/40 pt-8">
+            <ul class="space-y-4">
+                <li v-for="(feature, index) in features" :key="index" class="flex items-start gap-3">
+                    <div :class="['mt-1 rounded-full p-0.5', feature.included ? 'bg-primary/10 text-primary' : 'text-muted-foreground/30']">
+                        <Check v-if="feature.included" class="h-3.5 w-3.5" />
+                        <span v-else class="block w-3.5 h-px bg-current"></span>
+                    </div>
+                    
+                    <div class="flex items-center gap-1.5">
+                        <span :class="['text-sm', feature.included ? 'text-foreground/90 font-medium' : 'text-muted-foreground/60 line-through decoration-1']">
+                            {{ feature.text }}
+                        </span>
+                        
+                        <TooltipProvider v-if="feature.info">
+                            <Tooltip>
+                                <TooltipTrigger><Info class="h-3.5 w-3.5 text-muted-foreground/50" /></TooltipTrigger>
+                                <TooltipContent>{{ feature.info }}</TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                    </div>
                 </li>
             </ul>
         </CardContent>
-        <CardFooter>
+
+        <CardFooter class="pt-6">
             <Button
-                :variant="highlighted ? 'default' : 'outline'"
-                class="w-full"
+                :variant="highlighted ? 'default' : 'secondary'"
+                class="w-full h-12 text-md font-bold transition-all hover:gap-3 group"
                 as-child
             >
-                <a :href="ctaHref">{{ cta }}</a>
+                <a :href="ctaHref">
+                    {{ cta }}
+                    <span class="opacity-0 group-hover:opacity-100 transition-all">→</span>
+                </a>
             </Button>
         </CardFooter>
     </Card>

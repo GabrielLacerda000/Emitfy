@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import LpSection from './LpSection.vue';
 import LpFaqItem from './LpFaqItem.vue';
+import LpSection from './LpSection.vue';
 </script>
 
 <template>

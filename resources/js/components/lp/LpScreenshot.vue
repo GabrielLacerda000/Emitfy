@@ -4,7 +4,7 @@ import LpSection from './LpSection.vue';
 </script>
 
 <template>
-    <LpSection>
+    <LpSection id="demo">
         <div class="text-center mb-12">
             <h2 class="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl mb-4">
                 Everything You Need in One Beautiful Dashboard
@@ -17,7 +17,7 @@ import LpSection from './LpSection.vue';
 
         <div class="max-w-6xl mx-auto">
             <div
-                class="relative w-full aspect-[16/10] rounded-xl overflow-hidden border border-border/40 bg-card shadow-2xl"
+                class="relative w-full aspect-16/10 rounded-xl overflow-hidden border border-border/40 bg-card shadow-2xl"
             >
                 <PlaceholderPattern />
                 <div class="absolute inset-0 flex items-center justify-center">

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Clock, TrendingUp, Search, Award, Zap } from 'lucide-vue-next';
-import LpSection from './LpSection.vue';
 import LpFeatureCard from './LpFeatureCard.vue';
+import LpSection from './LpSection.vue';
 </script>
 
 <template>
