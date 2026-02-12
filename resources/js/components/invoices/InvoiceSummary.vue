@@ -15,11 +15,11 @@ defineProps<Props>();
     <Card class="p-6">
         <div class="space-y-3">
             <div class="flex items-center justify-between text-sm">
-                <span class="text-muted-foreground">Subtotal</span>
+                <span class="text-base">Subtotal</span>
                 <span class="font-medium">{{ formatBRL(subtotal) }}</span>
             </div>
             <div class="flex items-center justify-between text-sm">
-                <span class="text-muted-foreground">Tax</span>
+                <span class="text-base">Tax</span>
                 <span class="font-medium">{{ formatBRL(tax) }}</span>
             </div>
             <div

@@ -301,7 +301,7 @@ function submitForm() {
                                 <div class="grid gap-2">
                                     <Label
                                         class="ml-1 text-[10px] font-black tracking-widest text-muted-foreground/80 uppercase"
-                                        >Tax Amount (%)</Label
+                                        >Tax Amount</Label
                                     >
                                     <NumberField
                                         v-model="formData.tax"
