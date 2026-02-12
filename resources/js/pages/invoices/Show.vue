@@ -342,52 +342,100 @@ function sendInvoice() {
                             </CardContent>
                         </Card>
 
-                        <Card class="rounded-3xl border-none shadow-sm">
-                            <CardContent class="space-y-4 pt-6">
+                        <Card
+                            class="group overflow-hidden rounded-3xl border-none bg-background shadow-sm"
+                        >
+                            <CardContent class="space-y-5 p-6">
+                                <div class="mb-1 flex items-center gap-2">
+                                    <History
+                                        class="h-3.5 w-3.5 text-muted-foreground/50"
+                                    />
+                                    <h3
+                                        class="text-[10px] font-black tracking-[0.2em] text-muted-foreground/70 uppercase"
+                                    >
+                                        Billing Timeline
+                                    </h3>
+                                </div>
+
                                 <div
-                                    class="flex items-center justify-between text-sm"
+                                    class="group/item flex items-center justify-between"
                                 >
                                     <span
-                                        class="flex items-center gap-2 text-muted-foreground italic"
+                                        class="flex items-center gap-2 text-[11px] font-bold tracking-wider text-muted-foreground uppercase italic"
                                     >
-                                        <Calendar class="h-4 w-4 opacity-50" />
+                                        <Calendar
+                                            class="h-3.5 w-3.5 text-primary/40 transition-colors group-hover/item:text-primary"
+                                        />
                                         Issued
                                     </span>
-                                    <span class="font-bold">{{
-                                        formatDate(invoice.issue_date)
-                                    }}</span>
+                                    <span
+                                        class="text-sm font-black text-foreground"
+                                    >
+                                        {{ formatDate(invoice.issue_date) }}
+                                    </span>
                                 </div>
+
                                 <div
-                                    class="flex items-center justify-between text-sm"
+                                    class="group/item flex items-center justify-between"
                                 >
                                     <span
-                                        class="flex items-center gap-2 text-muted-foreground italic"
+                                        class="flex items-center gap-2 text-[11px] font-bold tracking-wider text-muted-foreground uppercase italic"
                                     >
-                                        <Clock class="h-4 w-4 opacity-50" /> Due
+                                        <Clock
+                                            class="h-3.5 w-3.5 text-primary/40 transition-colors group-hover/item:text-primary"
+                                        />
+                                        Due Date
                                     </span>
                                     <span
                                         :class="[
-                                            'font-bold',
+                                            'text-sm font-black transition-colors',
                                             invoice.status === 'overdue'
-                                                ? 'text-destructive'
-                                                : '',
+                                                ? 'rounded-lg bg-destructive/10 px-2 py-0.5 text-destructive'
+                                                : 'text-foreground',
                                         ]"
                                     >
                                         {{ formatDate(invoice.due_date) }}
                                     </span>
                                 </div>
+
                                 <div
                                     v-if="invoice.paid_at"
-                                    class="mt-2 flex items-center justify-between border-t pt-2 text-sm text-emerald-600"
+                                    class="relative mt-4 border-t border-dashed border-border/60 pt-4"
+                                >
+                                    <div
+                                        class="absolute -top-[5px] left-1/2 -translate-x-1/2 bg-background px-2"
+                                    >
+                                        <div
+                                            class="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"
+                                        />
+                                    </div>
+
+                                    <div
+                                        class="flex items-center justify-between"
+                                    >
+                                        <span
+                                            class="flex items-center gap-2 text-[11px] font-black tracking-widest text-emerald-600 uppercase italic"
+                                        >
+                                            <CheckCircle2 class="h-3.5 w-3.5" />
+                                            Paid on
+                                        </span>
+                                        <span
+                                            class="text-sm font-black text-emerald-600"
+                                        >
+                                            {{ formatDate(invoice.paid_at) }}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div
+                                    v-else-if="invoice.status === 'overdue'"
+                                    class="pt-2 text-right"
                                 >
                                     <span
-                                        class="flex items-center gap-2 font-medium italic"
+                                        class="animate-pulse text-[9px] font-black tracking-tighter text-destructive uppercase"
                                     >
-                                        <CheckCircle2 class="h-4 w-4" /> Paid at
+                                        Payment is delayed
                                     </span>
-                                    <span class="font-black">{{
-                                        formatDate(invoice.paid_at)
-                                    }}</span>
                                 </div>
                             </CardContent>
                         </Card>
