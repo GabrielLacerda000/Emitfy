@@ -23,7 +23,9 @@ withDefaults(
 </script>
 
 <template>
-    <Head title="Professional Invoice Management for Freelancers & Small Business">
+    <Head
+        title="Professional Invoice Management for Freelancers & Small Business"
+    >
         <meta
             name="description"
             content="Create professional invoices, track payments, and get paid 40% faster. Emitte helps freelancers and small businesses save 10+ hours monthly on invoice management."
@@ -44,7 +46,7 @@ withDefaults(
         <header
             class="sticky top-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-lg"
         >
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex h-16 items-center justify-between">
                     <!-- Logo -->
                     <Link href="/" class="flex items-center gap-2">
@@ -65,22 +67,22 @@ withDefaults(
                     </Link>
 
                     <!-- Navigation -->
-                    <nav class="hidden md:flex items-center gap-6">
+                    <nav class="hidden items-center gap-6 md:flex">
                         <a
                             href="#how-it-works"
-                            class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                            class="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
                         >
                             How It Works
                         </a>
                         <a
                             href="#pricing"
-                            class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                            class="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
                         >
                             Pricing
                         </a>
                         <a
                             href="#faq"
-                            class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                            class="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
                         >
                             FAQ
                         </a>
@@ -109,7 +111,7 @@ withDefaults(
         <!-- Main Content -->
         <main>
             <LpHero />
-        <LpProblem />
+            <LpProblem />
             <LpHowItWorks />
             <LpBenefits />
             <LpScreenshot />

@@ -33,17 +33,19 @@ import LpSection from './LpSection.vue';
                 </div> -->
 
                 <h1
-                    class="text-5xl leading-[1.1] font-extrabold tracking-tight sm:text-6xl lg:text-7xl"
+                    class="text-5xl leading-[1.2] font-extrabold tracking-tight sm:text-6xl lg:text-7xl"
                 >
                     Invoice Like <br />
                     <span
-                        class="bg-linear-to-r from-primary to-indigo-600 bg-clip-text text-transparent italic"
-                        >a Pro</span
+                        class="bg-linear-to-r from-primary to-indigo-600 bg-clip-text pr-2 text-transparent italic"
+                    >
+                        a Pro </span
                     >, Get Paid
                     <span
                         class="underline decoration-primary/30 underline-offset-8"
-                        >Faster.</span
                     >
+                        Faster.
+                    </span>
                 </h1>
 
                 <p
@@ -117,7 +119,7 @@ import LpSection from './LpSection.vue';
                         ></div>
                     </div>
 
-                    <div class="relative flex-1 w-full bg-muted/20">
+                    <div class="relative w-full flex-1 bg-muted/20">
                         <img
                             src="/images/dash.png"
                             alt="Emitte dashboard preview"
