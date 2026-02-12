@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Head, Link, router } from '@inertiajs/vue3';
-import { computed, ref, watch } from 'vue';
+import { Calendar, User, FileText, Percent, Save, Send, X } from 'lucide-vue-next';
+import { computed, ref } from 'vue';
 import InvoiceController from '@/actions/App/Http/Controllers/InvoiceController';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
@@ -8,7 +9,6 @@ import ClientSelector from '@/components/invoices/ClientSelector.vue';
 import InvoiceItemsTable from '@/components/invoices/InvoiceItemsTable.vue';
 import InvoiceSummary from '@/components/invoices/InvoiceSummary.vue';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import {
     NumberField,
@@ -17,12 +17,7 @@ import {
 } from '@/components/ui/number-field';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { index } from '@/routes/invoices';
-import type {
-    CreateInvoiceData} from '@/types';
-import {
-    type BreadcrumbItem,
-    type Client,
-} from '@/types';
+import type { CreateInvoiceData, BreadcrumbItem, Client } from '@/types';
 
 type Props = {
     clients: Client[];
@@ -31,14 +26,8 @@ type Props = {
 const props = defineProps<Props>();
 
 const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Invoices',
-        href: index().url,
-    },
-    {
-        title: 'New Invoice',
-        href: '#',
-    },
+    { title: 'Invoices', href: index().url },
+    { title: 'New Invoice', href: '#' },
 ];
 
 const formData = ref<CreateInvoiceData>({
@@ -49,12 +38,7 @@ const formData = ref<CreateInvoiceData>({
     notes: '',
     status: 'draft',
     items: [
-        {
-            description: '',
-            quantity: 1,
-            unit_price: 0,
-            total: 0,
-        },
+        { description: '', quantity: 1, unit_price: 0, total: 0 },
     ],
 });
 
@@ -63,9 +47,7 @@ const processing = ref(false);
 
 const subtotal = computed(() => {
     return formData.value.items
-        .reduce((sum, item) => {
-            return sum + (Number(item.total) || 0);
-        }, 0)
+        .reduce((sum, item) => sum + (Number(item.total) || 0), 0)
         .toFixed(2);
 });
 
@@ -74,18 +56,6 @@ const total = computed(() => {
 });
 
 const clients = ref(props.clients);
-
-// Debug: Watch client_id changes
-watch(
-    () => formData.value.client_id,
-    (newValue, oldValue) => {
-        console.log('[Create] client_id changed:', {
-            oldValue,
-            newValue,
-            type: typeof newValue,
-        });
-    },
-);
 
 function handleClientCreated(client: Client) {
     clients.value.push(client);
@@ -98,7 +68,6 @@ function submitForm(status: 'draft' | 'sent') {
 
     router.post(InvoiceController.store.url(), formData.value, {
         onError: (errs) => {
-            console.log('[Create] Submission errors:', errs);
             errors.value = errs;
         },
         onFinish: () => {
@@ -106,28 +75,38 @@ function submitForm(status: 'draft' | 'sent') {
         },
     });
 }
+
+// Estilo comum para as labels (mesmo estilo do cabeçalho da tabela)
+const labelClass = "flex items-center gap-2 text-[10px] font-black tracking-[0.2em] text-muted-foreground/80 uppercase mb-2";
+// Estilo comum para os cards
+const cardClass = "rounded-2xl border border-border/60 bg-background shadow-sm overflow-hidden";
 </script>
 
 <template>
     <Head title="New Invoice" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="flex h-full flex-1 flex-col gap-4 p-4">
+        <div class="flex h-full flex-1 flex-col gap-6 p-6 bg-muted/5">
             <div class="mx-auto w-full max-w-4xl">
-                <Heading
-                    title="New Invoice"
-                    description="Create a new invoice for a client"
-                />
+                <div class="mb-8 flex flex-col gap-2">
+                    <Heading
+                        title="New Invoice"
+                        description="Craft a beautiful invoice for your client"
+                    />
+                </div>
 
-                <form class="mt-6 space-y-6" @submit.prevent>
-                    <!-- Client & Dates -->
-                    <Card class="p-6">
-                        <h3 class="mb-4 text-lg font-semibold">
-                            Client & Dates
-                        </h3>
-                        <div class="grid gap-6 md:grid-cols-2">
+                <form class="space-y-8" @submit.prevent>
+                    
+                    <div :class="cardClass">
+                        <div class="border-b border-border/60 bg-muted/30 px-6 py-4">
+                            <h3 class="flex items-center gap-2 text-sm font-bold tracking-tight">
+                                <User class="h-4 w-4 text-primary" /> Client Details & Timeline
+                            </h3>
+                        </div>
+                        
+                        <div class="p-6 grid gap-8 md:grid-cols-2">
                             <div class="grid gap-2 md:col-span-2">
-                                <Label for="client_id">Client</Label>
+                                <Label :class="labelClass">Select Client</Label>
                                 <ClientSelector
                                     v-model="formData.client_id"
                                     :clients="clients"
@@ -137,110 +116,135 @@ function submitForm(status: 'draft' | 'sent') {
                             </div>
 
                             <div class="grid gap-2">
-                                <Label for="issue_date">Issue Date</Label>
+                                <Label :class="labelClass" for="issue_date">
+                                    <Calendar class="h-3 w-3" /> Issue Date
+                                </Label>
                                 <input
                                     id="issue_date"
                                     v-model="formData.issue_date"
                                     type="date"
                                     required
-                                    class="w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm dark:bg-input/30"
+                                    class="h-11 w-full rounded-xl border border-border/40 bg-muted/20 px-4 text-sm transition-all focus:bg-background focus:ring-2 focus:ring-primary/20 outline-none"
                                 />
                                 <InputError :message="errors.issue_date" />
                             </div>
 
                             <div class="grid gap-2">
-                                <Label for="due_date">Due Date</Label>
+                                <Label :class="labelClass" for="due_date">
+                                    <Calendar class="h-3 w-3" /> Due Date
+                                </Label>
                                 <input
                                     id="due_date"
                                     v-model="formData.due_date"
                                     type="date"
                                     required
-                                    class="w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm dark:bg-input/30"
+                                    class="h-11 w-full rounded-xl border border-border/40 bg-muted/20 px-4 text-sm transition-all focus:bg-background focus:ring-2 focus:ring-primary/20 outline-none"
                                 />
                                 <InputError :message="errors.due_date" />
                             </div>
                         </div>
-                    </Card>
+                    </div>
 
-                    <!-- Line Items -->
-                    <Card class="p-6">
-                        <h3 class="mb-4 text-lg font-semibold">Line Items</h3>
-                        <InvoiceItemsTable
-                            v-model="formData.items"
-                            :errors="errors"
-                        />
-                        <InputError :message="errors.items" class="mt-2" />
-                    </Card>
+                    <div :class="cardClass">
+                        <div class="border-b border-border/60 bg-muted/30 px-6 py-4">
+                            <h3 class="flex items-center gap-2 text-sm font-bold tracking-tight">
+                                <FileText class="h-4 w-4 text-primary" /> Invoice Items
+                            </h3>
+                        </div>
+                        <div class="p-0"> <InvoiceItemsTable
+                                v-model="formData.items"
+                                :errors="errors"
+                            />
+                        </div>
+                        <div v-if="errors.items" class="p-4 border-t border-destructive/20 bg-destructive/5 text-center">
+                            <InputError :message="errors.items" />
+                        </div>
+                    </div>
 
-                    <!-- Additional Details -->
-                    <Card class="p-6">
-                        <h3 class="mb-4 text-lg font-semibold">
-                            Additional Details
-                        </h3>
-                        <div class="space-y-6">
-                            <div class="grid gap-2">
-                                <Label for="tax">Tax Amount</Label>
-                                <NumberField
-                                    v-model="formData.tax"
-                                    :min="0"
-                                    :step="0.01"
-                                    :format-options="{
-                                        style: 'currency',
-                                        currency: 'BRL',
-                                    }"
-                                >
-                                    <NumberFieldContent>
-                                        <NumberFieldInput
-                                            id="tax"
-                                            placeholder="R$ 0,00"
-                                        />
-                                    </NumberFieldContent>
-                                </NumberField>
-                                <InputError :message="errors.tax" />
-                            </div>
-
-                            <div class="grid gap-2">
-                                <Label for="notes">Notes</Label>
-                                <textarea
-                                    id="notes"
-                                    v-model="formData.notes"
-                                    rows="4"
-                                    placeholder="Additional notes for this invoice (optional)"
-                                    class="w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm dark:bg-input/30"
-                                />
-                                <InputError :message="errors.notes" />
+                    <div class="grid gap-8 md:grid-cols-5">
+                        <div class="md:col-span-3 space-y-8">
+                            <div :class="cardClass">
+                                <div class="px-6 py-4 border-b border-border/60 bg-muted/30">
+                                    <Label :class="labelClass" class="mb-0">Notes & Terms</Label>
+                                </div>
+                                <div class="p-6">
+                                    <textarea
+                                        id="notes"
+                                        v-model="formData.notes"
+                                        rows="5"
+                                        placeholder="Add any specific instructions or thank you notes..."
+                                        class="w-full rounded-xl border border-border/40 bg-muted/20 p-4 text-sm transition-all focus:bg-background focus:ring-2 focus:ring-primary/20 outline-none resize-none"
+                                    />
+                                    <InputError :message="errors.notes" />
+                                </div>
                             </div>
                         </div>
-                    </Card>
 
-                    <!-- Summary -->
-                    <InvoiceSummary
-                        :subtotal="subtotal"
-                        :tax="formData.tax"
-                        :total="total"
-                    />
+                        <div class="md:col-span-2">
+                            <div :class="cardClass" class="h-full">
+                                <div class="px-6 py-4 border-b border-border/60 bg-muted/30">
+                                    <Label :class="labelClass" class="mb-0">Financial Summary</Label>
+                                </div>
+                                <div class="p-6 space-y-6">
+                                    <div class="grid gap-2">
+                                        <Label :class="labelClass" for="tax">
+                                            <Percent class="h-3 w-3" /> Adjustments / Tax
+                                        </Label>
+                                        <NumberField
+                                            v-model="formData.tax"
+                                            :min="0"
+                                            :step="0.01"
+                                            :format-options="{ style: 'currency', currency: 'BRL' }"
+                                        >
+                                            <NumberFieldContent>
+                                                <NumberFieldInput
+                                                    id="tax"
+                                                    class="h-11 rounded-xl border-border/40 bg-muted/20 text-center font-bold focus:bg-background"
+                                                />
+                                            </NumberFieldContent>
+                                        </NumberField>
+                                        <InputError :message="errors.tax" />
+                                    </div>
+                                    
+                                    <div class="pt-4 border-t border-border/60">
+                                        <InvoiceSummary
+                                            :subtotal="subtotal"
+                                            :tax="formData.tax"
+                                            :total="total"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                    <!-- Actions -->
-                    <div class="flex items-center gap-4">
-                        <Button
-                            type="button"
-                            @click="submitForm('draft')"
-                            :disabled="processing"
-                        >
-                            Save as Draft
+                    <div class="flex items-center justify-between border-t border-border/60 pt-8 mt-4">
+                        <Button variant="ghost" as-child class="rounded-xl h-12 px-6 hover:bg-destructive/5 hover:text-destructive transition-colors">
+                            <Link :href="index().url">
+                                <X class="mr-2 h-4 w-4" /> Cancelar
+                            </Link>
                         </Button>
-                        <Button
-                            type="button"
-                            variant="default"
-                            @click="submitForm('sent')"
-                            :disabled="processing"
-                            class="cursor-pointer"
-                        >
-                            Save & Send
-                        </Button>
-                        <Button variant="ghost" as-child>
-                            <Link :href="index().url">Cancel</Link>
-                        </Button>
+                        
+                        <div class="flex items-center gap-3">
+                            <Button
+                                type="button"
+                                variant="outline"
+                                class="h-12 px-6 rounded-xl border-2 font-bold transition-all hover:bg-muted"
+                                @click="submitForm('draft')"
+                                :disabled="processing"
+                            >
+                                <Save class="mr-2 h-4 w-4" /> Rascunho
+                            </Button>
+                            
+                            <Button
+                                type="button"
+                                class="h-12 px-8 rounded-xl font-black bg-primary text-primary-foreground shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all hover:-translate-y-0.5"
+                                @click="submitForm('sent')"
+                                :disabled="processing"
+                            >
+                                <Send class="mr-2 h-4 w-4" /> Finalizar Invoice
+                            </Button>
+                        </div>
                     </div>
                 </form>
             </div>
