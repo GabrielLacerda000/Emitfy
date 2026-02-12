@@ -157,43 +157,6 @@ function updateItem(
                             <td class="px-6 py-4 text-center align-top">
                                 <div
                                     v-if="!readonly"
-                                    class="mx-auto space-y-1.5"
-                                >
-                                    <NumberField
-                                        :model-value="item.quantity"
-                                        @update:model-value="
-                                            (val) =>
-                                                updateItem(
-                                                    index,
-                                                    'quantity',
-                                                    val,
-                                                )
-                                        "
-                                        :min="1"
-                                    >
-                                        <NumberFieldContent>
-                                            <NumberFieldInput
-                                                class="h-10 rounded-xl border-border/40 bg-muted/20 text-center focus-visible:bg-background"
-                                            />
-                                        </NumberFieldContent>
-                                    </NumberField>
-                                    <InputError
-                                        :message="
-                                            errors?.[`items.${index}.quantity`]
-                                        "
-                                    />
-                                </div>
-                                <span
-                                    v-else
-                                    class="text-sm font-black text-muted-foreground/80 italic"
-                                >
-                                    {{ item.quantity }}x
-                                </span>
-                            </td>
-
-                            <td class="px-6 py-4 text-center align-top">
-                                <div
-                                    v-if="!readonly"
                                     class="mx-auto max-w-[100px] space-y-1.5"
                                 >
                                     <NumberField

@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import { Head, Link, router } from '@inertiajs/vue3';
-import { Calendar, User, FileText, Percent, Save, Send, X } from 'lucide-vue-next';
+import {
+    Calendar,
+    User,
+    FileText,
+    Percent,
+    Save,
+    Send,
+    X,
+} from 'lucide-vue-next';
 import { computed, ref } from 'vue';
 import InvoiceController from '@/actions/App/Http/Controllers/InvoiceController';
 import Heading from '@/components/Heading.vue';
@@ -37,9 +45,7 @@ const formData = ref<CreateInvoiceData>({
     tax: 0,
     notes: '',
     status: 'draft',
-    items: [
-        { description: '', quantity: 1, unit_price: 0, total: 0 },
-    ],
+    items: [{ description: '', quantity: 1, unit_price: 0, total: 0 }],
 });
 
 const errors = ref<Record<string, string>>({});
@@ -77,16 +83,18 @@ function submitForm(status: 'draft' | 'sent') {
 }
 
 // Estilo comum para as labels (mesmo estilo do cabeçalho da tabela)
-const labelClass = "flex items-center gap-2 text-[10px] font-black tracking-[0.2em] text-muted-foreground/80 uppercase mb-2";
+const labelClass =
+    'flex items-center gap-2 text-[10px] font-black tracking-[0.2em] text-muted-foreground/80 uppercase mb-2';
 // Estilo comum para os cards
-const cardClass = "rounded-2xl border border-border/60 bg-background shadow-sm overflow-hidden";
+const cardClass =
+    'rounded-2xl border border-border/60 bg-background shadow-sm overflow-hidden';
 </script>
 
 <template>
     <Head title="New Invoice" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="flex h-full flex-1 flex-col gap-6 p-6 bg-muted/5">
+        <div class="flex h-full flex-1 flex-col gap-6 bg-muted/5 p-6">
             <div class="mx-auto w-full max-w-4xl">
                 <div class="mb-8 flex flex-col gap-2">
                     <Heading
@@ -96,15 +104,19 @@ const cardClass = "rounded-2xl border border-border/60 bg-background shadow-sm o
                 </div>
 
                 <form class="space-y-8" @submit.prevent>
-                    
                     <div :class="cardClass">
-                        <div class="border-b border-border/60 bg-muted/30 px-6 py-4">
-                            <h3 class="flex items-center gap-2 text-sm font-bold tracking-tight">
-                                <User class="h-4 w-4 text-primary" /> Client Details & Timeline
+                        <div
+                            class="border-b border-border/60 bg-muted/30 px-6 py-4"
+                        >
+                            <h3
+                                class="flex items-center gap-2 text-sm font-bold tracking-tight"
+                            >
+                                <User class="h-4 w-4 text-primary" /> Client
+                                Details & Timeline
                             </h3>
                         </div>
-                        
-                        <div class="p-6 grid gap-8 md:grid-cols-2">
+
+                        <div class="grid gap-8 p-6 md:grid-cols-2">
                             <div class="grid gap-2 md:col-span-2">
                                 <Label :class="labelClass">Select Client</Label>
                                 <ClientSelector
@@ -124,7 +136,7 @@ const cardClass = "rounded-2xl border border-border/60 bg-background shadow-sm o
                                     v-model="formData.issue_date"
                                     type="date"
                                     required
-                                    class="h-11 w-full rounded-xl border border-border/40 bg-muted/20 px-4 text-sm transition-all focus:bg-background focus:ring-2 focus:ring-primary/20 outline-none"
+                                    class="h-11 w-full rounded-xl border border-border/40 bg-muted/20 px-4 text-sm transition-all outline-none focus:bg-background focus:ring-2 focus:ring-primary/20"
                                 />
                                 <InputError :message="errors.issue_date" />
                             </div>
@@ -138,7 +150,7 @@ const cardClass = "rounded-2xl border border-border/60 bg-background shadow-sm o
                                     v-model="formData.due_date"
                                     type="date"
                                     required
-                                    class="h-11 w-full rounded-xl border border-border/40 bg-muted/20 px-4 text-sm transition-all focus:bg-background focus:ring-2 focus:ring-primary/20 outline-none"
+                                    class="h-11 w-full rounded-xl border border-border/40 bg-muted/20 px-4 text-sm transition-all outline-none focus:bg-background focus:ring-2 focus:ring-primary/20"
                                 />
                                 <InputError :message="errors.due_date" />
                             </div>
@@ -146,26 +158,39 @@ const cardClass = "rounded-2xl border border-border/60 bg-background shadow-sm o
                     </div>
 
                     <div :class="cardClass">
-                        <div class="border-b border-border/60 bg-muted/30 px-6 py-4">
-                            <h3 class="flex items-center gap-2 text-sm font-bold tracking-tight">
-                                <FileText class="h-4 w-4 text-primary" /> Invoice Items
+                        <div
+                            class="border-b border-border/60 bg-muted/30 px-6 py-4"
+                        >
+                            <h3
+                                class="flex items-center gap-2 text-sm font-bold tracking-tight"
+                            >
+                                <FileText class="h-4 w-4 text-primary" />
+                                Invoice Items
                             </h3>
                         </div>
-                        <div class="p-0"> <InvoiceItemsTable
+                        <div class="p-0">
+                            <InvoiceItemsTable
                                 v-model="formData.items"
                                 :errors="errors"
                             />
                         </div>
-                        <div v-if="errors.items" class="p-4 border-t border-destructive/20 bg-destructive/5 text-center">
+                        <div
+                            v-if="errors.items"
+                            class="border-t border-destructive/20 bg-destructive/5 p-4 text-center"
+                        >
                             <InputError :message="errors.items" />
                         </div>
                     </div>
 
                     <div class="grid gap-8 md:grid-cols-5">
-                        <div class="md:col-span-3 space-y-8">
+                        <div class="space-y-8 md:col-span-3">
                             <div :class="cardClass">
-                                <div class="px-6 py-4 border-b border-border/60 bg-muted/30">
-                                    <Label :class="labelClass" class="mb-0">Notes & Terms</Label>
+                                <div
+                                    class="border-b border-border/60 bg-muted/30 px-6 py-4"
+                                >
+                                    <Label :class="labelClass" class="mb-0"
+                                        >Notes & Terms</Label
+                                    >
                                 </div>
                                 <div class="p-6">
                                     <textarea
@@ -173,7 +198,7 @@ const cardClass = "rounded-2xl border border-border/60 bg-background shadow-sm o
                                         v-model="formData.notes"
                                         rows="5"
                                         placeholder="Add any specific instructions or thank you notes..."
-                                        class="w-full rounded-xl border border-border/40 bg-muted/20 p-4 text-sm transition-all focus:bg-background focus:ring-2 focus:ring-primary/20 outline-none resize-none"
+                                        class="w-full resize-none rounded-xl border border-border/40 bg-muted/20 p-4 text-sm transition-all outline-none focus:bg-background focus:ring-2 focus:ring-primary/20"
                                     />
                                     <InputError :message="errors.notes" />
                                 </div>
@@ -182,19 +207,27 @@ const cardClass = "rounded-2xl border border-border/60 bg-background shadow-sm o
 
                         <div class="md:col-span-2">
                             <div :class="cardClass" class="h-full">
-                                <div class="px-6 py-4 border-b border-border/60 bg-muted/30">
-                                    <Label :class="labelClass" class="mb-0">Financial Summary</Label>
+                                <div
+                                    class="border-b border-border/60 bg-muted/30 px-6 py-4"
+                                >
+                                    <Label :class="labelClass" class="mb-0"
+                                        >Financial Summary</Label
+                                    >
                                 </div>
-                                <div class="p-6 space-y-6">
+                                <div class="space-y-6 p-6">
                                     <div class="grid gap-2">
                                         <Label :class="labelClass" for="tax">
-                                            <Percent class="h-3 w-3" /> Adjustments / Tax
+                                            <Percent class="h-3 w-3" />
+                                            Adjustments / Tax
                                         </Label>
                                         <NumberField
                                             v-model="formData.tax"
                                             :min="0"
                                             :step="0.01"
-                                            :format-options="{ style: 'currency', currency: 'BRL' }"
+                                            :format-options="{
+                                                style: 'currency',
+                                                currency: 'BRL',
+                                            }"
                                         >
                                             <NumberFieldContent>
                                                 <NumberFieldInput
@@ -205,8 +238,8 @@ const cardClass = "rounded-2xl border border-border/60 bg-background shadow-sm o
                                         </NumberField>
                                         <InputError :message="errors.tax" />
                                     </div>
-                                    
-                                    <div class="pt-4 border-t border-border/60">
+
+                                    <div class="border-t border-border/60 pt-4">
                                         <InvoiceSummary
                                             :subtotal="subtotal"
                                             :tax="formData.tax"
@@ -218,27 +251,33 @@ const cardClass = "rounded-2xl border border-border/60 bg-background shadow-sm o
                         </div>
                     </div>
 
-                    <div class="flex items-center justify-between border-t border-border/60 pt-8 mt-4">
-                        <Button variant="ghost" as-child class="rounded-xl h-12 px-6 hover:bg-destructive/5 hover:text-destructive transition-colors">
+                    <div
+                        class="mt-4 flex items-center justify-between border-t border-border/60 pt-8"
+                    >
+                        <Button
+                            variant="ghost"
+                            as-child
+                            class="h-12 rounded-xl px-6 transition-colors hover:bg-destructive/5 hover:text-destructive"
+                        >
                             <Link :href="index().url">
                                 <X class="mr-2 h-4 w-4" /> Cancel
                             </Link>
                         </Button>
-                        
+
                         <div class="flex items-center gap-3">
                             <Button
                                 type="button"
                                 variant="outline"
-                                class="h-12 px-6 rounded-xl border-2 font-bold transition-all hover:bg-muted"
+                                class="h-12 rounded-xl border-2 px-6 font-bold transition-all hover:bg-muted"
                                 @click="submitForm('draft')"
                                 :disabled="processing"
                             >
                                 <Save class="mr-2 h-4 w-4" /> Draft
                             </Button>
-                            
+
                             <Button
                                 type="button"
-                                class="h-12 px-8 rounded-xl font-black bg-primary text-primary-foreground shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all hover:-translate-y-0.5"
+                                class="h-12 rounded-xl bg-primary px-8 font-black text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:shadow-primary/30"
                                 @click="submitForm('sent')"
                                 :disabled="processing"
                             >

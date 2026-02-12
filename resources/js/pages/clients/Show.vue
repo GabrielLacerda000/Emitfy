@@ -18,7 +18,7 @@ import {
     DialogTitle,
 } from '@/components/ui/dialog';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { edit, index } from '@/routes/clients';
+import { create, edit, index } from '@/routes/clients';
 import type { BreadcrumbItem, Client, ClientStats, PaginatedInvoices } from '@/types';
 
 const props = defineProps<{
@@ -42,6 +42,10 @@ function deleteClient() {
     router.delete(ClientController.destroy.url({ client: props.client.id }), {
         onFinish: () => deleting.value = false,
     });
+}
+
+function redirectToCreateInvoice() {
+    router.visit(create().url);
 }
 </script>
 
@@ -106,7 +110,7 @@ function deleteClient() {
                         <section class="rounded-3xl border border-border/50 bg-card p-2 shadow-sm">
                             <div class="p-4 flex items-center justify-between">
                                 <h2 class="font-bold tracking-tight">Recent Invoices</h2>
-                                <Button size="sm" variant="secondary" class="font-bold">New Invoice +</Button>
+                                <Button size="sm" variant="secondary" class="font-bold" @click="redirectToCreateInvoice">New Invoice +</Button>
                             </div>
                             <ClientInvoicesTable :invoices="invoices" />
                         </section>
