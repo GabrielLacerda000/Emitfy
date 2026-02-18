@@ -2,6 +2,7 @@
 import { Head, Link, router } from '@inertiajs/vue3';
 import { User, Settings2, ListTree, LoaderCircle } from 'lucide-vue-next';
 import { computed, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 import InvoiceController from '@/actions/App/Http/Controllers/InvoiceController';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
@@ -31,6 +32,8 @@ import {
     type Invoice,
     type InvoiceFormData,
 } from '@/types';
+
+const { t } = useI18n();
 
 type Props = {
     invoice: Invoice;
@@ -146,8 +149,8 @@ function submitForm() {
                     class="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-center"
                 >
                     <Heading
-                        :title="`Invoice ${invoice.number}`"
-                        description="Refine details, manage items and update status"
+                        :title="`${t('invoices.show.edit')} ${invoice.number}`"
+                        :description="t('invoices.form.notesTerms')"
                     />
                     <div class="flex items-center gap-3">
                         <Button
@@ -155,7 +158,7 @@ function submitForm() {
                             class="rounded-xl px-6"
                             as-child
                         >
-                            <Link :href="index().url">Cancel</Link>
+                            <Link :href="index().url">{{ t('invoices.form.cancel') }}</Link>
                         </Button>
                         <Button
                             @click="submitForm"
@@ -163,7 +166,7 @@ function submitForm() {
                             class="rounded-xl bg-primary px-8 font-bold shadow-lg shadow-primary/20 transition-all hover:shadow-primary/30"
                         >
                             <LoaderCircle v-if="processing" class="mr-2" />
-                            Update Invoice
+                            {{ t('invoices.form.updateInvoice') }}
                         </Button>
                     </div>
                 </div>
@@ -182,15 +185,16 @@ function submitForm() {
                                     <span class="rounded-md bg-primary/10 p-1"
                                         ><User class="h-3 w-3"
                                     /></span>
-                                    Client & Billing
+                                    {{ t('invoices.form.clientBilling') }}
                                 </h3>
                             </div>
                             <div class="space-y-6 p-6">
                                 <div class="grid gap-2">
                                     <Label
                                         class="ml-1 text-[10px] font-black tracking-widest text-muted-foreground/80 uppercase"
-                                        >Recipient</Label
                                     >
+                                        {{ t('invoices.form.recipient') }}
+                                    </Label>
                                     <ClientSelector
                                         v-model="formData.client_id"
                                         :clients="clients"
@@ -203,8 +207,9 @@ function submitForm() {
                                     <div class="grid gap-2">
                                         <Label
                                             class="ml-1 text-[10px] font-black tracking-widest text-muted-foreground/80 uppercase"
-                                            >Issue Date</Label
                                         >
+                                            {{ t('invoices.form.issueDate') }}
+                                        </Label>
                                         <input
                                             v-model="formData.issue_date"
                                             type="date"
@@ -217,8 +222,9 @@ function submitForm() {
                                     <div class="grid gap-2">
                                         <Label
                                             class="ml-1 text-[10px] font-black tracking-widest text-muted-foreground/80 uppercase"
-                                            >Due Date</Label
                                         >
+                                            {{ t('invoices.form.dueDate') }}
+                                        </Label>
                                         <input
                                             v-model="formData.due_date"
                                             type="date"
@@ -244,15 +250,16 @@ function submitForm() {
                                     <span class="rounded-md bg-primary/10 p-1"
                                         ><Settings2 class="h-3 w-3"
                                     /></span>
-                                    Configuration
+                                    {{ t('invoices.form.configuration') }}
                                 </h3>
                             </div>
                             <div class="space-y-6 p-6">
                                 <div class="grid gap-2">
                                     <Label
                                         class="ml-1 text-[10px] font-black tracking-widest text-muted-foreground/80 uppercase"
-                                        >Status</Label
                                     >
+                                        {{ t('invoices.form.status') }}
+                                    </Label>
                                     <Select v-model="formData.status">
                                         <SelectTrigger
                                             class="h-11 rounded-xl border-border/60 bg-muted/20 transition-all focus:bg-background"
@@ -260,18 +267,10 @@ function submitForm() {
                                             <SelectValue />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="draft"
-                                                >Draft</SelectItem
-                                            >
-                                            <SelectItem value="sent"
-                                                >Sent</SelectItem
-                                            >
-                                            <SelectItem value="paid"
-                                                >Paid</SelectItem
-                                            >
-                                            <SelectItem value="overdue"
-                                                >Overdue</SelectItem
-                                            >
+                                            <SelectItem value="draft">{{ t('invoices.status.draft') }}</SelectItem>
+                                            <SelectItem value="sent">{{ t('invoices.status.sent') }}</SelectItem>
+                                            <SelectItem value="paid">{{ t('invoices.status.paid') }}</SelectItem>
+                                            <SelectItem value="overdue">{{ t('invoices.status.overdue') }}</SelectItem>
                                         </SelectContent>
                                     </Select>
                                     <InputError :message="errors.status" />
@@ -283,8 +282,9 @@ function submitForm() {
                                 >
                                     <Label
                                         class="ml-1 text-[10px] font-black tracking-widest text-muted-foreground/80 uppercase"
-                                        >Payment Date</Label
                                     >
+                                        {{ t('invoices.form.paymentDate') }}
+                                    </Label>
                                     <input
                                         v-model="formData.paid_at"
                                         type="date"
@@ -301,8 +301,9 @@ function submitForm() {
                                 <div class="grid gap-2">
                                     <Label
                                         class="ml-1 text-[10px] font-black tracking-widest text-muted-foreground/80 uppercase"
-                                        >Tax Amount</Label
                                     >
+                                        {{ t('invoices.form.taxAmount') }}
+                                    </Label>
                                     <NumberField
                                         v-model="formData.tax"
                                         :min="0"
@@ -332,7 +333,7 @@ function submitForm() {
                                 <span class="rounded-md bg-primary/10 p-1"
                                     ><ListTree class="h-3 w-3"
                                 /></span>
-                                Invoice Items
+                                {{ t('invoices.form.invoiceItems') }}
                             </h3>
                         </div>
                         <div class="p-6">
@@ -347,12 +348,13 @@ function submitForm() {
                         <div class="grid gap-2">
                             <Label
                                 class="ml-1 text-[10px] font-black tracking-widest text-muted-foreground/80 uppercase"
-                                >Notes & Terms</Label
                             >
+                                {{ t('invoices.form.notesTerms') }}
+                            </Label>
                             <textarea
                                 v-model="formData.notes"
                                 rows="5"
-                                placeholder="Additional details..."
+                                :placeholder="t('invoices.form.additionalDetails')"
                                 class="resize-none rounded-3xl border-border/60 bg-muted/20 p-4 text-sm transition-all outline-none focus:bg-background"
                             />
                         </div>
@@ -371,7 +373,7 @@ function submitForm() {
                                 <span
                                     class="animate-in rounded-full bg-emerald-500/10 px-4 py-2 text-xs font-bold tracking-widest text-emerald-500 uppercase fade-in slide-in-from-bottom-2"
                                 >
-                                    Changes Saved Successfully
+                                    {{ t('invoices.form.changesSaved') }}
                                 </span>
                             </div>
                         </div>

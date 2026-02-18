@@ -1,11 +1,16 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
 import { ArrowRight, FileText, Plus, Calendar, User2, ExternalLink } from 'lucide-vue-next';
+import { useI18n } from 'vue-i18n';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { getStatusConfig } from '@/composables/useInvoiceStatus';
-import { formatBRL, formatDate } from '@/lib/utils';
+import { useFormatCurrency } from '@/composables/useLocale';
+import { formatDate } from '@/lib/utils';
 import type { Invoice } from '@/types';
+
+const { t } = useI18n();
+const formatMoney = useFormatCurrency();
 
 type Props = {
     invoices: Invoice[];
@@ -20,12 +25,12 @@ defineProps<Props>();
     <div class="flex flex-col gap-5">
         <div class="flex items-center justify-between px-1">
             <div>
-                <h3 class="text-lg font-bold tracking-tight">Recent Invoices</h3>
-                <p class="text-xs text-muted-foreground font-medium">Manage your latest billing activities</p>
+                <h3 class="text-lg font-bold tracking-tight">{{ t('dashboard.recentInvoices.title') }}</h3>
+                <p class="text-xs text-muted-foreground font-medium">{{ t('dashboard.recentInvoices.subtitle') }}</p>
             </div>
             <Button variant="outline" size="sm" class="h-9 rounded-lg border-border/60 hover:bg-primary/5 hover:text-primary transition-all" as-child>
                 <Link :href="viewAllUrl">
-                    View all
+                    {{ t('dashboard.recentInvoices.viewAll') }}
                     <ArrowRight class="ml-2 h-3.5 w-3.5" />
                 </Link>
             </Button>
@@ -37,23 +42,23 @@ defineProps<Props>();
                     <thead>
                         <tr class="border-b border-border/50 bg-muted/20">
                             <th class="h-11 px-4 text-left align-middle text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                                Invoice
+                                {{ t('dashboard.recentInvoices.headers.invoice') }}
                             </th>
                             <th class="h-11 px-4 text-left align-middle text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                                Client
+                                {{ t('dashboard.recentInvoices.headers.client') }}
                             </th>
                             <th class="h-11 px-4 text-left align-middle text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                                Status
+                                {{ t('dashboard.recentInvoices.headers.status') }}
                             </th>
                             <th class="h-11 px-4 text-right align-middle text-xs font-bold uppercase tracking-wider text-muted-foreground">
-                                Amount
+                                {{ t('dashboard.recentInvoices.headers.amount') }}
                             </th>
                             <th class="h-11 w-10"></th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-border/40">
-                        <tr 
-                            v-for="invoice in invoices" 
+                        <tr
+                            v-for="invoice in invoices"
                             :key="invoice.id"
                             class="group transition-colors hover:bg-muted/30"
                         >
@@ -64,7 +69,7 @@ defineProps<Props>();
                                     </span>
                                     <div class="flex items-center gap-1.5 text-xs text-muted-foreground">
                                         <Calendar class="h-3 w-3" />
-                                        Due {{ formatDate(invoice.due_date) }}
+                                        {{ t('dashboard.recentInvoices.due') }} {{ formatDate(invoice.due_date) }}
                                     </div>
                                 </div>
                             </td>
@@ -96,7 +101,7 @@ defineProps<Props>();
                             </td>
                             <td class="p-4 align-middle text-right">
                                 <span class="font-black text-foreground tracking-tight">
-                                    {{ formatBRL(invoice.total) }}
+                                    {{ formatMoney(invoice.total) }}
                                 </span>
                             </td>
                             <td class="p-4 align-middle text-right">
@@ -118,14 +123,14 @@ defineProps<Props>();
             <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-background shadow-sm border border-border group-hover:scale-110 transition-transform duration-500">
                 <FileText class="h-8 w-8 text-muted-foreground/60 group-hover:text-primary/60 transition-colors" />
             </div>
-            <h3 class="mt-6 text-lg font-bold">No invoices generated</h3>
+            <h3 class="mt-6 text-lg font-bold">{{ t('dashboard.recentInvoices.noInvoices') }}</h3>
             <p class="mt-2 text-sm text-muted-foreground max-w-[220px]">
-                Ready to get paid? Create your professional invoice in seconds.
+                {{ t('dashboard.recentInvoices.noInvoicesDesc') }}
             </p>
             <Button class="mt-8 rounded-full px-8 shadow-lg shadow-primary/20 hover:shadow-primary/30" as-child>
                 <Link :href="createInvoiceUrl">
                     <Plus class="mr-2 h-4 w-4" />
-                    New Invoice
+                    {{ t('dashboard.recentInvoices.newInvoice') }}
                 </Link>
             </Button>
         </div>

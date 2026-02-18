@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
+import { Globe } from 'lucide-vue-next';
+import { useI18n } from 'vue-i18n';
 import LpBenefits from '@/components/lp/LpBenefits.vue';
 import LpCta from '@/components/lp/LpCta.vue';
 import LpFaq from '@/components/lp/LpFaq.vue';
@@ -10,7 +12,11 @@ import LpPricing from '@/components/lp/LpPricing.vue';
 import LpProblem from '@/components/lp/LpProblem.vue';
 import LpScreenshot from '@/components/lp/LpScreenshot.vue';
 import { Button } from '@/components/ui/button';
+import { useLocale } from '@/composables/useLocale';
 import { dashboard, login, register } from '@/routes';
+
+const { t } = useI18n();
+const { locale, setLocale } = useLocale();
 
 withDefaults(
     defineProps<{
@@ -72,35 +78,50 @@ withDefaults(
                             href="#how-it-works"
                             class="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
                         >
-                            How It Works
+                            {{ t('lp.nav.howItWorks') }}
                         </a>
                         <a
                             href="#pricing"
                             class="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
                         >
-                            Pricing
+                            {{ t('lp.nav.pricing') }}
                         </a>
                         <a
                             href="#faq"
                             class="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
                         >
-                            FAQ
+                            {{ t('lp.nav.faq') }}
                         </a>
                     </nav>
 
-                    <!-- Auth Buttons -->
+                    <!-- Auth Buttons + Locale Toggle -->
                     <div class="flex items-center gap-3">
+                        <!-- Language Toggle -->
+                        <button
+                            @click="setLocale(locale === 'en' ? 'pt-BR' : 'en')"
+                            class="flex items-center gap-1.5 rounded-lg border border-border/60 px-3 py-1.5 text-xs font-bold text-muted-foreground transition-all hover:border-primary/40 hover:text-primary"
+                        >
+                            <Globe class="h-3.5 w-3.5" />
+                            {{ locale === 'en' ? 'EN' : 'PT' }}
+                        </button>
+
                         <template v-if="$page.props.auth.user">
                             <Button variant="default" as-child>
-                                <Link :href="dashboard()">Dashboard</Link>
+                                <Link :href="dashboard()">{{
+                                    t('lp.nav.dashboard')
+                                }}</Link>
                             </Button>
                         </template>
                         <template v-else>
                             <Button variant="ghost" as-child>
-                                <Link :href="login()">Log in</Link>
+                                <Link :href="login()">{{
+                                    t('lp.nav.logIn')
+                                }}</Link>
                             </Button>
                             <Button v-if="canRegister" as-child>
-                                <Link :href="register()">Get Started</Link>
+                                <Link :href="register()">{{
+                                    t('lp.nav.getStarted')
+                                }}</Link>
                             </Button>
                         </template>
                     </div>

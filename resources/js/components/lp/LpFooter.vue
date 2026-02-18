@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n';
 import { Separator } from '@/components/ui/separator';
+
+const { t } = useI18n();
 </script>
 
 <template>
@@ -25,56 +28,51 @@ import { Separator } from '@/components/ui/separator';
                         <span class="text-xl font-bold">Emitte</span>
                     </div>
                     <p class="text-sm text-muted-foreground">
-                        Professional invoice management for freelancers and
-                        small businesses.
+                        {{ t('lp.footer.brand') }}
                     </p>
                 </div>
 
                 <!-- Product -->
                 <div>
-                    <h3 class="font-semibold mb-3">Product</h3>
+                    <h3 class="font-semibold mb-3">{{ t('lp.footer.product') }}</h3>
                     <ul class="space-y-2 text-sm text-muted-foreground">
                         <li>
-                            <a href="#how-it-works" class="hover:text-foreground"
-                                >Features</a
-                            >
+                            <a href="#how-it-works" class="hover:text-foreground">{{ t('lp.footer.features') }}</a>
                         </li>
                         <li>
-                            <a href="#pricing" class="hover:text-foreground"
-                                >Pricing</a
-                            >
+                            <a href="#pricing" class="hover:text-foreground">{{ t('lp.footer.pricing') }}</a>
                         </li>
                         <li>
-                            <a href="#faq" class="hover:text-foreground">FAQ</a>
+                            <a href="#faq" class="hover:text-foreground">{{ t('lp.footer.faq') }}</a>
                         </li>
                     </ul>
                 </div>
 
                 <!-- Company -->
                 <div>
-                    <h3 class="font-semibold mb-3">Company</h3>
+                    <h3 class="font-semibold mb-3">{{ t('lp.footer.company') }}</h3>
                     <ul class="space-y-2 text-sm text-muted-foreground">
                         <li>
-                            <a href="#" class="hover:text-foreground">About</a>
+                            <a href="#" class="hover:text-foreground">{{ t('lp.footer.about') }}</a>
                         </li>
                         <li>
-                            <a href="#" class="hover:text-foreground">Blog</a>
+                            <a href="#" class="hover:text-foreground">{{ t('lp.footer.blog') }}</a>
                         </li>
                         <li>
-                            <a href="#" class="hover:text-foreground">Contact</a>
+                            <a href="#" class="hover:text-foreground">{{ t('lp.footer.contact') }}</a>
                         </li>
                     </ul>
                 </div>
 
                 <!-- Legal -->
                 <div>
-                    <h3 class="font-semibold mb-3">Legal</h3>
+                    <h3 class="font-semibold mb-3">{{ t('lp.footer.legal') }}</h3>
                     <ul class="space-y-2 text-sm text-muted-foreground">
                         <li>
-                            <a href="#" class="hover:text-foreground">Privacy</a>
+                            <a href="#" class="hover:text-foreground">{{ t('lp.footer.privacy') }}</a>
                         </li>
                         <li>
-                            <a href="#" class="hover:text-foreground">Terms</a>
+                            <a href="#" class="hover:text-foreground">{{ t('lp.footer.terms') }}</a>
                         </li>
                     </ul>
                 </div>
@@ -86,10 +84,9 @@ import { Separator } from '@/components/ui/separator';
                 class="flex flex-col md:flex-row justify-between items-center gap-4"
             >
                 <p class="text-sm text-muted-foreground">
-                    © 2026 Emitte. All rights reserved.
+                    {{ t('lp.footer.copyright') }}
                 </p>
                 <div class="flex gap-4">
-                    <!-- Social media links placeholder -->
                     <a
                         href="#"
                         class="text-muted-foreground hover:text-foreground"

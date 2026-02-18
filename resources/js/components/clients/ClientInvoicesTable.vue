@@ -7,13 +7,18 @@ import {
     ChevronLeft,
     ChevronRight,
 } from 'lucide-vue-next';
+import { useI18n } from 'vue-i18n';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { getStatusConfig } from '@/composables/useInvoiceStatus';
-import { formatBRL, formatDate } from '@/lib/utils';
+import { useFormatCurrency } from '@/composables/useLocale';
+import { formatDate } from '@/lib/utils';
 import { show as showInvoice } from '@/routes/invoices';
 import type { PaginatedInvoices } from '@/types';
+
+const { t } = useI18n();
+const formatMoney = useFormatCurrency();
 
 interface Props {
     invoices: PaginatedInvoices;
@@ -32,9 +37,9 @@ defineProps<Props>();
                     <ReceiptText class="h-5 w-5" />
                 </div>
                 <div>
-                    <h3 class="text-lg font-bold tracking-tight">Invoices</h3>
+                    <h3 class="text-lg font-bold tracking-tight">{{ t('clients.invoices.title') }}</h3>
                     <p class="text-xs text-muted-foreground">
-                        Historórico de cobranças do cliente
+                        {{ t('clients.invoices.subtitle') }}
                     </p>
                 </div>
             </div>
@@ -59,10 +64,10 @@ defineProps<Props>();
             <p
                 class="mt-4 text-sm font-bold tracking-widest text-muted-foreground/70 uppercase"
             >
-                No invoices found
+                {{ t('clients.invoices.noInvoices') }}
             </p>
             <p class="text-xs text-muted-foreground">
-                Este cliente ainda não possui faturas geradas.
+                {{ t('clients.invoices.noInvoicesDesc') }}
             </p>
         </div>
 
@@ -73,11 +78,11 @@ defineProps<Props>();
                         <tr
                             class="border-b border-border/40 text-[10px] font-black tracking-[0.15em] text-muted-foreground/60 uppercase"
                         >
-                            <th class="px-6 py-4">Invoice</th>
-                            <th class="px-6 py-4">Status</th>
-                            <th class="px-6 py-4">Issue / Due Date</th>
-                            <th class="px-6 py-4 text-right">Amount</th>
-                            <th class="px-6 py-4 text-right italic">Action</th>
+                            <th class="px-6 py-4">{{ t('clients.invoices.headers.invoice') }}</th>
+                            <th class="px-6 py-4">{{ t('clients.invoices.headers.status') }}</th>
+                            <th class="px-6 py-4">{{ t('clients.invoices.headers.dates') }}</th>
+                            <th class="px-6 py-4 text-right">{{ t('clients.invoices.headers.amount') }}</th>
+                            <th class="px-6 py-4 text-right italic">{{ t('clients.invoices.headers.action') }}</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-border/30">
@@ -118,7 +123,7 @@ defineProps<Props>();
                                     <span
                                         class="flex items-center gap-1 text-[10px] text-muted-foreground"
                                     >
-                                        Vence em:
+                                        {{ t('clients.invoices.dueOn') }}
                                         {{ formatDate(invoice.due_date) }}
                                     </span>
                                 </div>
@@ -128,7 +133,7 @@ defineProps<Props>();
                                 <span
                                     class="text-sm font-black text-foreground"
                                 >
-                                    {{ formatBRL(invoice.total) }}
+                                    {{ formatMoney(invoice.total) }}
                                 </span>
                             </td>
 
@@ -161,9 +166,7 @@ defineProps<Props>();
                 <p
                     class="text-[11px] font-bold tracking-wider text-muted-foreground uppercase"
                 >
-                    {{ invoices.total }} invoices
-                    <span class="mx-1 text-muted-foreground/30">•</span> Page
-                    {{ invoices.current_page }} of {{ invoices.last_page }}
+                    {{ t('clients.invoices.pagination.info', { total: invoices.total, current: invoices.current_page, last: invoices.last_page }) }}
                 </p>
 
                 <div class="flex gap-1">

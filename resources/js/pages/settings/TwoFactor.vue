@@ -2,6 +2,7 @@
 import { Form, Head } from '@inertiajs/vue3';
 import { ShieldBan, ShieldCheck } from 'lucide-vue-next';
 import { onUnmounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import Heading from '@/components/Heading.vue';
 import TwoFactorRecoveryCodes from '@/components/TwoFactorRecoveryCodes.vue';
 import TwoFactorSetupModal from '@/components/TwoFactorSetupModal.vue';
@@ -12,6 +13,8 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import SettingsLayout from '@/layouts/settings/Layout.vue';
 import { disable, enable, show } from '@/routes/two-factor';
 import type { BreadcrumbItem } from '@/types';
+
+const { t } = useI18n();
 
 type Props = {
     requiresConfirmation?: boolean;
@@ -48,21 +51,18 @@ onUnmounted(() => {
             <div class="space-y-6">
                 <Heading
                     variant="small"
-                    title="Two-Factor Authentication"
-                    description="Manage your two-factor authentication settings"
+                    :title="t('settings.twoFactorPage.title')"
+                    :description="t('settings.twoFactorPage.description')"
                 />
 
                 <div
                     v-if="!twoFactorEnabled"
                     class="flex flex-col items-start justify-start space-y-4"
                 >
-                    <Badge variant="destructive">Disabled</Badge>
+                    <Badge variant="destructive">{{ t('settings.twoFactorPage.disabled') }}</Badge>
 
                     <p class="text-muted-foreground">
-                        When you enable two-factor authentication, you will be
-                        prompted for a secure pin during login. This pin can be
-                        retrieved from a TOTP-supported application on your
-                        phone.
+                        {{ t('settings.twoFactorPage.disabledDesc') }}
                     </p>
 
                     <div>
@@ -70,7 +70,7 @@ onUnmounted(() => {
                             v-if="hasSetupData"
                             @click="showSetupModal = true"
                         >
-                            <ShieldCheck />Continue Setup
+                            <ShieldCheck />{{ t('settings.twoFactorPage.continueSetup') }}
                         </Button>
                         <Form
                             v-else
@@ -79,9 +79,9 @@ onUnmounted(() => {
                             #default="{ processing }"
                         >
                             <Button type="submit" :disabled="processing">
-                                <ShieldCheck />Enable 2FA</Button
-                            ></Form
-                        >
+                                <ShieldCheck />{{ t('settings.twoFactorPage.enable') }}
+                            </Button>
+                        </Form>
                     </div>
                 </div>
 
@@ -89,13 +89,10 @@ onUnmounted(() => {
                     v-else
                     class="flex flex-col items-start justify-start space-y-4"
                 >
-                    <Badge variant="default">Enabled</Badge>
+                    <Badge variant="default">{{ t('settings.twoFactorPage.enabled') }}</Badge>
 
                     <p class="text-muted-foreground">
-                        With two-factor authentication enabled, you will be
-                        prompted for a secure, random pin during login, which
-                        you can retrieve from the TOTP-supported application on
-                        your phone.
+                        {{ t('settings.twoFactorPage.enabledDesc') }}
                     </p>
 
                     <TwoFactorRecoveryCodes />
@@ -108,7 +105,7 @@ onUnmounted(() => {
                                 :disabled="processing"
                             >
                                 <ShieldBan />
-                                Disable 2FA
+                                {{ t('settings.twoFactorPage.disable') }}
                             </Button>
                         </Form>
                     </div>

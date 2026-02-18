@@ -1,15 +1,19 @@
 <script setup lang="ts">
 import { CheckCircle, Clock, FileText, AlertCircle } from 'lucide-vue-next';
 import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { Card } from '@/components/ui/card';
-import { formatBRL } from '@/lib/utils';
+import { useFormatCurrency } from '@/composables/useLocale';
 import type { ClientStats } from '@/types';
+
+const { t } = useI18n();
+const formatMoney = useFormatCurrency();
 
 const props = defineProps<{ stats: ClientStats }>();
 
 const statConfig = computed(() => [
     {
-        label: 'Total Paid',
+        label: t('clients.stats.totalPaid'),
         value: props.stats.totalPaid,
         count: props.stats.totalPaidCount,
         icon: CheckCircle,
@@ -18,7 +22,7 @@ const statConfig = computed(() => [
         dotClass: 'bg-emerald-500',
     },
     {
-        label: 'Total Pending',
+        label: t('clients.stats.totalPending'),
         value: props.stats.totalPending,
         count: props.stats.totalPendingCount,
         icon: Clock,
@@ -27,7 +31,7 @@ const statConfig = computed(() => [
         dotClass: 'bg-blue-500',
     },
     {
-        label: 'Total Overdue',
+        label: t('clients.stats.totalOverdue'),
         value: props.stats.totalOverdue,
         count: props.stats.totalOverdueCount,
         icon: AlertCircle,
@@ -36,7 +40,7 @@ const statConfig = computed(() => [
         dotClass: 'bg-rose-500',
     },
     {
-        label: 'Total Draft',
+        label: t('clients.stats.totalDraft'),
         value: props.stats.totalDraft,
         count: props.stats.totalDraftCount,
         icon: FileText,
@@ -71,10 +75,10 @@ const statConfig = computed(() => [
                     <h2
                         class="text-lg font-black tracking-tight break-all xl:text-xl"
                     >
-                        {{ formatBRL(item.value) }}
+                        {{ formatMoney(item.value) }}
                     </h2>
                     <p class="text-[10px] font-bold text-muted-foreground/50">
-                        {{ item.count }} itens
+                        {{ t('clients.stats.items', { count: item.count }) }}
                     </p>
                 </div>
             </div>

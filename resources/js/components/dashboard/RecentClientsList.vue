@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
 import { ArrowRight, Plus, Users, Mail, Building2 } from 'lucide-vue-next';
+import { useI18n } from 'vue-i18n';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { show } from '@/routes/clients';
 import type { Client } from '@/types';
+
+const { t } = useI18n();
 
 type Props = {
     clients: (Client & { invoices_count: number })[];
@@ -14,7 +17,6 @@ type Props = {
 
 defineProps<Props>();
 
-// Função para pegar iniciais do nome para o avatar
 const getInitials = (name: string) => {
     return name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
 };
@@ -24,12 +26,12 @@ const getInitials = (name: string) => {
     <div class="flex flex-col gap-6">
         <div class="flex items-center justify-between px-1">
             <div>
-                <h3 class="text-lg font-bold tracking-tight text-foreground">Recent Clients</h3>
-                <p class="text-xs text-muted-foreground font-medium">Your latest active partnerships</p>
+                <h3 class="text-lg font-bold tracking-tight text-foreground">{{ t('dashboard.recentClients.title') }}</h3>
+                <p class="text-xs text-muted-foreground font-medium">{{ t('dashboard.recentClients.subtitle') }}</p>
             </div>
             <Button variant="outline" size="sm" class="h-9 rounded-lg border-border/60 hover:bg-primary/5 hover:text-primary transition-all" as-child>
                 <Link :href="viewAllUrl">
-                    Manage All
+                    {{ t('dashboard.recentClients.manageAll') }}
                     <ArrowRight class="ml-2 h-3.5 w-3.5" />
                 </Link>
             </Button>
@@ -67,7 +69,7 @@ const getInitials = (name: string) => {
                 <div class="relative flex items-center gap-4">
                     <div class="hidden sm:flex flex-col items-end gap-1">
                         <Badge variant="secondary" class="bg-muted/50 font-semibold group-hover:bg-primary/10 group-hover:text-primary transition-colors">
-                            {{ client.invoices_count }} {{ client.invoices_count === 1 ? 'invoice' : 'invoices' }}
+                            {{ client.invoices_count }} {{ client.invoices_count === 1 ? t('dashboard.recentClients.invoice') : t('dashboard.recentClients.invoices') }}
                         </Badge>
                     </div>
                     <div class="h-8 w-8 flex items-center justify-center rounded-full border border-border/50 group-hover:border-primary/30 group-hover:bg-primary/5 transition-all">
@@ -84,14 +86,14 @@ const getInitials = (name: string) => {
             <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-background shadow-sm border border-border group-hover:scale-110 transition-transform duration-500">
                 <Users class="h-8 w-8 text-muted-foreground/60" />
             </div>
-            <h3 class="mt-6 text-xl font-bold">Your client list is empty</h3>
+            <h3 class="mt-6 text-xl font-bold">{{ t('dashboard.recentClients.noClients') }}</h3>
             <p class="mt-2 text-sm text-muted-foreground max-w-[200px]">
-                Ready to send your first professional invoice?
+                {{ t('dashboard.recentClients.noClientsDesc') }}
             </p>
             <Button class="mt-8 rounded-full px-8 shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all" as-child>
                 <Link :href="manageClientsUrl">
                     <Plus class="mr-2 h-4 w-4" />
-                    Add Your First Client
+                    {{ t('dashboard.recentClients.addFirstClient') }}
                 </Link>
             </Button>
         </div>

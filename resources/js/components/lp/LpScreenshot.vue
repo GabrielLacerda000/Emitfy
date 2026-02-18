@@ -1,17 +1,19 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n';
 import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
 import LpSection from './LpSection.vue';
+
+const { t } = useI18n();
 </script>
 
 <template>
     <LpSection id="demo">
         <div class="text-center mb-12">
             <h2 class="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl mb-4">
-                Everything You Need in One Beautiful Dashboard
+                {{ t('lp.screenshot.h2') }}
             </h2>
             <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Invoice management shouldn't be complicated. Emitte brings
-                clarity to your entire billing workflow.
+                {{ t('lp.screenshot.subtitle') }}
             </p>
         </div>
 
@@ -22,7 +24,7 @@ import LpSection from './LpSection.vue';
                 <PlaceholderPattern />
                 <div class="absolute inset-0 flex items-center justify-center">
                     <p class="text-muted-foreground font-medium text-lg">
-                        Full Dashboard View
+                        {{ t('lp.screenshot.placeholder') }}
                     </p>
                 </div>
             </div>

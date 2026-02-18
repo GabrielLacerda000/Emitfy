@@ -22,7 +22,7 @@ const { isCurrentUrl } = useCurrentUrl();
         <SidebarGroupLabel
             class="mb-4 px-2 text-[10px] font-black tracking-[0.2em] text-muted-foreground/50 uppercase"
         >
-            Platform
+            {{ $t('nav.platform') }}
         </SidebarGroupLabel>
 
         <SidebarMenu class="gap-1.5">

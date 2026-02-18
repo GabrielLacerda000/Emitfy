@@ -11,6 +11,7 @@ import {
     ArrowUpRight,
 } from 'lucide-vue-next';
 import { computed, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 import ExportController from '@/actions/App/Http/Controllers/ExportController';
 import InvoiceController from '@/actions/App/Http/Controllers/InvoiceController';
 import Heading from '@/components/Heading.vue';
@@ -26,12 +27,15 @@ import {
     DialogTitle,
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
+import { useFormatCurrency } from '@/composables/useLocale';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { formatBRL, formatDate, isOverdue } from '@/lib/utils';
+import { formatDate, isOverdue } from '@/lib/utils';
 import { create, edit, index, show } from '@/routes/invoices';
 import { type BreadcrumbItem, type Invoice, type InvoiceStatus } from '@/types';
 
-// ... (Mantenha as interfaces e props originais)
+const { t } = useI18n();
+const formatMoney = useFormatCurrency();
+
 interface PaginationLink {
     url: string | null;
     label: string;
@@ -60,13 +64,13 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Invoices', href: index().url },
 ];
 
-const statusFilters = [
-    { value: null, label: 'All' },
-    { value: 'draft', label: 'Draft' },
-    { value: 'sent', label: 'Sent' },
-    { value: 'paid', label: 'Paid' },
-    { value: 'overdue', label: 'Overdue' },
-] as const;
+const statusFilters = computed(() => [
+    { value: null, label: t('invoices.filters.all') },
+    { value: 'draft', label: t('invoices.filters.draft') },
+    { value: 'sent', label: t('invoices.filters.sent') },
+    { value: 'paid', label: t('invoices.filters.paid') },
+    { value: 'overdue', label: t('invoices.filters.overdue') },
+] as const);
 
 const activeStatus = computed(() => props.filters?.status || null);
 
@@ -74,29 +78,28 @@ function getStatusConfig(status: InvoiceStatus) {
     const configs = {
         draft: {
             variant: 'secondary' as const,
-            label: 'Draft',
+            label: t('invoices.status.draft'),
             class: 'bg-slate-100 text-slate-600 border-slate-200 dark:bg-slate-900/40 dark:text-slate-400 dark:border-slate-800',
         },
         sent: {
             variant: 'default' as const,
-            label: 'Sent',
+            label: t('invoices.status.sent'),
             class: 'bg-blue-50 text-blue-600 border-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800',
         },
         paid: {
             variant: 'outline' as const,
-            label: 'Paid',
+            label: t('invoices.status.paid'),
             class: 'bg-emerald-50 text-emerald-600 border-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-400 dark:border-emerald-800',
         },
         overdue: {
             variant: 'destructive' as const,
-            label: 'Overdue',
+            label: t('invoices.status.overdue'),
             class: 'bg-rose-50 text-rose-600 border-rose-200 dark:bg-rose-900/30 dark:text-rose-400 dark:border-rose-800',
         },
     };
     return configs[status];
 }
 
-// Logic (Mantenha as funções de filtro, delete e export originais)
 const deleteDialogOpen = ref(false);
 const invoiceToDelete = ref<Invoice | null>(null);
 const deleting = ref(false);
@@ -173,8 +176,8 @@ const thClass =
                 class="flex flex-col justify-between gap-4 md:flex-row md:items-end"
             >
                 <Heading
-                    title="Invoices"
-                    description="Financial overview and billing management"
+                    :title="t('invoices.title')"
+                    :description="t('invoices.description')"
                 />
                 <div class="flex items-center gap-3">
                     <Button
@@ -184,7 +187,7 @@ const thClass =
                         class="h-11 rounded-xl border-border/60 font-bold shadow-sm hover:bg-background"
                     >
                         <Download class="mr-2 h-4 w-4" />
-                        {{ exportingCsv ? 'Exporting...' : 'CSV' }}
+                        {{ exportingCsv ? t('invoices.exporting') : t('invoices.csv') }}
                     </Button>
                     <Button
                         as-child
@@ -192,7 +195,7 @@ const thClass =
                     >
                         <Link :href="create().url">
                             <Plus class="mr-2 h-4 w-4" />
-                            New Invoice
+                            {{ t('invoices.newInvoice') }}
                         </Link>
                     </Button>
                 </div>
@@ -259,12 +262,12 @@ const thClass =
                 >
                     <FileText class="h-8 w-8 text-muted-foreground/30" />
                 </div>
-                <h3 class="text-lg font-bold">No invoices found</h3>
+                <h3 class="text-lg font-bold">{{ t('invoices.empty.title') }}</h3>
                 <p class="mt-1 mb-6 text-sm text-muted-foreground">
-                    Try adjusting your filters or create a new one.
+                    {{ t('invoices.empty.desc') }}
                 </p>
                 <Button variant="outline" as-child class="rounded-xl border-2">
-                    <Link :href="create().url">Generate First Invoice</Link>
+                    <Link :href="create().url">{{ t('invoices.empty.cta') }}</Link>
                 </Button>
             </div>
 
@@ -276,15 +279,15 @@ const thClass =
                     <table class="w-full">
                         <thead>
                             <tr class="border-b border-border/60 bg-muted/30">
-                                <th :class="thClass">Invoice</th>
-                                <th :class="thClass">Client</th>
-                                <th :class="thClass">Amount</th>
-                                <th :class="thClass">Status</th>
-                                <th :class="thClass">Due Date</th>
+                                <th :class="thClass">{{ t('invoices.table.invoice') }}</th>
+                                <th :class="thClass">{{ t('invoices.table.client') }}</th>
+                                <th :class="thClass">{{ t('invoices.table.amount') }}</th>
+                                <th :class="thClass">{{ t('invoices.table.status') }}</th>
+                                <th :class="thClass">{{ t('invoices.table.dueDate') }}</th>
                                 <th
                                     class="px-6 py-4 text-right text-[10px] font-black tracking-[0.2em] text-muted-foreground/80 uppercase"
                                 >
-                                    Actions
+                                    {{ t('invoices.table.actions') }}
                                 </th>
                             </tr>
                         </thead>
@@ -327,7 +330,7 @@ const thClass =
                                     <span
                                         class="font-mono text-sm font-bold tracking-tight"
                                     >
-                                        {{ formatBRL(invoice.total) }}
+                                        {{ formatMoney(invoice.total) }}
                                     </span>
                                 </td>
                                 <td class="px-6 py-4">
@@ -402,8 +405,7 @@ const thClass =
                     <p
                         class="text-[10px] font-black tracking-widest text-muted-foreground/60 uppercase"
                     >
-                        Page {{ props.invoices.current_page }} of
-                        {{ props.invoices.last_page }}
+                        {{ t('invoices.pagination.page', { current: props.invoices.current_page, last: props.invoices.last_page }) }}
                     </p>
                     <div class="flex gap-2">
                         <template
@@ -444,15 +446,11 @@ const thClass =
                     </div>
 
                     <DialogTitle class="text-center text-xl font-bold">
-                        Delete Invoice?
+                        {{ t('invoices.delete.title') }}
                     </DialogTitle>
 
                     <DialogDescription class="pt-2 text-center">
-                        Are you sure you want to delete invoice
-                        <span class="font-bold text-foreground">
-                            {{ invoiceToDelete?.number }}
-                        </span>
-                        ? This action is irreversible.
+                        {{ t('invoices.delete.desc', { number: invoiceToDelete?.number }) }}
                     </DialogDescription>
                 </DialogHeader>
 
@@ -464,7 +462,7 @@ const thClass =
                             variant="outline"
                             class="flex-1 rounded-xl border-2 font-bold"
                         >
-                            Cancel
+                            {{ t('invoices.delete.cancel') }}
                         </Button>
                     </DialogClose>
 
@@ -474,7 +472,7 @@ const thClass =
                         :disabled="deleting"
                         @click="deleteInvoice"
                     >
-                        {{ deleting ? 'Deleting...' : 'Delete Invoice' }}
+                        {{ deleting ? t('invoices.delete.deleting') : t('invoices.delete.confirm') }}
                     </Button>
                 </DialogFooter>
             </DialogContent>

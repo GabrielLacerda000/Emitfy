@@ -1,0 +1,578 @@
+{
+    "nav": {
+        "platform": "Plataforma",
+        "dashboard": "Painel",
+        "clients": "Clientes",
+        "invoices": "Faturas"
+    },
+    "auth": {
+        "backToWebsite": "Voltar ao site",
+        "login": {
+            "title": "Bem-vindo de volta",
+            "description": "Insira seus dados para entrar",
+            "email": "E-mail",
+            "password": "Senha",
+            "forgot": "Esqueceu?",
+            "rememberMe": "Lembrar de mim",
+            "signIn": "Entrar na Conta",
+            "noAccount": "Novo por aqui?",
+            "createAccount": "Criar uma conta"
+        },
+        "register": {
+            "title": "Comece agora",
+            "description": "Crie sua conta para começar a gerenciar faturas",
+            "fullName": "Nome Completo",
+            "email": "E-mail",
+            "password": "Senha",
+            "confirmPassword": "Confirmar Senha",
+            "createAccount": "Criar Conta",
+            "haveAccount": "Já tem uma conta?",
+            "logIn": "Entrar"
+        },
+        "forgotPassword": {
+            "title": "Esqueceu a senha",
+            "description": "Insira seu e-mail e enviaremos um link de redefinição",
+            "email": "E-mail",
+            "sendLink": "Enviar Link de Redefinição",
+            "backToLogin": "Voltar ao login"
+        },
+        "resetPassword": {
+            "title": "Redefinir senha",
+            "description": "Insira sua nova senha abaixo",
+            "email": "E-mail",
+            "password": "Senha",
+            "confirmPassword": "Confirmar Senha",
+            "reset": "Redefinir Senha"
+        },
+        "verifyEmail": {
+            "title": "Verificar e-mail",
+            "description": "Por favor, verifique seu endereço de e-mail",
+            "linkSent": "Um novo link de verificação foi enviado para o e-mail fornecido durante o cadastro.",
+            "resend": "Reenviar E-mail de Verificação",
+            "logout": "Sair"
+        },
+        "confirmPassword": {
+            "title": "Confirmar senha",
+            "description": "Esta é uma área segura. Por favor, confirme sua senha.",
+            "password": "Senha",
+            "confirm": "Confirmar"
+        },
+        "twoFactor": {
+            "authTitle": "Código de Autenticação",
+            "authDescription": "Digite o código de autenticação fornecido pelo seu aplicativo autenticador.",
+            "recoveryTitle": "Código de Recuperação",
+            "recoveryDescription": "Confirme o acesso à sua conta inserindo um dos seus códigos de recuperação de emergência.",
+            "continue": "Continuar",
+            "orYouCan": "ou você pode",
+            "useAuthCode": "entrar com código de autenticação",
+            "useRecoveryCode": "entrar com código de recuperação",
+            "recoveryPlaceholder": "Digite o código de recuperação"
+        }
+    },
+    "dashboard": {
+        "title": "Painel",
+        "description": "Bem-vindo de volta. Aqui está seu resumo financeiro.",
+        "createInvoice": "Criar Fatura",
+        "stats": {
+            "totalOutstanding": "Total Pendente",
+            "totalOutstandingDesc": "Faturas enviadas e vencidas",
+            "totalPaid": "Total Recebido",
+            "totalPaidDesc": "{count} faturas pagas",
+            "dueSoon": "Vence Em Breve",
+            "dueSoonDesc": "{count} faturas vencem nos próximos 7 dias",
+            "overdue": "Vencidas",
+            "overdueDesc": "{count} faturas vencidas"
+        },
+        "recentInvoices": {
+            "title": "Faturas Recentes",
+            "subtitle": "Gerencie suas últimas atividades de cobrança",
+            "viewAll": "Ver todas",
+            "noInvoices": "Nenhuma fatura gerada",
+            "noInvoicesDesc": "Pronto para receber? Crie sua fatura profissional em segundos.",
+            "newInvoice": "Nova Fatura",
+            "due": "Vence",
+            "headers": {
+                "invoice": "Fatura",
+                "client": "Cliente",
+                "status": "Status",
+                "amount": "Valor"
+            }
+        },
+        "recentClients": {
+            "title": "Clientes Recentes",
+            "subtitle": "Suas parcerias ativas mais recentes",
+            "manageAll": "Gerenciar Todos",
+            "noClients": "Sua lista de clientes está vazia",
+            "noClientsDesc": "Pronto para enviar sua primeira fatura profissional?",
+            "addFirstClient": "Adicionar Primeiro Cliente",
+            "invoice": "fatura",
+            "invoices": "faturas"
+        },
+        "revenueChart": {
+            "title": "Visão Geral de Receita",
+            "description": "Tendências de receita mensal dos últimos 6 meses",
+            "revenue": "Receita"
+        }
+    },
+    "invoices": {
+        "title": "Faturas",
+        "description": "Visão financeira e gerenciamento de cobranças",
+        "newInvoice": "Nova Fatura",
+        "csv": "CSV",
+        "exporting": "Exportando...",
+        "filters": {
+            "all": "Todas",
+            "draft": "Rascunho",
+            "sent": "Enviada",
+            "paid": "Paga",
+            "overdue": "Vencida"
+        },
+        "status": {
+            "draft": "Rascunho",
+            "sent": "Enviada",
+            "paid": "Paga",
+            "overdue": "Vencida"
+        },
+        "empty": {
+            "title": "Nenhuma fatura encontrada",
+            "desc": "Tente ajustar os filtros ou crie uma nova.",
+            "cta": "Gerar Primeira Fatura"
+        },
+        "table": {
+            "invoice": "Fatura",
+            "client": "Cliente",
+            "amount": "Valor",
+            "status": "Status",
+            "dueDate": "Vencimento",
+            "actions": "Ações"
+        },
+        "pagination": {
+            "page": "Página {current} de {last}"
+        },
+        "delete": {
+            "title": "Excluir Fatura?",
+            "desc": "Tem certeza que deseja excluir a fatura {number}? Esta ação é irreversível.",
+            "cancel": "Cancelar",
+            "confirm": "Excluir Fatura",
+            "deleting": "Excluindo..."
+        },
+        "breadcrumbs": {
+            "new": "Nova Fatura"
+        },
+        "form": {
+            "client": "Cliente",
+            "issueDate": "Data de Emissão",
+            "dueDate": "Data de Vencimento",
+            "tax": "Impostos / Taxas",
+            "notes": "Observações",
+            "notesPlaceholder": "Observações adicionais, instruções de pagamento...",
+            "saveDraft": "Salvar Rascunho",
+            "saveAndSend": "Salvar e Enviar",
+            "saving": "Salvando...",
+            "sending": "Enviando...",
+            "cancel": "Cancelar",
+            "clientDetailsTimeline": "Dados do Cliente e Prazo",
+            "selectClient": "Selecionar Cliente",
+            "invoiceItems": "Itens da Fatura",
+            "notesTerms": "Observações e Termos",
+            "financialSummary": "Resumo Financeiro",
+            "adjustmentsTax": "Ajustes / Impostos",
+            "draft": "Rascunho",
+            "send": "Enviar",
+            "clientBilling": "Cliente e Cobrança",
+            "recipient": "Destinatário",
+            "configuration": "Configuração",
+            "status": "Status",
+            "paymentDate": "Data de Pagamento",
+            "taxAmount": "Valor do Imposto",
+            "updateInvoice": "Atualizar Fatura",
+            "changesSaved": "Alterações Salvas com Sucesso",
+            "additionalDetails": "Detalhes adicionais..."
+        },
+        "show": {
+            "createdOn": "Criada em",
+            "edit": "Editar",
+            "viewPdf": "Ver PDF",
+            "download": "Baixar",
+            "servicesRendered": "Serviços Prestados",
+            "internalNotes": "Notas Internas",
+            "sendToClient": "Enviar ao Cliente",
+            "resendInvoice": "Reenviar Fatura",
+            "recipientDetails": "Dados do Destinatário",
+            "organization": "Organização",
+            "individualClient": "Cliente Pessoa Física",
+            "billingTimeline": "Linha do Tempo",
+            "issued": "Emitida",
+            "dueDate": "Vencimento",
+            "paidOn": "Paga em",
+            "paymentDelayed": "Pagamento em atraso",
+            "destroyTitle": "Excluir Fatura?",
+            "destroyDesc": "Isso removerá {number} permanentemente. Esta ação é irreversível.",
+            "keepInvoice": "Manter Fatura",
+            "confirmDeletion": "Confirmar Exclusão",
+            "deleting": "Excluindo..."
+        },
+        "public": {
+            "invoice": "Fatura",
+            "issued": "Emitida",
+            "invoiceDetails": "Detalhes da Fatura",
+            "issueDate": "Data de Emissão",
+            "dueDate": "Data de Vencimento",
+            "sentOn": "Enviada em",
+            "paidOn": "Paga em",
+            "billTo": "Cobrar de",
+            "name": "Nome",
+            "email": "E-mail",
+            "company": "Empresa",
+            "lineItems": "Itens",
+            "notes": "Observações",
+            "downloading": "Baixando...",
+            "downloadPdf": "Baixar PDF",
+            "paid": "Paga",
+            "payNow": "Pagar Agora"
+        }
+    },
+    "clients": {
+        "title": "Clientes",
+        "description": "Sua rede profissional e contatos de cobrança",
+        "newClient": "Novo Cliente",
+        "personal": "Pessoal",
+        "empty": {
+            "title": "Nenhum cliente encontrado",
+            "desc": "Comece a construir seu banco de dados adicionando seu primeiro cliente.",
+            "cta": "Adicionar Cliente"
+        },
+        "table": {
+            "client": "Cliente",
+            "company": "Empresa",
+            "contact": "Contato",
+            "actions": "Ações"
+        },
+        "pagination": {
+            "showing": "Mostrando {count} de {total}"
+        },
+        "delete": {
+            "title": "Remover Cliente?",
+            "desc": "Tem certeza que deseja excluir {name}? Isso removerá permanentemente seus dados.",
+            "cancel": "Voltar",
+            "confirm": "Sim, Excluir Cliente",
+            "deleting": "Excluindo..."
+        },
+        "stats": {
+            "totalPaid": "Total Pago",
+            "totalPending": "Total Pendente",
+            "totalOverdue": "Total Vencido",
+            "totalDraft": "Total Rascunho",
+            "items": "{count} itens"
+        },
+        "invoices": {
+            "title": "Faturas",
+            "subtitle": "Histórico de cobranças do cliente",
+            "noInvoices": "Nenhuma fatura encontrada",
+            "noInvoicesDesc": "Este cliente ainda não possui faturas geradas.",
+            "dueOn": "Vence em:",
+            "headers": {
+                "invoice": "Fatura",
+                "status": "Status",
+                "dates": "Emissão / Vencimento",
+                "amount": "Valor",
+                "action": "Ação"
+            },
+            "pagination": {
+                "info": "{total} faturas • Página {current} de {last}"
+            }
+        },
+        "breadcrumbs": {
+            "new": "Novo Cliente",
+            "edit": "Editar Cliente"
+        },
+        "form": {
+            "name": "Nome Completo",
+            "email": "E-mail",
+            "phone": "Telefone",
+            "company": "Nome da Empresa",
+            "address": "Endereço",
+            "save": "Salvar Cliente",
+            "saving": "Salvando...",
+            "cancel": "Cancelar",
+            "identification": "Identificação",
+            "professionalDetails": "Dados Profissionais",
+            "internalNotes": "Notas Internas",
+            "backToList": "Voltar à Lista",
+            "createClient": "Criar Cliente",
+            "personalContactInfo": "Info Pessoal e Contato",
+            "additionalNotes": "Notas Adicionais",
+            "companyOptional": "Empresa (Opcional)",
+            "saveInfo": "Salvar Dados do Cliente",
+            "changesSaved": "Alterações salvas!",
+            "describeDetails": "Descreva detalhes relevantes...",
+            "preferencesPlaceholder": "Preferências, histórico de contato ou detalhes de cobrança específicos..."
+        },
+        "show": {
+            "activeClient": "Cliente Ativo",
+            "joined": "Desde",
+            "editDetails": "Editar Dados",
+            "delete": "Excluir",
+            "financialOverview": "Visão Financeira",
+            "recentInvoices": "Faturas Recentes",
+            "newInvoice": "Nova Fatura +",
+            "clientDetails": "Detalhes do Cliente",
+            "deleteTitle": "Excluir Cliente",
+            "deleteDesc": "Tem certeza que deseja excluir {name}? Isso removerá permanentemente todas as {count} faturas.",
+            "goBack": "Voltar",
+            "confirmDelete": "Sim, Excluir Cliente",
+            "deleting": "Excluindo..."
+        }
+    },
+    "invoiceSummary": {
+        "title": "Resumo Financeiro",
+        "subtotal": "Subtotal",
+        "taxesFees": "Impostos e Taxas",
+        "grandTotal": "Total Geral",
+        "finalAmount": "Valor final a receber"
+    },
+    "invoiceItems": {
+        "description": "Descrição",
+        "qty": "Qtd",
+        "unitPrice": "Preço Unit.",
+        "total": "Total",
+        "addItem": "Adicionar Item",
+        "serviceItem": "Item de Serviço"
+    },
+    "settings": {
+        "profile": "Perfil",
+        "password": "Senha",
+        "appearance": "Aparência",
+        "twoFactor": "Autenticação 2FA",
+        "profilePage": {
+            "title": "Informações do perfil",
+            "description": "Atualize seu nome e endereço de e-mail",
+            "name": "Nome",
+            "email": "Endereço de e-mail",
+            "unverified": "Seu endereço de e-mail não foi verificado.",
+            "resendVerification": "Clique aqui para reenviar o e-mail de verificação.",
+            "verificationSent": "Um novo link de verificação foi enviado para o seu endereço de e-mail.",
+            "save": "Salvar",
+            "saved": "Salvo."
+        },
+        "passwordPage": {
+            "title": "Atualizar senha",
+            "description": "Certifique-se de que sua conta usa uma senha longa e aleatória para se manter segura",
+            "current": "Senha atual",
+            "new": "Nova senha",
+            "confirm": "Confirmar senha",
+            "save": "Salvar senha",
+            "saved": "Salvo."
+        },
+        "appearancePage": {
+            "title": "Configurações de aparência",
+            "description": "Atualize as configurações de aparência da sua conta"
+        },
+        "twoFactorPage": {
+            "title": "Autenticação de Dois Fatores",
+            "description": "Gerencie suas configurações de autenticação de dois fatores",
+            "disabled": "Desativado",
+            "enabled": "Ativado",
+            "disabledDesc": "Ao ativar a autenticação de dois fatores, você será solicitado a inserir um PIN seguro durante o login. Este PIN pode ser obtido em um aplicativo compatível com TOTP no seu celular.",
+            "enabledDesc": "Com a autenticação de dois fatores ativada, você será solicitado a inserir um PIN seguro e aleatório durante o login, que pode ser obtido no aplicativo compatível com TOTP no seu celular.",
+            "continueSetup": "Continuar Configuração",
+            "enable": "Ativar 2FA",
+            "disable": "Desativar 2FA"
+        }
+    },
+    "lp": {
+        "nav": {
+            "howItWorks": "Como Funciona",
+            "pricing": "Preços",
+            "faq": "Perguntas",
+            "logIn": "Entrar",
+            "getStarted": "Começar Agora",
+            "dashboard": "Painel"
+        },
+        "hero": {
+            "h1part1": "Emita Faturas",
+            "h1pro": "Profissionais",
+            "h1part2": ", Receba",
+            "h1faster": "Mais Rápido.",
+            "subtitle": "Chega de planilhas. O Emitte simplifica seu faturamento para você focar no que faz de melhor.",
+            "cta1": "Começar Agora",
+            "cta2": "Ver Demo",
+            "badge1": "Fácil de usar",
+            "badge2": "Configure em 2 min",
+            "paymentReceived": "Pagamento recebido",
+            "justNow": "Agora mesmo"
+        },
+        "problem": {
+            "badge": "Os Problemas",
+            "h2": "Cansado de",
+            "h2red": "Dores de Cabeça?",
+            "subtitle": "Trabalhar por conta própria já é difícil. Seu processo de cobrança não deveria ser mais um problema.",
+            "card1": {
+                "title": "Perdido em Planilhas",
+                "desc": "Afogado em arquivos Excel? Perde o controle de quem deve o quê? Gasta horas atualizando linhas em vez de fazer o trabalho que ama."
+            },
+            "card2": {
+                "title": "Correndo Atrás de Pagamentos",
+                "desc": "Cobrar faturas atrasadas é constrangedor e desperdiça seu tempo valioso. Você não deveria ter que implorar pelo que é seu."
+            },
+            "card3": {
+                "title": "Parecendo Amador",
+                "desc": "Templates genéricos e branding inconsistente fazem você parecer iniciante. Primeiras impressões importam para clientes que pagam bem."
+            },
+            "card4": {
+                "title": "Sem Visibilidade do Fluxo de Caixa",
+                "desc": "Sem ideia do que vai entrar no próximo mês? Pouca visibilidade do seu pipeline de receita torna impossível planejar e crescer."
+            },
+            "betterWay": "Existe uma forma melhor"
+        },
+        "howItWorks": {
+            "h2": "Da Fatura ao Pagamento em 4 Passos Simples",
+            "subtitle": "Pare de correr atrás de burocracia. Criamos um fluxo de trabalho fluido para você focar no seu trabalho enquanto cuidamos do faturamento.",
+            "step1": {
+                "title": "Adicione seus Clientes",
+                "desc": "Importe ou adicione dados de clientes rapidamente. Armazene contatos e condições de pagamento em um só lugar."
+            },
+            "step2": {
+                "title": "Crie a Fatura",
+                "desc": "Gere faturas profissionais em segundos. Adicione itens e impostos com nosso editor intuitivo."
+            },
+            "step3": {
+                "title": "Envie e Acompanhe",
+                "desc": "Envie faturas por e-mail. Veja quando os clientes as abrem e receba notificações de status em tempo real."
+            },
+            "step4": {
+                "title": "Receba o Pagamento",
+                "desc": "Marque faturas como pagas e veja seu painel de receita atualizar automaticamente."
+            }
+        },
+        "benefits": {
+            "h2": "Por que Freelancers e Pequenas Empresas Escolhem o Emitte",
+            "subtitle": "Resultados reais que impactam sua receita e liberam seu tempo.",
+            "card1": {
+                "title": "Economize +10 Horas por Mês",
+                "desc": "Pare de copiar dados entre planilhas. Automatize a criação e rastreamento de faturas para focar no trabalho faturável."
+            },
+            "card2": {
+                "title": "Receba 40% Mais Rápido",
+                "desc": "Faturas profissionais e lembretes automáticos fazem os clientes pagarem mais cedo. Sem mais e-mails constrangedores de cobrança."
+            },
+            "card3": {
+                "title": "Nunca Perca o Controle",
+                "desc": "Saiba exatamente o que está pendente. Veja quais faturas estão vencidas de relance. Nunca deixe receita escapar."
+            },
+            "card4": {
+                "title": "Pareça Profissional",
+                "desc": "Faturas elegantes e com sua marca causam a impressão certa. Conquiste clientes que pagam mais e valorizam qualidade."
+            },
+            "card5": {
+                "title": "Escale Sem Caos",
+                "desc": "Indo de 5 para 50 clientes? Nosso sistema cresce com você. Sem colapsos de planilha quando o negócio bombar."
+            },
+            "card6": {
+                "title": "Veja a Receita com Clareza",
+                "desc": "Painéis bonitos mostram seu pipeline de receita. Planeje com confiança em vez de adivinhar seu fluxo de caixa."
+            }
+        },
+        "screenshot": {
+            "h2": "Tudo que Você Precisa em um Painel Bonito",
+            "subtitle": "Gerenciar faturas não precisa ser complicado. O Emitte traz clareza para todo o seu fluxo de cobrança.",
+            "placeholder": "Visão Completa do Painel"
+        },
+        "pricing": {
+            "h2": "Preços Simples para",
+            "h2highlight": "Negócios em Crescimento",
+            "subtitle": "Comece pequeno e faça upgrade conforme seu negócio cresce. Sem taxas ocultas. Sem surpresas.",
+            "perMonth": "/mês",
+            "mostPopular": "Mais Popular",
+            "bestValue": "Melhor Custo-Benefício",
+            "whyPro": {
+                "title": "Por que escolher o Pro?",
+                "desc": "Automatizar faturas recorrentes e lembretes pode economizar horas todo mês — tempo que você pode reinvestir para crescer seu negócio."
+            },
+            "plans": {
+                "starter": {
+                    "name": "Starter",
+                    "price": "R$29",
+                    "desc": "Perfeito para freelancers e pequenas empresas começando.",
+                    "cta": "Começar Agora"
+                },
+                "pro": {
+                    "name": "Pro",
+                    "price": "R$69",
+                    "desc": "Para profissionais que querem automação e escala.",
+                    "cta": "Upgrade para Pro",
+                    "savings": "Mais Popular"
+                },
+                "business": {
+                    "name": "Business",
+                    "price": "R$119",
+                    "desc": "Para alto volume de cobranças e crescimento acelerado.",
+                    "cta": "Escalar Meu Negócio"
+                }
+            },
+            "features": {
+                "clients20": "Até 20 clientes",
+                "emails50": "Até 50 e-mails por mês",
+                "unlimitedInvoices": "Faturas ilimitadas",
+                "basicDashboard": "Painel básico",
+                "emailSupport": "Suporte por e-mail",
+                "recurringInvoices": "Faturas recorrentes",
+                "clients300": "Até 300 clientes",
+                "emails1000": "Até 1000 e-mails por mês",
+                "advancedReports": "Relatórios avançados",
+                "whatsappSupport": "Suporte por WhatsApp",
+                "prioritySupport": "Suporte prioritário",
+                "unlimitedClients": "Clientes ilimitados",
+                "emails5000": "Até 5000 e-mails por mês",
+                "everythingInPro": "Tudo do Pro",
+                "dedicatedSupport": "Suporte dedicado"
+            }
+        },
+        "faq": {
+            "h2": "Perguntas? Temos as Respostas",
+            "subtitle": "Tudo que você precisa saber sobre o Emitte.",
+            "q1": "O Emitte é realmente gratuito?",
+            "a1": "Sim! Nosso plano Básico é completamente gratuito para sempre. Você tem 10 faturas por mês, clientes ilimitados e todos os recursos essenciais. Faça upgrade para o Pro quando precisar de faturamento ilimitado e recursos avançados.",
+            "q2": "Posso personalizar minhas faturas?",
+            "a2": "Com certeza. Usuários Pro podem adicionar branding personalizado incluindo logos, cores e texto de rodapé. Todos os usuários podem personalizar detalhes da fatura, itens, impostos e observações.",
+            "q3": "Como recebo o pagamento?",
+            "a3": "O Emitte ajuda você a rastrear pagamentos, mas não os processa diretamente. Você pode enviar faturas por e-mail ou baixar PDFs, e marcar as faturas como pagas quando receber o pagamento pelo seu método preferido (transferência bancária, PayPal, Stripe, etc.).",
+            "q4": "Posso importar meus clientes existentes?",
+            "a4": "Sim! Você pode adicionar clientes manualmente um por um, ou fazer upload de um arquivo CSV para importar vários clientes de uma vez. Suportamos formatos padrão do Excel e Google Sheets.",
+            "q5": "E se eu precisar de ajuda?",
+            "a5": "Estamos aqui para você! Usuários Básicos têm suporte por e-mail com respostas em 24-48 horas. Usuários Pro têm suporte prioritário com tempos de resposta mais rápidos. Também temos documentação completa e tutoriais em vídeo."
+        },
+        "cta": {
+            "badge": "A #1 escolha para freelancers em 2026",
+            "h2": "Pare de correr,",
+            "h2italic": "comece a crescer.",
+            "subtitle": "Junte-se a mais de 2.000 profissionais que economizam em média 40 horas por ano com faturamento. Suas primeiras 10 faturas são por nossa conta.",
+            "button": "Criar Minha Conta Grátis"
+        },
+        "footer": {
+            "brand": "Gestão profissional de faturas para freelancers e pequenas empresas.",
+            "product": "Produto",
+            "features": "Recursos",
+            "pricing": "Preços",
+            "faq": "FAQ",
+            "company": "Empresa",
+            "about": "Sobre",
+            "blog": "Blog",
+            "contact": "Contato",
+            "legal": "Legal",
+            "privacy": "Privacidade",
+            "terms": "Termos",
+            "copyright": "© 2026 Emitte. Todos os direitos reservados."
+        }
+    },
+    "locale": {
+        "toggle": "Idioma",
+        "en": "EN",
+        "ptBR": "PT"
+    },
+    "currency": {
+        "symbol": "R$",
+        "locale": "pt-BR",
+        "code": "BRL"
+    }
+}

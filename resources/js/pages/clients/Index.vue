@@ -2,6 +2,7 @@
 import { Head, Link, router } from '@inertiajs/vue3';
 import { Pencil, Plus, Trash2, User, Building2, Mail } from 'lucide-vue-next';
 import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import ClientController from '@/actions/App/Http/Controllers/ClientController';
 import Heading from '@/components/Heading.vue';
 import { Button } from '@/components/ui/button';
@@ -18,7 +19,8 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { index, create, edit, show } from '@/routes/clients';
 import { type BreadcrumbItem, type Client } from '@/types';
 
-// ... (Interfaces de paginação permanecem as mesmas)
+const { t } = useI18n();
+
 interface PaginationLink {
     url: string | null;
     label: string;
@@ -63,7 +65,6 @@ function deleteClient() {
     );
 }
 
-// Estilo dos cabeçalhos (Black Caps)
 const thClass =
     'px-6 py-4 text-left text-[10px] font-black tracking-[0.2em] text-muted-foreground/80 uppercase';
 </script>
@@ -75,8 +76,8 @@ const thClass =
         <div class="flex h-full flex-1 flex-col gap-6 bg-muted/5 p-6">
             <div class="flex items-end justify-between">
                 <Heading
-                    title="Clients"
-                    description="Your professional network and billing contacts"
+                    :title="t('clients.title')"
+                    :description="t('clients.description')"
                 />
                 <Button
                     as-child
@@ -84,7 +85,7 @@ const thClass =
                 >
                     <Link :href="create().url">
                         <Plus class="mr-2 h-4 w-4" />
-                        New Client
+                        {{ t('clients.newClient') }}
                     </Link>
                 </Button>
             </div>
@@ -98,14 +99,14 @@ const thClass =
                 >
                     <User class="h-10 w-10 text-muted-foreground/40" />
                 </div>
-                <h3 class="mt-4 text-lg font-bold">No clients found</h3>
+                <h3 class="mt-4 text-lg font-bold">{{ t('clients.empty.title') }}</h3>
                 <p
                     class="mb-6 max-w-xs text-center text-sm text-muted-foreground"
                 >
-                    Start building your database by adding your first client.
+                    {{ t('clients.empty.desc') }}
                 </p>
                 <Button variant="outline" as-child class="rounded-xl border-2">
-                    <Link :href="create().url">Add Client</Link>
+                    <Link :href="create().url">{{ t('clients.empty.cta') }}</Link>
                 </Button>
             </div>
 
@@ -117,13 +118,13 @@ const thClass =
                     <table class="w-full border-collapse">
                         <thead>
                             <tr class="border-b border-border/60 bg-muted/30">
-                                <th :class="thClass">Client</th>
-                                <th :class="thClass">Company</th>
-                                <th :class="thClass">Contact</th>
+                                <th :class="thClass">{{ t('clients.table.client') }}</th>
+                                <th :class="thClass">{{ t('clients.table.company') }}</th>
+                                <th :class="thClass">{{ t('clients.table.contact') }}</th>
                                 <th
                                     class="px-6 py-4 text-right text-[10px] font-black tracking-[0.2em] text-muted-foreground/80 uppercase"
                                 >
-                                    Actions
+                                    {{ t('clients.table.actions') }}
                                 </th>
                             </tr>
                         </thead>
@@ -159,7 +160,7 @@ const thClass =
                                         <Building2
                                             class="h-3.5 w-3.5 opacity-50"
                                         />
-                                        {{ client.company_name || 'Personal' }}
+                                        {{ client.company_name || t('clients.personal') }}
                                     </div>
                                 </td>
 
@@ -214,8 +215,7 @@ const thClass =
                     <span
                         class="text-xs font-bold tracking-widest text-muted-foreground/60 uppercase"
                     >
-                        Showing {{ props.clients.data.length }} of
-                        {{ props.clients.total }}
+                        {{ t('clients.pagination.showing', { count: props.clients.data.length, total: props.clients.total }) }}
                     </span>
                     <div class="flex gap-2">
                         <template
@@ -252,19 +252,17 @@ const thClass =
                     >
                         <Trash2 class="h-6 w-6 text-destructive" />
                     </div>
-                    <DialogTitle class="text-center text-xl font-bold"
-                        >Remove Client?</DialogTitle
-                    >
+                    <DialogTitle class="text-center text-xl font-bold">
+                        {{ t('clients.delete.title') }}
+                    </DialogTitle>
                     <DialogDescription class="pt-2 text-center">
-                        Are you sure you want to delete
-                        <strong>{{ clientToDelete?.name }}</strong
-                        >? This will permanentely remove their data.
+                        {{ t('clients.delete.desc', { name: clientToDelete?.name }) }}
                     </DialogDescription>
                 </DialogHeader>
                 <DialogFooter class="mt-6 flex flex-col gap-3 sm:flex-row">
                     <DialogClose as-child>
                         <Button variant="ghost" class="flex-1 rounded-xl">
-                            Go Back
+                            {{ t('clients.delete.cancel') }}
                         </Button>
                     </DialogClose>
 
@@ -274,7 +272,7 @@ const thClass =
                         :disabled="deleting"
                         @click="deleteClient"
                     >
-                        {{ deleting ? 'Deleting...' : 'Yes, Delete Client' }}
+                        {{ deleting ? t('clients.delete.deleting') : t('clients.delete.confirm') }}
                     </Button>
                 </DialogFooter>
             </DialogContent>

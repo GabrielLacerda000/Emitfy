@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Form, Head, Link } from '@inertiajs/vue3';
 import { ArrowLeft, Lock, Mail, User } from 'lucide-vue-next'; // Adicionado ícones
+import { useI18n } from 'vue-i18n';
 import InputError from '@/components/InputError.vue';
 import TextLink from '@/components/TextLink.vue';
 import { Button } from '@/components/ui/button';
@@ -10,12 +11,14 @@ import { Spinner } from '@/components/ui/spinner';
 import AuthBase from '@/layouts/AuthLayout.vue';
 import { login } from '@/routes';
 import { store } from '@/routes/register';
+
+const { t } = useI18n();
 </script>
 
 <template>
     <AuthBase
-        title="Get started"
-        description="Create your account to start managing invoices"
+        :title="t('auth.register.title')"
+        :description="t('auth.register.description')"
     >
         <Head title="Register" />
 
@@ -29,7 +32,7 @@ import { store } from '@/routes/register';
                     <ArrowLeft
                         class="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1"
                     />
-                    Back to website
+                    {{ t('auth.backToWebsite') }}
                 </Link>
             </Button>
         </div>
@@ -46,7 +49,7 @@ import { store } from '@/routes/register';
                         for="name"
                         class="ml-1 text-[10px] font-black tracking-widest text-muted-foreground/80 uppercase"
                     >
-                        Full Name
+                        {{ t('auth.register.fullName') }}
                     </Label>
                     <div class="group relative">
                         <User
@@ -72,7 +75,7 @@ import { store } from '@/routes/register';
                         for="email"
                         class="ml-1 text-[10px] font-black tracking-widest text-muted-foreground/80 uppercase"
                     >
-                        Email Address
+                        {{ t('auth.register.email') }}
                     </Label>
                     <div class="group relative">
                         <Mail
@@ -97,7 +100,7 @@ import { store } from '@/routes/register';
                         for="password"
                         class="ml-1 text-[10px] font-black tracking-widest text-muted-foreground/80 uppercase"
                     >
-                        Password
+                        {{ t('auth.register.password') }}
                     </Label>
                     <div class="group relative">
                         <Lock
@@ -122,7 +125,7 @@ import { store } from '@/routes/register';
                         for="password_confirmation"
                         class="ml-1 text-[10px] font-black tracking-widest text-muted-foreground/80 uppercase"
                     >
-                        Confirm Password
+                        {{ t('auth.register.confirmPassword') }}
                     </Label>
                     <div class="group relative">
                         <Lock
@@ -149,18 +152,18 @@ import { store } from '@/routes/register';
                     :disabled="processing"
                 >
                     <Spinner v-if="processing" class="mr-2" />
-                    Create Account
+                    {{ t('auth.register.createAccount') }}
                 </Button>
             </div>
 
             <div class="text-center text-sm font-medium text-muted-foreground">
-                Already have an account?
+                {{ t('auth.register.haveAccount') }}
                 <TextLink
                     :href="login()"
                     class="font-bold text-primary underline-offset-4 transition-all hover:underline"
                     :tabindex="6"
                 >
-                    Log in
+                    {{ t('auth.register.logIn') }}
                 </TextLink>
             </div>
         </Form>

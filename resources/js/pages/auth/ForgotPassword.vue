@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Form, Head } from '@inertiajs/vue3';
+import { useI18n } from 'vue-i18n';
 import InputError from '@/components/InputError.vue';
 import TextLink from '@/components/TextLink.vue';
 import { Button } from '@/components/ui/button';
@@ -10,6 +11,8 @@ import AuthLayout from '@/layouts/AuthLayout.vue';
 import { login } from '@/routes';
 import { email } from '@/routes/password';
 
+const { t } = useI18n();
+
 defineProps<{
     status?: string;
 }>();
@@ -17,8 +20,8 @@ defineProps<{
 
 <template>
     <AuthLayout
-        title="Forgot password"
-        description="Enter your email to receive a password reset link"
+        :title="t('auth.forgotPassword.title')"
+        :description="t('auth.forgotPassword.description')"
     >
         <Head title="Forgot password" />
 
@@ -32,7 +35,7 @@ defineProps<{
         <div class="space-y-6">
             <Form v-bind="email.form()" v-slot="{ errors, processing }">
                 <div class="grid gap-2">
-                    <Label for="email">Email address</Label>
+                    <Label for="email">{{ t('auth.forgotPassword.email') }}</Label>
                     <Input
                         id="email"
                         type="email"
@@ -51,14 +54,13 @@ defineProps<{
                         data-test="email-password-reset-link-button"
                     >
                         <Spinner v-if="processing" />
-                        Email password reset link
+                        {{ t('auth.forgotPassword.sendLink') }}
                     </Button>
                 </div>
             </Form>
 
             <div class="space-x-1 text-center text-sm text-muted-foreground">
-                <span>Or, return to</span>
-                <TextLink :href="login()">log in</TextLink>
+                <TextLink :href="login()">{{ t('auth.forgotPassword.backToLogin') }}</TextLink>
             </div>
         </div>
     </AuthLayout>

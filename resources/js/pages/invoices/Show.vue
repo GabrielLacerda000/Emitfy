@@ -13,8 +13,11 @@ import {
     AlertCircle,
     Clock,
     ArrowLeft,
+    History,
+    Building2,
 } from 'lucide-vue-next';
 import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import InvoiceController from '@/actions/App/Http/Controllers/InvoiceController';
 import InvoicePdfController from '@/actions/App/Http/Controllers/InvoicePdfController';
 import InvoiceItemsTable from '@/components/invoices/InvoiceItemsTable.vue';
@@ -36,6 +39,8 @@ import { formatDate } from '@/lib/utils';
 import { edit, index } from '@/routes/invoices';
 import { type BreadcrumbItem, type Invoice } from '@/types';
 
+const { t } = useI18n();
+
 type Props = {
     invoice: Invoice;
 };
@@ -51,25 +56,25 @@ function getStatusConfig(status: string) {
     const configs = {
         draft: {
             variant: 'secondary' as const,
-            label: 'Draft',
+            label: t('invoices.status.draft'),
             icon: FileText,
             class: 'bg-slate-100 text-slate-600 border-slate-200',
         },
         sent: {
             variant: 'default' as const,
-            label: 'Sent',
+            label: t('invoices.status.sent'),
             icon: Clock,
             class: 'bg-blue-50 text-blue-600 border-blue-200',
         },
         paid: {
             variant: 'outline' as const,
-            label: 'Paid',
+            label: t('invoices.status.paid'),
             icon: CheckCircle2,
             class: 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-500/10',
         },
         overdue: {
             variant: 'destructive' as const,
-            label: 'Overdue',
+            label: t('invoices.status.overdue'),
             icon: AlertCircle,
             class: 'animate-pulse',
         },
@@ -158,7 +163,7 @@ function sendInvoice() {
                             <p
                                 class="mt-0.5 text-sm font-medium text-muted-foreground"
                             >
-                                Created on {{ formatDate(invoice.created_at) }}
+                                {{ t('invoices.show.createdOn') }} {{ formatDate(invoice.created_at) }}
                             </p>
                         </div>
                     </div>
@@ -174,7 +179,7 @@ function sendInvoice() {
                         >
                             <Link :href="edit({ invoice: invoice.id }).url">
                                 <Pencil class="mr-2 h-3.5 w-3.5 text-primary" />
-                                Edit
+                                {{ t('invoices.show.edit') }}
                             </Link>
                         </Button>
                         <div class="mx-1 h-4 w-px bg-border" />
@@ -187,7 +192,7 @@ function sendInvoice() {
                             <Eye
                                 class="mr-2 h-3.5 w-3.5 text-muted-foreground"
                             />
-                            View PDF
+                            {{ t('invoices.show.viewPdf') }}
                         </Button>
                         <Button
                             variant="ghost"
@@ -199,7 +204,7 @@ function sendInvoice() {
                             <Download
                                 class="mr-2 h-3.5 w-3.5 text-muted-foreground"
                             />
-                            {{ downloadingPdf ? '...' : 'Download' }}
+                            {{ downloadingPdf ? '...' : t('invoices.show.download') }}
                         </Button>
                         <Button
                             variant="destructive"
@@ -221,8 +226,7 @@ function sendInvoice() {
                                 <CardTitle
                                     class="flex items-center gap-2 text-sm font-bold tracking-widest text-muted-foreground uppercase"
                                 >
-                                    <FileText class="h-4 w-4" /> Services
-                                    Rendered
+                                    <FileText class="h-4 w-4" /> {{ t('invoices.show.servicesRendered') }}
                                 </CardTitle>
                             </CardHeader>
                             <CardContent class="p-0">
@@ -247,8 +251,9 @@ function sendInvoice() {
                             <CardHeader>
                                 <CardTitle
                                     class="text-sm font-bold tracking-widest text-muted-foreground uppercase"
-                                    >Internal Notes</CardTitle
                                 >
+                                    {{ t('invoices.show.internalNotes') }}
+                                </CardTitle>
                             </CardHeader>
                             <CardContent>
                                 <p
@@ -269,8 +274,8 @@ function sendInvoice() {
                             <Mail class="mr-3 h-5 w-5" />
                             {{
                                 invoice.status === 'draft'
-                                    ? 'Send to Client'
-                                    : 'Resend Invoice'
+                                    ? t('invoices.show.sendToClient')
+                                    : t('invoices.show.resendInvoice')
                             }}
                         </Button>
 
@@ -284,7 +289,7 @@ function sendInvoice() {
                                     <User
                                         class="h-3.5 w-3.5 transition-transform group-hover:scale-110"
                                     />
-                                    Recipient Details
+                                    {{ t('invoices.show.recipientDetails') }}
                                 </CardTitle>
                             </CardHeader>
 
@@ -323,7 +328,7 @@ function sendInvoice() {
                                         <span
                                             class="mb-1 text-[9px] leading-none font-black tracking-widest text-muted-foreground/50 uppercase"
                                         >
-                                            Organization
+                                            {{ t('invoices.show.organization') }}
                                         </span>
                                         <span
                                             class="text-xs font-bold text-foreground"
@@ -337,7 +342,7 @@ function sendInvoice() {
                                     v-else
                                     class="pt-2 text-[10px] font-bold tracking-widest text-muted-foreground/40 uppercase italic"
                                 >
-                                    Individual Client
+                                    {{ t('invoices.show.individualClient') }}
                                 </div>
                             </CardContent>
                         </Card>
@@ -353,7 +358,7 @@ function sendInvoice() {
                                     <h3
                                         class="text-[10px] font-black tracking-[0.2em] text-muted-foreground/70 uppercase"
                                     >
-                                        Billing Timeline
+                                        {{ t('invoices.show.billingTimeline') }}
                                     </h3>
                                 </div>
 
@@ -366,7 +371,7 @@ function sendInvoice() {
                                         <Calendar
                                             class="h-3.5 w-3.5 text-primary/40 transition-colors group-hover/item:text-primary"
                                         />
-                                        Issued
+                                        {{ t('invoices.show.issued') }}
                                     </span>
                                     <span
                                         class="text-sm font-black text-foreground"
@@ -384,7 +389,7 @@ function sendInvoice() {
                                         <Clock
                                             class="h-3.5 w-3.5 text-primary/40 transition-colors group-hover/item:text-primary"
                                         />
-                                        Due Date
+                                        {{ t('invoices.show.dueDate') }}
                                     </span>
                                     <span
                                         :class="[
@@ -417,7 +422,7 @@ function sendInvoice() {
                                             class="flex items-center gap-2 text-[11px] font-black tracking-widest text-emerald-600 uppercase italic"
                                         >
                                             <CheckCircle2 class="h-3.5 w-3.5" />
-                                            Paid on
+                                            {{ t('invoices.show.paidOn') }}
                                         </span>
                                         <span
                                             class="text-sm font-black text-emerald-600"
@@ -434,7 +439,7 @@ function sendInvoice() {
                                     <span
                                         class="animate-pulse text-[9px] font-black tracking-tighter text-destructive uppercase"
                                     >
-                                        Payment is delayed
+                                        {{ t('invoices.show.paymentDelayed') }}
                                     </span>
                                 </div>
                             </CardContent>
@@ -452,22 +457,18 @@ function sendInvoice() {
                     >
                         <Trash2 class="h-7 w-7 text-destructive" />
                     </div>
-                    <DialogTitle class="text-center text-xl font-bold"
-                        >Destroy Invoice?</DialogTitle
-                    >
+                    <DialogTitle class="text-center text-xl font-bold">
+                        {{ t('invoices.show.destroyTitle') }}
+                    </DialogTitle>
                     <DialogDescription class="text-center">
-                        This will remove
-                        <span class="font-bold text-foreground">{{
-                            invoice.number
-                        }}</span>
-                        permanently. This action is irreversible.
+                        {{ t('invoices.show.destroyDesc', { number: invoice.number }) }}
                     </DialogDescription>
                 </DialogHeader>
                 <DialogFooter class="flex flex-col gap-3 sm:flex-row">
                     <DialogClose as-child>
-                        <Button variant="ghost" class="flex-1 rounded-xl"
-                            >Keep Invoice</Button
-                        >
+                        <Button variant="ghost" class="flex-1 rounded-xl">
+                            {{ t('invoices.show.keepInvoice') }}
+                        </Button>
                     </DialogClose>
                     <Button
                         variant="destructive"
@@ -475,7 +476,7 @@ function sendInvoice() {
                         :disabled="deleting"
                         @click="deleteInvoice"
                     >
-                        {{ deleting ? 'Deleting...' : 'Confirm Deletion' }}
+                        {{ deleting ? t('invoices.show.deleting') : t('invoices.show.confirmDeletion') }}
                     </Button>
                 </DialogFooter>
             </DialogContent>
