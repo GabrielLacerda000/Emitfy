@@ -115,7 +115,7 @@ const { t } = useI18n();
                     <div class="relative w-full flex-1 bg-muted/20">
                         <img
                             src="/images/dash.png"
-                            alt="Emitte dashboard preview"
+                            alt="Emitfy dashboard preview"
                             class="h-full w-full object-contain transition-transform duration-700 group-hover:scale-[1.02]"
                         />
                         <div

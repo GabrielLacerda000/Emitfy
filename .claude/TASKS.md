@@ -350,7 +350,7 @@
 ## Milestone 10: Payments Integration
 
 ### 10.1 Stripe Setup
-- [ ] Install Stripe PHP SDK
+- [ ] Install laravel cashier stripe
 - [ ] Add Stripe config (publishable key, secret key)
 - [ ] Create environment variables
 
@@ -418,10 +418,13 @@
 - [x] Update initial page to remove starter kit panel
 
 ### 13.5 Support to portuguese language
-- [ ] Add support to portuguese language
+- [x] Add support to portuguese language
+- [x] Update some texts to pt-BR, in seecltor, nav crubs, table in homepage and validation forms
+
 
 ### 13.6 Update login and register page design
-- [ ] Update login and register page design
+- [x] Update login and register page design
+- [x] remove laravel logo
 
 ## Milestone 14 client page
 

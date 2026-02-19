@@ -394,7 +394,7 @@
             "h1pro": "a Pro",
             "h1part2": ", Get Paid",
             "h1faster": "Faster.",
-            "subtitle": "Stop wrestling with spreadsheets. Emitte streamlines your billing so you can get back to what you do best.",
+            "subtitle": "Stop wrestling with spreadsheets. Emitfy streamlines your billing so you can get back to what you do best.",
             "cta1": "Start Invoicing",
             "cta2": "Watch Demo",
             "badge1": "Easy to use",
@@ -446,7 +446,7 @@
             }
         },
         "benefits": {
-            "h2": "Why Freelancers & Small Businesses Choose Emitte",
+            "h2": "Why Freelancers & Small Businesses Choose Emitfy",
             "subtitle": "Real outcomes that impact your bottom line and free up your time.",
             "card1": {
                 "title": "Save 10+ Hours Monthly",
@@ -475,7 +475,7 @@
         },
         "screenshot": {
             "h2": "Everything You Need in One Beautiful Dashboard",
-            "subtitle": "Invoice management shouldn't be complicated. Emitte brings clarity to your entire billing workflow.",
+            "subtitle": "Invoice management shouldn't be complicated. Emitfy brings clarity to your entire billing workflow.",
             "placeholder": "Full Dashboard View"
         },
         "pricing": {
@@ -530,13 +530,13 @@
         },
         "faq": {
             "h2": "Questions? We've Got Answers",
-            "subtitle": "Everything you need to know about Emitte.",
-            "q1": "Is Emitte really free?",
+            "subtitle": "Everything you need to know about Emitfy.",
+            "q1": "Is Emitfy really free?",
             "a1": "Yes! Our Basic plan is completely free forever. You get 10 invoices per month, unlimited clients, and all core features. Upgrade to Pro when you need unlimited invoicing and advanced features.",
             "q2": "Can I customize my invoices?",
             "a2": "Absolutely. Pro users can add custom branding including logos, colors, and custom footer text. All users can customize invoice details, line items, taxes, and notes.",
             "q3": "How do I get paid?",
-            "a3": "Emitte helps you track payments but doesn't process them directly. You can send invoices via email or download PDFs, and mark invoices as paid when you receive payment through your preferred method (bank transfer, PayPal, Stripe, etc.).",
+            "a3": "Emitfy helps you track payments but doesn't process them directly. You can send invoices via email or download PDFs, and mark invoices as paid when you receive payment through your preferred method (bank transfer, PayPal, Stripe, etc.).",
             "q4": "Can I import my existing clients?",
             "a4": "Yes! You can manually add clients one by one, or upload a CSV file to import multiple clients at once. We support standard formats from Excel and Google Sheets.",
             "q5": "What if I need help?",
@@ -562,7 +562,7 @@
             "legal": "Legal",
             "privacy": "Privacy",
             "terms": "Terms",
-            "copyright": "© 2026 Emitte. All rights reserved."
+            "copyright": "© 2026 Emitfy. All rights reserved."
         }
     },
     "locale": {

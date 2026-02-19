@@ -394,7 +394,7 @@
             "h1pro": "Profissionais",
             "h1part2": ", Receba",
             "h1faster": "Mais Rápido.",
-            "subtitle": "Chega de planilhas. O Emitte simplifica seu faturamento para você focar no que faz de melhor.",
+            "subtitle": "Chega de planilhas. O Emitfy simplifica seu faturamento para você focar no que faz de melhor.",
             "cta1": "Começar Agora",
             "cta2": "Ver Demo",
             "badge1": "Fácil de usar",
@@ -446,7 +446,7 @@
             }
         },
         "benefits": {
-            "h2": "Por que Freelancers e Pequenas Empresas Escolhem o Emitte",
+            "h2": "Por que Freelancers e Pequenas Empresas Escolhem o Emitfy",
             "subtitle": "Resultados reais que impactam sua receita e liberam seu tempo.",
             "card1": {
                 "title": "Economize +10 Horas por Mês",
@@ -475,7 +475,7 @@
         },
         "screenshot": {
             "h2": "Tudo que Você Precisa em um Painel Bonito",
-            "subtitle": "Gerenciar faturas não precisa ser complicado. O Emitte traz clareza para todo o seu fluxo de cobrança.",
+            "subtitle": "Gerenciar faturas não precisa ser complicado. O Emitfy traz clareza para todo o seu fluxo de cobrança.",
             "placeholder": "Visão Completa do Painel"
         },
         "pricing": {
@@ -530,13 +530,13 @@
         },
         "faq": {
             "h2": "Perguntas? Temos as Respostas",
-            "subtitle": "Tudo que você precisa saber sobre o Emitte.",
-            "q1": "O Emitte é realmente gratuito?",
+            "subtitle": "Tudo que você precisa saber sobre o Emitfy.",
+            "q1": "O Emitfy é realmente gratuito?",
             "a1": "Sim! Nosso plano Básico é completamente gratuito para sempre. Você tem 10 faturas por mês, clientes ilimitados e todos os recursos essenciais. Faça upgrade para o Pro quando precisar de faturamento ilimitado e recursos avançados.",
             "q2": "Posso personalizar minhas faturas?",
             "a2": "Com certeza. Usuários Pro podem adicionar branding personalizado incluindo logos, cores e texto de rodapé. Todos os usuários podem personalizar detalhes da fatura, itens, impostos e observações.",
             "q3": "Como recebo o pagamento?",
-            "a3": "O Emitte ajuda você a rastrear pagamentos, mas não os processa diretamente. Você pode enviar faturas por e-mail ou baixar PDFs, e marcar as faturas como pagas quando receber o pagamento pelo seu método preferido (transferência bancária, PayPal, Stripe, etc.).",
+            "a3": "O Emitfy ajuda você a rastrear pagamentos, mas não os processa diretamente. Você pode enviar faturas por e-mail ou baixar PDFs, e marcar as faturas como pagas quando receber o pagamento pelo seu método preferido (transferência bancária, PayPal, Stripe, etc.).",
             "q4": "Posso importar meus clientes existentes?",
             "a4": "Sim! Você pode adicionar clientes manualmente um por um, ou fazer upload de um arquivo CSV para importar vários clientes de uma vez. Suportamos formatos padrão do Excel e Google Sheets.",
             "q5": "E se eu precisar de ajuda?",
@@ -562,7 +562,7 @@
             "legal": "Legal",
             "privacy": "Privacidade",
             "terms": "Termos",
-            "copyright": "© 2026 Emitte. Todos os direitos reservados."
+            "copyright": "© 2026 Emitfy. Todos os direitos reservados."
         }
     },
     "locale": {

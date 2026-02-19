@@ -1,19 +1,19 @@
 Perfeito. Agora você está construindo **produto**, não só sistema 👏
 
-Vou te responder em nível estratégico, pensando no Emitte como SaaS real.
+Vou te responder em nível estratégico, pensando no Emitfy como SaaS real.
 
 Você já pensou em:
 
-* ✅ Hero
-* ✅ Screenshot / vídeo do sistema
-* ✅ Passo a passo
-* ✅ Preços
+- ✅ Hero
+- ✅ Screenshot / vídeo do sistema
+- ✅ Passo a passo
+- ✅ Preços
 
 Ótimo começo. Agora vamos estruturar isso de forma **que converta**.
 
 ---
 
-# 🎯 Estrutura ideal da Landing Page do Emitte
+# 🎯 Estrutura ideal da Landing Page do Emitfy
 
 Ordem importa muito.
 
@@ -25,11 +25,11 @@ Objetivo: deixar claro **o que é**, **para quem é**, e **qual o benefício pri
 
 ### Estrutura:
 
-* Headline forte (benefício, não funcionalidade)
-* Subheadline explicando
-* Botão principal (CTA)
-* Botão secundário
-* Screenshot do sistema
+- Headline forte (benefício, não funcionalidade)
+- Subheadline explicando
+- Botão principal (CTA)
+- Botão secundário
+- Screenshot do sistema
 
 ### Exemplo:
 
@@ -43,14 +43,14 @@ Objetivo: deixar claro **o que é**, **para quem é**, e **qual o benefício pri
 
 **Botões:**
 
-* 🚀 Começar agora
-* 💳 Ver planos
+- 🚀 Começar agora
+- 💳 Ver planos
 
 Do lado direito:
 
-* Screenshot do dashboard
+- Screenshot do dashboard
   OU
-* Vídeo curto (30–40 segundos no máximo)
+- Vídeo curto (30–40 segundos no máximo)
 
 💡 Dica: vídeo aumenta conversão se for rápido e direto.
 
@@ -66,14 +66,14 @@ Exemplo:
 
 ## Você passa por isso?
 
-* Clientes esquecem de pagar
-* Você não sabe quem está em atraso
-* Usa planilha + WhatsApp + email
-* Perde tempo cobrando manualmente
+- Clientes esquecem de pagar
+- Você não sabe quem está em atraso
+- Usa planilha + WhatsApp + email
+- Perde tempo cobrando manualmente
 
 Finaliza com:
 
-> O Emitte resolve tudo isso para você.
+> O Emitfy resolve tudo isso para você.
 
 Isso aumenta muito a conversão.
 
@@ -103,9 +103,9 @@ Acompanhe pagamentos no dashboard
 
 Visual com:
 
-* Ícones
-* Print pequeno
-* Linha conectando etapas
+- Ícones
+- Print pequeno
+- Linha conectando etapas
 
 Simples. Claro. Sem texto gigante.
 
@@ -117,17 +117,17 @@ Aqui é onde você vende de verdade.
 
 Não diga:
 
-* Dashboard
-* Due Soon
-* Overdue
+- Dashboard
+- Due Soon
+- Overdue
 
 Diga:
 
-* 📊 Tenha visão clara do seu faturamento
-* ⏰ Nunca mais perca um vencimento
-* 📩 Envie cobranças profissionais em segundos
-* 🔁 Automatize cobranças recorrentes
-* 📈 Organize sua operação financeira
+- 📊 Tenha visão clara do seu faturamento
+- ⏰ Nunca mais perca um vencimento
+- 📩 Envie cobranças profissionais em segundos
+- 🔁 Automatize cobranças recorrentes
+- 📈 Organize sua operação financeira
 
 ---
 
@@ -135,9 +135,9 @@ Diga:
 
 Aqui você pode colocar:
 
-* Imagem grande do dashboard
-* GIF mostrando criação de invoice
-* Mini vídeo
+- Imagem grande do dashboard
+- GIF mostrando criação de invoice
+- Mini vídeo
 
 Legenda forte:
 
@@ -151,16 +151,16 @@ No começo você não tem clientes.
 
 Então pode usar:
 
-* “Feito para MEIs e pequenos negócios”
-* “Cancelamento a qualquer momento”
-* “Sem contrato”
-* “Seus dados protegidos”
+- “Feito para MEIs e pequenos negócios”
+- “Cancelamento a qualquer momento”
+- “Sem contrato”
+- “Seus dados protegidos”
 
 Depois você pode adicionar:
 
-* Depoimentos
-* Número de usuários
-* Valor total gerenciado
+- Depoimentos
+- Número de usuários
+- Valor total gerenciado
 
 ---
 
@@ -175,8 +175,8 @@ Comparação clara:
 | ---------------- | ----- | --------- |
 | Clientes         | 50    | Ilimitado |
 | Emails/mês       | 200   | Ilimitado |
-| Recorrência      | ❌     | ✅         |
-| Suporte WhatsApp | ❌     | ✅         |
+| Recorrência      | ❌    | ✅        |
+| Suporte WhatsApp | ❌    | ✅        |
 
 Botão claro:
 
@@ -190,11 +190,11 @@ Extremamente importante.
 
 Perguntas como:
 
-* Posso cancelar quando quiser?
-* Preciso de cartão?
-* Tem fidelidade?
-* Posso mudar de plano?
-* É seguro?
+- Posso cancelar quando quiser?
+- Preciso de cartão?
+- Tem fidelidade?
+- Posso mudar de plano?
+- É seguro?
 
 ---
 
@@ -230,16 +230,16 @@ Ordem ideal:
 
 Sua landing NÃO deve falar sobre:
 
-* Laravel
-* Vue
-* Tecnologia
-* Arquitetura
+- Laravel
+- Vue
+- Tecnologia
+- Arquitetura
 
 Usuário quer:
 
-* Resolver problema
-* Economizar tempo
-* Ganhar dinheiro
-* Não perder pagamento
+- Resolver problema
+- Economizar tempo
+- Ganhar dinheiro
+- Não perder pagamento
 
 ---
