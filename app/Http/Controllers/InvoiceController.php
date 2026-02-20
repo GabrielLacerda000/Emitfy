@@ -114,10 +114,6 @@ class InvoiceController extends Controller
      */
     public function update(UpdateInvoiceRequest $request, Invoice $invoice): RedirectResponse
     {
-        if ($invoice->user_id !== $request->user()->id) {
-            abort(403);
-        }
-
         ($this->updateInvoice)($invoice, $request->validated());
 
         return redirect()->route('invoices.index')

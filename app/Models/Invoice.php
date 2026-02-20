@@ -39,7 +39,7 @@ class Invoice extends Model
             'sent_at' => 'datetime',
             'paid_at' => 'datetime',
             'subtotal' => 'decimal:2',
-            'tax' => 'float',
+            'tax' => 'decimal:2',
             'total' => 'decimal:2',
         ];
     }

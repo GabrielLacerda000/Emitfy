@@ -14,7 +14,9 @@ class UpdateInvoiceRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        $invoice = $this->route('invoice');
+
+        return $invoice && $invoice->user_id === $this->user()->id;
     }
 
     /**
