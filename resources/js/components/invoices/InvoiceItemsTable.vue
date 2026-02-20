@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { Trash2, Plus, Hash, Tag, DollarSign } from 'lucide-vue-next';
+import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,8 +10,17 @@ import {
     NumberFieldContent,
     NumberFieldInput,
 } from '@/components/ui/number-field';
-import { formatBRL } from '@/lib/utils';
+import { useFormatCurrency, useLocale } from '@/composables/useLocale';
 import type { InvoiceItem } from '@/types';
+
+const { t } = useI18n();
+const { locale } = useLocale();
+const formatMoney = useFormatCurrency();
+
+const currencyFormatOptions = computed(() => ({
+    style: 'currency' as const,
+    currency: locale.value === 'en' ? 'USD' : 'BRL',
+}));
 
 interface Props {
     modelValue: InvoiceItem[];
@@ -83,7 +94,7 @@ function updateItem(
                                 class="px-6 py-4 text-left text-[10px] font-black tracking-[0.2em] text-muted-foreground/80 uppercase"
                             >
                                 <div class="flex items-center gap-2">
-                                    <Tag class="h-3 w-3" /> Description
+                                    <Tag class="h-3 w-3" /> {{ t('invoiceItems.description') }}
                                 </div>
                             </th>
                             <th
@@ -92,7 +103,7 @@ function updateItem(
                                 <div
                                     class="flex items-center justify-center gap-2"
                                 >
-                                    <Hash class="h-3 w-3" /> Qty
+                                    <Hash class="h-3 w-3" /> {{ t('invoiceItems.qty') }}
                                 </div>
                             </th>
                             <th
@@ -101,13 +112,13 @@ function updateItem(
                                 <div
                                     class="flex items-center justify-end gap-2"
                                 >
-                                    <DollarSign class="h-3 w-3" /> Unit Price
+                                    <DollarSign class="h-3 w-3" /> {{ t('invoiceItems.unitPrice') }}
                                 </div>
                             </th>
                             <th
                                 class="w-40 px-6 py-4 text-right text-[10px] font-black tracking-[0.2em] text-muted-foreground/80 uppercase"
                             >
-                                Total
+                                {{ t('invoiceItems.total') }}
                             </th>
                             <th v-if="!readonly" class="w-16 px-6 py-4"></th>
                         </tr>
@@ -149,7 +160,7 @@ function updateItem(
                                     >
                                     <span
                                         class="text-[10px] font-medium tracking-wide text-muted-foreground uppercase"
-                                        >Service Item</span
+                                        >{{ t('invoiceItems.serviceItem') }}</span
                                     >
                                 </div>
                             </td>
@@ -208,10 +219,7 @@ function updateItem(
                                         "
                                         :min="0"
                                         :step="0.01"
-                                        :format-options="{
-                                            style: 'currency',
-                                            currency: 'BRL',
-                                        }"
+                                        :format-options="currencyFormatOptions"
                                     >
                                         <NumberFieldContent>
                                             <NumberFieldInput
@@ -231,7 +239,7 @@ function updateItem(
                                     v-else
                                     class="text-sm font-medium text-muted-foreground"
                                 >
-                                    {{ formatBRL(item.unit_price) }}
+                                    {{ formatMoney(item.unit_price) }}
                                 </span>
                             </td>
 
@@ -244,7 +252,7 @@ function updateItem(
                                             : 'pt-2 font-bold text-primary',
                                     ]"
                                 >
-                                    {{ formatBRL(item.total) }}
+                                    {{ formatMoney(item.total) }}
                                 </div>
                             </td>
 
@@ -279,7 +287,7 @@ function updateItem(
                 <Plus
                     class="mr-2 h-4 w-4 transition-transform group-hover:rotate-90"
                 />
-                Add Line Item
+                {{ t('invoiceItems.addItem') }}
             </Button>
         </div>
     </div>

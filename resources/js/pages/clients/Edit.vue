@@ -8,6 +8,7 @@ import {
     ArrowLeft,
     LoaderCircle,
 } from 'lucide-vue-next'; // Ícones para consistência
+import { useI18n } from 'vue-i18n';
 import ClientController from '@/actions/App/Http/Controllers/ClientController';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
@@ -19,6 +20,8 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { index, edit } from '@/routes/clients';
 import { type BreadcrumbItem, type Client } from '@/types';
 
+const { t } = useI18n();
+
 type Props = {
     client: Client;
 };
@@ -26,8 +29,8 @@ type Props = {
 const props = defineProps<Props>();
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Clients', href: index().url },
-    { title: 'Edit Client', href: edit({ client: props.client.id }).url },
+    { title: t('nav.clients'), href: index().url },
+    { title: t('clients.breadcrumbs.edit'), href: edit({ client: props.client.id }).url },
 ];
 </script>
 
@@ -41,8 +44,8 @@ const breadcrumbs: BreadcrumbItem[] = [
                     class="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-center"
                 >
                     <Heading
-                        title="Edit Client"
-                        :description="`Update information for ${client.name}`"
+                        :title="t('clients.breadcrumbs.edit')"
+                        :description="`${t('clients.form.saveInfo')} — ${client.name}`"
                     />
                     <Button
                         variant="ghost"
@@ -53,7 +56,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                             <ArrowLeft
                                 class="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1"
                             />
-                            Back to list
+                            {{ t('clients.form.backToList') }}
                         </Link>
                     </Button>
                 </div>
@@ -75,7 +78,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                                 <span class="rounded-md bg-primary/10 p-1"
                                     ><User class="h-3 w-3"
                                 /></span>
-                                Personal & Contact Info
+                                {{ t('clients.form.personalContactInfo') }}
                             </h3>
                         </div>
 
@@ -84,8 +87,9 @@ const breadcrumbs: BreadcrumbItem[] = [
                                 <Label
                                     for="name"
                                     class="ml-1 text-[10px] font-black tracking-widest text-muted-foreground/80 uppercase"
-                                    >Full Name</Label
                                 >
+                                    {{ t('clients.form.name') }}
+                                </Label>
                                 <div class="group relative">
                                     <User
                                         class="absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2 text-muted-foreground/40 transition-colors group-focus-within:text-primary"
@@ -106,8 +110,9 @@ const breadcrumbs: BreadcrumbItem[] = [
                                 <Label
                                     for="email"
                                     class="ml-1 text-[10px] font-black tracking-widest text-muted-foreground/80 uppercase"
-                                    >Email Address</Label
                                 >
+                                    {{ t('clients.form.email') }}
+                                </Label>
                                 <div class="group relative">
                                     <Mail
                                         class="absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2 text-muted-foreground/40 transition-colors group-focus-within:text-primary"
@@ -129,8 +134,9 @@ const breadcrumbs: BreadcrumbItem[] = [
                                 <Label
                                     for="company_name"
                                     class="ml-1 text-[10px] font-black tracking-widest text-muted-foreground/80 uppercase"
-                                    >Company (Optional)</Label
                                 >
+                                    {{ t('clients.form.companyOptional') }}
+                                </Label>
                                 <div class="group relative">
                                     <Building2
                                         class="absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2 text-muted-foreground/40 transition-colors group-focus-within:text-primary"
@@ -162,7 +168,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                                 <span class="rounded-md bg-primary/10 p-1"
                                     ><FileText class="h-3 w-3"
                                 /></span>
-                                Additional Notes
+                                {{ t('clients.form.additionalNotes') }}
                             </h3>
                         </div>
                         <div class="p-6">
@@ -171,7 +177,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                                 name="notes"
                                 rows="4"
                                 :value="client.notes ?? ''"
-                                placeholder="Describe any relevant details..."
+                                :placeholder="t('clients.form.describeDetails')"
                                 class="w-full resize-none rounded-2xl border-border/60 bg-muted/20 p-4 text-sm transition-all outline-none focus:bg-background focus:ring-2 focus:ring-primary/20"
                             />
                             <InputError :message="errors.notes" class="mt-2" />
@@ -191,7 +197,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                                 <span
                                     class="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500"
                                 />
-                                Changes saved!
+                                {{ t('clients.form.changesSaved') }}
                             </p>
                         </Transition>
 
@@ -201,7 +207,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                             class="h-12 rounded-xl bg-primary px-8 shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:shadow-primary/30"
                         >
                             <LoaderCircle v-if="processing" class="mr-2" />
-                            Save Client Info
+                            {{ t('clients.form.saveInfo') }}
                         </Button>
                     </div>
                 </Form>

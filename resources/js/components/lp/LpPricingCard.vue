@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { Check, Info } from 'lucide-vue-next';
+import { useI18n } from 'vue-i18n';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+
+const { t } = useI18n();
 
 defineProps<{
     name: string;
@@ -12,7 +15,7 @@ defineProps<{
     cta: string;
     ctaHref: string;
     highlighted?: boolean;
-    savings?: string; // Ex: "Save 20%" ou "Matemática pronta"
+    savings?: string;
 }>();
 </script>
 
@@ -30,7 +33,7 @@ defineProps<{
                 'rounded-full px-4 py-1 text-xs font-bold uppercase tracking-tighter shadow-sm',
                 highlighted ? 'bg-primary text-primary-foreground' : 'bg-emerald-500 text-white'
             ]">
-                {{ highlighted ? 'Most Popular' : savings }}
+                {{ highlighted ? t('lp.pricing.mostPopular') : savings }}
             </span>
         </div>
 
@@ -38,7 +41,7 @@ defineProps<{
             <CardTitle class="text-xl font-bold">{{ name }}</CardTitle>
             <div class="flex items-baseline gap-1">
                 <span class="text-4xl font-extrabold tracking-tight">{{ price }}</span>
-                <span v-if="price !== 'Free'" class="text-muted-foreground font-medium text-sm">/month</span>
+                <span v-if="price !== 'Free'" class="text-muted-foreground font-medium text-sm">{{ t('lp.pricing.perMonth') }}</span>
             </div>
             <p class="text-sm text-muted-foreground leading-relaxed">{{ description }}</p>
         </CardHeader>
@@ -50,12 +53,12 @@ defineProps<{
                         <Check v-if="feature.included" class="h-3.5 w-3.5" />
                         <span v-else class="block w-3.5 h-px bg-current"></span>
                     </div>
-                    
+
                     <div class="flex items-center gap-1.5">
                         <span :class="['text-sm', feature.included ? 'text-foreground/90 font-medium' : 'text-muted-foreground/60 line-through decoration-1']">
                             {{ feature.text }}
                         </span>
-                        
+
                         <TooltipProvider v-if="feature.info">
                             <Tooltip>
                                 <TooltipTrigger><Info class="h-3.5 w-3.5 text-muted-foreground/50" /></TooltipTrigger>

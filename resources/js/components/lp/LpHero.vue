@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { CheckCircle2, ArrowRight } from 'lucide-vue-next';
+import { useI18n } from 'vue-i18n';
 import { Button } from '@/components/ui/button';
 import { register } from '@/routes';
 import LpSection from './LpSection.vue';
+
+const { t } = useI18n();
 </script>
 
 <template>
@@ -23,36 +26,26 @@ import LpSection from './LpSection.vue';
 
         <div class="grid grid-cols-1 items-center gap-16 lg:grid-cols-12">
             <div class="space-y-8 text-center lg:col-span-5 lg:text-left">
-                <!-- TODO: Descomentar quando houver clientes -->
-                <!-- <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider mx-auto lg:mx-0">
-                    <span class="relative flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-                    </span>
-                    Trusted by 2,000+ Freelancers
-                </div> -->
-
                 <h1
                     class="text-5xl leading-[1.2] font-extrabold tracking-tight sm:text-6xl lg:text-7xl"
                 >
-                    Invoice Like <br />
+                    {{ t('lp.hero.h1part1') }} <br />
                     <span
                         class="bg-linear-to-r from-primary to-indigo-600 bg-clip-text pr-2 text-transparent italic"
                     >
-                        a Pro </span
-                    >, Get Paid
+                        {{ t('lp.hero.h1pro') }} </span
+                    >{{ t('lp.hero.h1part2') }}
                     <span
                         class="underline decoration-primary/30 underline-offset-8"
                     >
-                        Faster.
+                        {{ t('lp.hero.h1faster') }}
                     </span>
                 </h1>
 
                 <p
                     class="mx-auto max-w-xl text-xl leading-relaxed text-muted-foreground lg:mx-0"
                 >
-                    Stop wrestling with spreadsheets. Emitte streamlines your
-                    billing so you can get back to what you do best.
+                    {{ t('lp.hero.subtitle') }}
                 </p>
 
                 <div
@@ -64,7 +57,7 @@ import LpSection from './LpSection.vue';
                         as-child
                     >
                         <a :href="register().url">
-                            Start Invoicing
+                            {{ t('lp.hero.cta1') }}
                             <ArrowRight
                                 class="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1"
                             />
@@ -76,7 +69,7 @@ import LpSection from './LpSection.vue';
                         class="h-14 px-8 text-lg"
                         as-child
                     >
-                        <a href="#demo">Watch Demo</a>
+                        <a href="#demo">{{ t('lp.hero.cta2') }}</a>
                     </Button>
                 </div>
 
@@ -86,14 +79,14 @@ import LpSection from './LpSection.vue';
                     <div
                         class="flex items-center gap-2 text-sm font-medium text-muted-foreground"
                     >
-                        <CheckCircle2 class="h-4 w-4 text-primary" /> Easy to
-                        use
+                        <CheckCircle2 class="h-4 w-4 text-primary" />
+                        {{ t('lp.hero.badge1') }}
                     </div>
                     <div
                         class="flex items-center gap-2 text-sm font-medium text-muted-foreground"
                     >
-                        <CheckCircle2 class="h-4 w-4 text-primary" /> Setup in 2
-                        mins
+                        <CheckCircle2 class="h-4 w-4 text-primary" />
+                        {{ t('lp.hero.badge2') }}
                     </div>
                 </div>
             </div>
@@ -122,7 +115,7 @@ import LpSection from './LpSection.vue';
                     <div class="relative w-full flex-1 bg-muted/20">
                         <img
                             src="/images/dash.png"
-                            alt="Emitte dashboard preview"
+                            alt="Emitfy dashboard preview"
                             class="h-full w-full object-contain transition-transform duration-700 group-hover:scale-[1.02]"
                         />
                         <div
@@ -135,10 +128,10 @@ import LpSection from './LpSection.vue';
                                     +$2,400
                                 </div>
                                 <div class="text-xs text-muted-foreground">
-                                    Payment received <br />
-                                    <span class="font-bold text-foreground"
-                                        >Just now</span
-                                    >
+                                    {{ t('lp.hero.paymentReceived') }} <br />
+                                    <span class="font-bold text-foreground">{{
+                                        t('lp.hero.justNow')
+                                    }}</span>
                                 </div>
                             </div>
                         </div>

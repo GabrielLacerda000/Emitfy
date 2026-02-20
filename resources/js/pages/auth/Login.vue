@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Form, Head, Link } from '@inertiajs/vue3';
 import { ArrowLeft, Lock, Mail } from 'lucide-vue-next'; // Adicionado ícones
+import { useI18n } from 'vue-i18n';
 import InputError from '@/components/InputError.vue';
 import TextLink from '@/components/TextLink.vue';
 import { Button } from '@/components/ui/button';
@@ -13,6 +14,8 @@ import { register } from '@/routes';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
 
+const { t } = useI18n();
+
 defineProps<{
     status?: string;
     canResetPassword: boolean;
@@ -22,8 +25,8 @@ defineProps<{
 
 <template>
     <AuthBase
-        title="Welcome back"
-        description="Please enter your details to sign in"
+        :title="t('auth.login.title')"
+        :description="t('auth.login.description')"
     >
         <Head title="Log in" />
 
@@ -37,7 +40,7 @@ defineProps<{
                     <ArrowLeft
                         class="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1"
                     />
-                    Back to website
+                    {{ t('auth.backToWebsite') }}
                 </Link>
             </Button>
         </div>
@@ -61,7 +64,7 @@ defineProps<{
                         for="email"
                         class="ml-1 text-[10px] font-black tracking-widest text-muted-foreground/80 uppercase"
                     >
-                        Email Address
+                        {{ t('auth.login.email') }}
                     </Label>
                     <div class="group relative">
                         <Mail
@@ -88,7 +91,7 @@ defineProps<{
                             for="password"
                             class="text-[10px] font-black tracking-widest text-muted-foreground/80 uppercase"
                         >
-                            Password
+                            {{ t('auth.login.password') }}
                         </Label>
                         <TextLink
                             v-if="canResetPassword"
@@ -96,7 +99,7 @@ defineProps<{
                             class="text-[11px] font-bold tracking-tight text-primary/60 uppercase transition-colors hover:text-primary"
                             :tabindex="5"
                         >
-                            Forgot?
+                            {{ t('auth.login.forgot') }}
                         </TextLink>
                     </div>
                     <div class="group relative">
@@ -130,19 +133,19 @@ defineProps<{
                         />
                         <span
                             class="text-sm font-medium text-muted-foreground transition-colors group-hover:text-foreground"
-                            >Remember me</span
+                            >{{ t('auth.login.rememberMe') }}</span
                         >
                     </label>
                 </div>
 
                 <Button
                     type="submit"
-                    class="mt-2 h-12 w-full rounded-xl bg-primary font-black text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:shadow-primary/30 active:translate-y-0"
+                    class="mt-2 h-12 w-full rounded-xl bg-primary text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:shadow-primary/30 active:translate-y-0"
                     :tabindex="4"
                     :disabled="processing"
                 >
                     <Spinner v-if="processing" class="mr-2" />
-                    Sign in to Account
+                    {{ t('auth.login.signIn') }}
                 </Button>
             </div>
 
@@ -150,13 +153,13 @@ defineProps<{
                 class="text-center text-sm font-medium text-muted-foreground"
                 v-if="canRegister"
             >
-                New here?
+                {{ t('auth.login.noAccount') }}
                 <TextLink
                     :href="register()"
                     :tabindex="5"
                     class="font-bold text-primary underline-offset-4 hover:underline"
                 >
-                    Create an account
+                    {{ t('auth.login.createAccount') }}
                 </TextLink>
             </div>
         </Form>

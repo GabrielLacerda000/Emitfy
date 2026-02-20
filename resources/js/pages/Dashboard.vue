@@ -6,18 +6,22 @@ import {
     AlertCircle,
     Plus,
 } from 'lucide-vue-next';
+import { useI18n } from 'vue-i18n';
 import RecentClientsList from '@/components/dashboard/RecentClientsList.vue';
 import RecentInvoicesList from '@/components/dashboard/RecentInvoicesList.vue';
 import RevenueChart from '@/components/dashboard/RevenueChart.vue';
 import DashboardStatCard from '@/components/DashboardStatCard.vue';
 import Heading from '@/components/Heading.vue';
 import { Button } from '@/components/ui/button';
+import { useFormatCurrency } from '@/composables/useLocale';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { formatBRL } from '@/lib/utils';
 import { dashboard } from '@/routes';
 import { index as clientsIndexRoute } from '@/routes/clients';
 import { create as createInvoiceRoute, index as invoicesIndexRoute } from '@/routes/invoices';
 import { type BreadcrumbItem, type DashboardData } from '@/types';
+
+const { t } = useI18n();
+const formatMoney = useFormatCurrency();
 
 type Props = {
     stats: DashboardData['stats'];
@@ -32,7 +36,7 @@ const props = defineProps<Props>();
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Dashboard',
+        title: t('nav.dashboard'),
         href: dashboard().url,
     },
 ];
@@ -50,13 +54,13 @@ const clientsIndexUrl = clientsIndexRoute().url;
             <!-- Header with title and action button -->
             <div class="flex items-center justify-between">
                 <Heading
-                    title="Dashboard"
-                    description="Welcome back. Here's your financial summary."
+                    :title="t('dashboard.title')"
+                    :description="t('dashboard.description')"
                 />
                 <Button as-child>
                     <Link :href="createInvoiceUrl">
                         <Plus class="mr-2 h-4 w-4" />
-                        Create Invoice
+                        {{ t('dashboard.createInvoice') }}
                     </Link>
                 </Button>
             </div>
@@ -64,30 +68,30 @@ const clientsIndexUrl = clientsIndexRoute().url;
             <!-- Stat Cards Grid -->
             <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 <DashboardStatCard
-                    title="TOTAL OUTSTANDING"
-                    :amount="formatBRL(props.stats.totalOutstanding)"
-                    description="Sent and overdue invoices"
+                    :title="t('dashboard.stats.totalOutstanding')"
+                    :amount="formatMoney(props.stats.totalOutstanding)"
+                    :description="t('dashboard.stats.totalOutstandingDesc')"
                     :icon="TrendingUp"
                     icon-class="bg-blue-100 text-blue-600 dark:bg-blue-950 dark:text-blue-400"
                 />
                 <DashboardStatCard
-                    title="TOTAL PAID"
-                    :amount="formatBRL(props.stats.totalPaid)"
-                    :description="`${props.stats.totalPaidCount} invoices paid`"
+                    :title="t('dashboard.stats.totalPaid')"
+                    :amount="formatMoney(props.stats.totalPaid)"
+                    :description="t('dashboard.stats.totalPaidDesc', { count: props.stats.totalPaidCount })"
                     :icon="TrendingUp"
                     icon-class="bg-green-100 text-green-600 dark:bg-green-950 dark:text-green-400"
                 />
                 <DashboardStatCard
-                    title="DUE SOON"
-                    :amount="formatBRL(props.stats.dueSoonTotal)"
-                    :description="`${props.stats.dueSoonCount} invoices due in the next 7 days`"
+                    :title="t('dashboard.stats.dueSoon')"
+                    :amount="formatMoney(props.stats.dueSoonTotal)"
+                    :description="t('dashboard.stats.dueSoonDesc', { count: props.stats.dueSoonCount })"
                     :icon="Clock"
                     icon-class="bg-amber-100 text-amber-600 dark:bg-amber-950 dark:text-amber-400"
                 />
                 <DashboardStatCard
-                    title="OVERDUE"
-                    :amount="formatBRL(props.stats.totalOverdue)"
-                    :description="`${props.stats.overdueCount} invoices past due`"
+                    :title="t('dashboard.stats.overdue')"
+                    :amount="formatMoney(props.stats.totalOverdue)"
+                    :description="t('dashboard.stats.overdueDesc', { count: props.stats.overdueCount })"
                     :icon="AlertCircle"
                     icon-class="bg-red-100 text-red-600 dark:bg-red-950 dark:text-red-400"
                 />

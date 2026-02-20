@@ -28,6 +28,8 @@ test('dashboard returns correct stats structure', function () {
         ->component('Dashboard')
         ->has('stats', fn ($stats) => $stats
             ->has('totalOutstanding')
+            ->has('totalPaid')
+            ->has('totalPaidCount')
             ->has('totalOverdue')
             ->has('overdueCount')
             ->has('dueSoonCount')

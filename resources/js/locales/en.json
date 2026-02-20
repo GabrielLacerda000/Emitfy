@@ -1,0 +1,579 @@
+{
+    "nav": {
+        "platform": "Platform",
+        "dashboard": "Dashboard",
+        "clients": "Clients",
+        "invoices": "Invoices"
+    },
+    "auth": {
+        "backToWebsite": "Back to website",
+        "login": {
+            "title": "Welcome back",
+            "description": "Please enter your details to sign in",
+            "email": "Email Address",
+            "password": "Password",
+            "forgot": "Forgot?",
+            "rememberMe": "Remember me",
+            "signIn": "Sign in to Account",
+            "noAccount": "New here?",
+            "createAccount": "Create an account"
+        },
+        "register": {
+            "title": "Get started",
+            "description": "Create your account to start managing invoices",
+            "fullName": "Full Name",
+            "email": "Email Address",
+            "password": "Password",
+            "confirmPassword": "Confirm Password",
+            "createAccount": "Create Account",
+            "haveAccount": "Already have an account?",
+            "logIn": "Log in"
+        },
+        "forgotPassword": {
+            "title": "Forgot password",
+            "description": "Enter your email and we'll send a reset link",
+            "email": "Email Address",
+            "sendLink": "Send Reset Link",
+            "backToLogin": "Back to login"
+        },
+        "resetPassword": {
+            "title": "Reset password",
+            "description": "Enter your new password below",
+            "email": "Email Address",
+            "password": "Password",
+            "confirmPassword": "Confirm Password",
+            "reset": "Reset Password"
+        },
+        "verifyEmail": {
+            "title": "Verify email",
+            "description": "Please verify your email address",
+            "linkSent": "A new verification link has been sent to the email address you provided during registration.",
+            "resend": "Resend Verification Email",
+            "logout": "Log out"
+        },
+        "confirmPassword": {
+            "title": "Confirm password",
+            "description": "This is a secure area. Please confirm your password.",
+            "password": "Password",
+            "confirm": "Confirm"
+        },
+        "twoFactor": {
+            "authTitle": "Authentication Code",
+            "authDescription": "Enter the authentication code provided by your authenticator application.",
+            "recoveryTitle": "Recovery Code",
+            "recoveryDescription": "Please confirm access to your account by entering one of your emergency recovery codes.",
+            "continue": "Continue",
+            "orYouCan": "or you can",
+            "useAuthCode": "login using an authentication code",
+            "useRecoveryCode": "login using a recovery code",
+            "recoveryPlaceholder": "Enter recovery code"
+        }
+    },
+    "dashboard": {
+        "title": "Dashboard",
+        "description": "Welcome back. Here's your financial summary.",
+        "createInvoice": "Create Invoice",
+        "stats": {
+            "totalOutstanding": "Total Outstanding",
+            "totalOutstandingDesc": "Sent and overdue invoices",
+            "totalPaid": "Total Paid",
+            "totalPaidDesc": "{count} invoices paid",
+            "dueSoon": "Due Soon",
+            "dueSoonDesc": "{count} invoices due in the next 7 days",
+            "overdue": "Overdue",
+            "overdueDesc": "{count} invoices past due"
+        },
+        "recentInvoices": {
+            "title": "Recent Invoices",
+            "subtitle": "Manage your latest billing activities",
+            "viewAll": "View all",
+            "noInvoices": "No invoices generated",
+            "noInvoicesDesc": "Ready to get paid? Create your professional invoice in seconds.",
+            "newInvoice": "New Invoice",
+            "due": "Due",
+            "headers": {
+                "invoice": "Invoice",
+                "client": "Client",
+                "status": "Status",
+                "amount": "Amount"
+            }
+        },
+        "recentClients": {
+            "title": "Recent Clients",
+            "subtitle": "Your latest active partnerships",
+            "manageAll": "Manage All",
+            "noClients": "Your client list is empty",
+            "noClientsDesc": "Ready to send your first professional invoice?",
+            "addFirstClient": "Add Your First Client",
+            "invoice": "invoice",
+            "invoices": "invoices"
+        },
+        "revenueChart": {
+            "title": "Revenue Overview",
+            "description": "Monthly revenue trends over the last 6 months",
+            "revenue": "Revenue"
+        }
+    },
+    "invoices": {
+        "title": "Invoices",
+        "description": "Financial overview and billing management",
+        "newInvoice": "New Invoice",
+        "csv": "CSV",
+        "exporting": "Exporting...",
+        "filters": {
+            "all": "All",
+            "draft": "Draft",
+            "sent": "Sent",
+            "paid": "Paid",
+            "overdue": "Overdue"
+        },
+        "status": {
+            "draft": "Draft",
+            "sent": "Sent",
+            "paid": "Paid",
+            "overdue": "Overdue"
+        },
+        "empty": {
+            "title": "No invoices found",
+            "desc": "Try adjusting your filters or create a new one.",
+            "cta": "Generate First Invoice"
+        },
+        "table": {
+            "invoice": "Invoice",
+            "client": "Client",
+            "amount": "Amount",
+            "status": "Status",
+            "dueDate": "Due Date",
+            "actions": "Actions"
+        },
+        "pagination": {
+            "page": "Page {current} of {last}"
+        },
+        "delete": {
+            "title": "Delete Invoice?",
+            "desc": "Are you sure you want to delete invoice {number}? This action is irreversible.",
+            "cancel": "Cancel",
+            "confirm": "Delete Invoice",
+            "deleting": "Deleting..."
+        },
+        "breadcrumbs": {
+            "new": "New Invoice",
+            "edit": "Edit {number}"
+        },
+        "form": {
+            "client": "Client",
+            "issueDate": "Issue Date",
+            "dueDate": "Due Date",
+            "tax": "Tax / Fees",
+            "notes": "Notes",
+            "notesPlaceholder": "Additional notes, payment instructions...",
+            "saveDraft": "Save Draft",
+            "saveAndSend": "Save & Send",
+            "saving": "Saving...",
+            "sending": "Sending...",
+            "cancel": "Cancel",
+            "clientDetailsTimeline": "Client Details & Timeline",
+            "selectClient": "Select Client",
+            "invoiceItems": "Invoice Items",
+            "notesTerms": "Notes & Terms",
+            "financialSummary": "Financial Summary",
+            "adjustmentsTax": "Adjustments / Tax",
+            "draft": "Draft",
+            "send": "Send",
+            "clientBilling": "Client & Billing",
+            "recipient": "Recipient",
+            "configuration": "Configuration",
+            "status": "Status",
+            "paymentDate": "Payment Date",
+            "taxAmount": "Tax Amount",
+            "updateInvoice": "Update Invoice",
+            "changesSaved": "Changes Saved Successfully",
+            "additionalDetails": "Additional details..."
+        },
+        "show": {
+            "createdOn": "Created on",
+            "edit": "Edit",
+            "viewPdf": "View PDF",
+            "download": "Download",
+            "servicesRendered": "Services Rendered",
+            "internalNotes": "Internal Notes",
+            "sendToClient": "Send to Client",
+            "resendInvoice": "Resend Invoice",
+            "recipientDetails": "Recipient Details",
+            "organization": "Organization",
+            "individualClient": "Individual Client",
+            "billingTimeline": "Billing Timeline",
+            "issued": "Issued",
+            "dueDate": "Due Date",
+            "paidOn": "Paid on",
+            "paymentDelayed": "Payment is delayed",
+            "destroyTitle": "Destroy Invoice?",
+            "destroyDesc": "This will remove {number} permanently. This action is irreversible.",
+            "keepInvoice": "Keep Invoice",
+            "confirmDeletion": "Confirm Deletion",
+            "deleting": "Deleting..."
+        },
+        "public": {
+            "invoice": "Invoice",
+            "issued": "Issued",
+            "invoiceDetails": "Invoice Details",
+            "issueDate": "Issue Date",
+            "dueDate": "Due Date",
+            "sentOn": "Sent On",
+            "paidOn": "Paid On",
+            "billTo": "Bill To",
+            "name": "Name",
+            "email": "Email",
+            "company": "Company",
+            "lineItems": "Line Items",
+            "notes": "Notes",
+            "downloading": "Downloading...",
+            "downloadPdf": "Download PDF",
+            "paid": "Paid",
+            "payNow": "Pay Now"
+        }
+    },
+    "clients": {
+        "title": "Clients",
+        "description": "Your professional network and billing contacts",
+        "newClient": "New Client",
+        "personal": "Personal",
+        "empty": {
+            "title": "No clients found",
+            "desc": "Start building your database by adding your first client.",
+            "cta": "Add Client"
+        },
+        "table": {
+            "client": "Client",
+            "company": "Company",
+            "contact": "Contact",
+            "actions": "Actions"
+        },
+        "pagination": {
+            "showing": "Showing {count} of {total}"
+        },
+        "delete": {
+            "title": "Remove Client?",
+            "desc": "Are you sure you want to delete {name}? This will permanently remove their data.",
+            "cancel": "Go Back",
+            "confirm": "Yes, Delete Client",
+            "deleting": "Deleting..."
+        },
+        "stats": {
+            "totalPaid": "Total Paid",
+            "totalPending": "Total Pending",
+            "totalOverdue": "Total Overdue",
+            "totalDraft": "Total Draft",
+            "items": "{count} items"
+        },
+        "invoices": {
+            "title": "Invoices",
+            "subtitle": "Client billing history",
+            "noInvoices": "No invoices found",
+            "noInvoicesDesc": "This client has no invoices yet.",
+            "dueOn": "Due on:",
+            "headers": {
+                "invoice": "Invoice",
+                "status": "Status",
+                "dates": "Issue / Due Date",
+                "amount": "Amount",
+                "action": "Action"
+            },
+            "pagination": {
+                "info": "{total} invoices • Page {current} of {last}"
+            }
+        },
+        "breadcrumbs": {
+            "new": "New Client",
+            "edit": "Edit Client"
+        },
+        "form": {
+            "name": "Full Name",
+            "email": "Email",
+            "phone": "Phone",
+            "company": "Company Name",
+            "address": "Address",
+            "save": "Save Client",
+            "saving": "Saving...",
+            "cancel": "Cancel",
+            "identification": "Identification",
+            "professionalDetails": "Professional Details",
+            "internalNotes": "Internal Notes",
+            "backToList": "Back to List",
+            "createClient": "Create Client",
+            "personalContactInfo": "Personal & Contact Info",
+            "additionalNotes": "Additional Notes",
+            "companyOptional": "Company (Optional)",
+            "saveInfo": "Save Client Info",
+            "changesSaved": "Changes saved!",
+            "describeDetails": "Describe any relevant details...",
+            "preferencesPlaceholder": "Preferences, contact history, or specific billing details..."
+        },
+        "show": {
+            "activeClient": "Active Client",
+            "joined": "Joined",
+            "editDetails": "Edit Details",
+            "delete": "Delete",
+            "financialOverview": "Financial Overview",
+            "recentInvoices": "Recent Invoices",
+            "newInvoice": "New Invoice +",
+            "clientDetails": "Client Details",
+            "deleteTitle": "Delete Client",
+            "deleteDesc": "Are you sure you want to delete {name}? This will permanently remove all {count} invoices.",
+            "goBack": "Go Back",
+            "confirmDelete": "Yes, Delete Client",
+            "deleting": "Deleting..."
+        }
+    },
+    "invoiceSummary": {
+        "title": "Financial Summary",
+        "subtotal": "Subtotal",
+        "taxesFees": "Taxes & Fees",
+        "grandTotal": "Grand Total",
+        "finalAmount": "Final amount to receive"
+    },
+    "invoiceItems": {
+        "description": "Description",
+        "qty": "Qty",
+        "unitPrice": "Unit Price",
+        "total": "Total",
+        "addItem": "Add Line Item",
+        "serviceItem": "Service Item"
+    },
+    "settings": {
+        "profile": "Profile",
+        "password": "Password",
+        "appearance": "Appearance",
+        "twoFactor": "Two-Factor Auth",
+        "profilePage": {
+            "title": "Profile information",
+            "description": "Update your name and email address",
+            "name": "Name",
+            "email": "Email address",
+            "unverified": "Your email address is unverified.",
+            "resendVerification": "Click here to resend the verification email.",
+            "verificationSent": "A new verification link has been sent to your email address.",
+            "save": "Save",
+            "saved": "Saved."
+        },
+        "passwordPage": {
+            "title": "Update password",
+            "description": "Ensure your account is using a long, random password to stay secure",
+            "current": "Current password",
+            "new": "New password",
+            "confirm": "Confirm password",
+            "save": "Save password",
+            "saved": "Saved."
+        },
+        "appearancePage": {
+            "title": "Appearance settings",
+            "description": "Update your account's appearance settings"
+        },
+        "twoFactorPage": {
+            "title": "Two-Factor Authentication",
+            "description": "Manage your two-factor authentication settings",
+            "disabled": "Disabled",
+            "enabled": "Enabled",
+            "disabledDesc": "When you enable two-factor authentication, you will be prompted for a secure pin during login. This pin can be retrieved from a TOTP-supported application on your phone.",
+            "enabledDesc": "With two-factor authentication enabled, you will be prompted for a secure, random pin during login, which you can retrieve from the TOTP-supported application on your phone.",
+            "continueSetup": "Continue Setup",
+            "enable": "Enable 2FA",
+            "disable": "Disable 2FA"
+        }
+    },
+    "lp": {
+        "nav": {
+            "howItWorks": "How It Works",
+            "pricing": "Pricing",
+            "faq": "FAQ",
+            "logIn": "Log in",
+            "getStarted": "Get Started",
+            "dashboard": "Dashboard"
+        },
+        "hero": {
+            "h1part1": "Invoice Like",
+            "h1pro": "a Pro",
+            "h1part2": ", Get Paid",
+            "h1faster": "Faster.",
+            "subtitle": "Stop wrestling with spreadsheets. Emitfy streamlines your billing so you can get back to what you do best.",
+            "cta1": "Start Invoicing",
+            "cta2": "Watch Demo",
+            "badge1": "Easy to use",
+            "badge2": "Setup in 2 mins",
+            "paymentReceived": "Payment received",
+            "justNow": "Just now"
+        },
+        "problem": {
+            "badge": "The Pain Points",
+            "h2": "Tired of Invoice",
+            "h2red": "Headaches?",
+            "subtitle": "Freelancing is hard enough. Your billing process shouldn't be the reason you're stressed.",
+            "card1": {
+                "title": "Lost in Spreadsheets",
+                "desc": "Drowning in Excel files? Lose track of who owes what? Spend hours manually updating rows instead of doing the work you love."
+            },
+            "card2": {
+                "title": "Chasing Payments",
+                "desc": "Following up on overdue invoices feels awkward and wastes your valuable time. You shouldn't have to beg for money."
+            },
+            "card3": {
+                "title": "Looking Unprofessional",
+                "desc": "Generic templates and inconsistent branding make you look like an amateur. First impressions matter for high-paying clients."
+            },
+            "card4": {
+                "title": "Missing Cash Flow Insights",
+                "desc": "No idea what's coming in next month? Poor visibility into your revenue pipeline makes it impossible to plan and grow."
+            },
+            "betterWay": "There is a better way"
+        },
+        "howItWorks": {
+            "h2": "From Invoice to Payment in 4 Simple Steps",
+            "subtitle": "Stop chasing paperwork. We've built a seamless workflow that lets you focus on your work while we handle the billing.",
+            "step1": {
+                "title": "Add Your Clients",
+                "desc": "Quickly import or add client details. Store contact info and payment terms in one place."
+            },
+            "step2": {
+                "title": "Create Invoice",
+                "desc": "Generate professional invoices in seconds. Add line items and taxes with our intuitive editor."
+            },
+            "step3": {
+                "title": "Send & Track",
+                "desc": "Email invoices directly. See when clients open them and get real-time status notifications."
+            },
+            "step4": {
+                "title": "Get Paid",
+                "desc": "Mark invoices as paid and watch your revenue dashboard update automatically."
+            }
+        },
+        "benefits": {
+            "h2": "Why Freelancers & Small Businesses Choose Emitfy",
+            "subtitle": "Real outcomes that impact your bottom line and free up your time.",
+            "card1": {
+                "title": "Save 10+ Hours Monthly",
+                "desc": "Stop copying data between spreadsheets. Automate invoice creation and tracking so you can focus on billable work."
+            },
+            "card2": {
+                "title": "Get Paid 40% Faster",
+                "desc": "Professional invoices and automated reminders mean clients pay sooner. No more awkward follow-up emails."
+            },
+            "card3": {
+                "title": "Never Lose Track",
+                "desc": "Know exactly what's outstanding. See which invoices are overdue at a glance. Never let revenue slip through the cracks."
+            },
+            "card4": {
+                "title": "Look Professional",
+                "desc": "Polished, branded invoices make the right impression. Win higher-paying clients who value quality."
+            },
+            "card5": {
+                "title": "Scale Without Chaos",
+                "desc": "Going from 5 to 50 clients? Our system grows with you. No spreadsheet meltdowns when business booms."
+            },
+            "card6": {
+                "title": "See Revenue Clearly",
+                "desc": "Beautiful dashboards show your revenue pipeline. Plan ahead with confidence instead of guessing your cash flow."
+            }
+        },
+        "screenshot": {
+            "h2": "Everything You Need in One Beautiful Dashboard",
+            "subtitle": "Invoice management shouldn't be complicated. Emitfy brings clarity to your entire billing workflow.",
+            "placeholder": "Full Dashboard View"
+        },
+        "pricing": {
+            "h2": "Simple Pricing for",
+            "h2highlight": "Growing Businesses",
+            "subtitle": "Start small and upgrade as your business grows. No hidden fees. No surprises.",
+            "perMonth": "/month",
+            "mostPopular": "Most Popular",
+            "bestValue": "Best Value",
+            "whyPro": {
+                "title": "Why choose Pro?",
+                "desc": "Automating recurring invoices and reminders can save you hours every month — time you can reinvest into growing your business."
+            },
+            "plans": {
+                "starter": {
+                    "name": "Starter",
+                    "price": "$29",
+                    "desc": "Perfect for freelancers and small businesses starting out.",
+                    "cta": "Get Started"
+                },
+                "pro": {
+                    "name": "Pro",
+                    "price": "$69",
+                    "desc": "For professionals who want automation and scale.",
+                    "cta": "Upgrade to Pro",
+                    "savings": "Most Popular"
+                },
+                "business": {
+                    "name": "Business",
+                    "price": "$119",
+                    "desc": "For high-volume billing and serious growth.",
+                    "cta": "Scale My Business"
+                }
+            },
+            "features": {
+                "clients20": "Up to 20 clients",
+                "emails50": "Up to 50 emails per month",
+                "unlimitedInvoices": "Unlimited invoices",
+                "basicDashboard": "Basic dashboard",
+                "emailSupport": "Email support",
+                "recurringInvoices": "Recurring invoices",
+                "clients300": "Up to 300 clients",
+                "emails1000": "Up to 1000 emails per month",
+                "advancedReports": "Advanced reports",
+                "whatsappSupport": "WhatsApp support",
+                "prioritySupport": "Priority support",
+                "unlimitedClients": "Unlimited clients",
+                "emails5000": "Up to 5000 emails per month",
+                "everythingInPro": "Everything in Pro",
+                "dedicatedSupport": "Dedicated support"
+            }
+        },
+        "faq": {
+            "h2": "Questions? We've Got Answers",
+            "subtitle": "Everything you need to know about Emitfy.",
+            "q1": "Is Emitfy really free?",
+            "a1": "Yes! Our Basic plan is completely free forever. You get 10 invoices per month, unlimited clients, and all core features. Upgrade to Pro when you need unlimited invoicing and advanced features.",
+            "q2": "Can I customize my invoices?",
+            "a2": "Absolutely. Pro users can add custom branding including logos, colors, and custom footer text. All users can customize invoice details, line items, taxes, and notes.",
+            "q3": "How do I get paid?",
+            "a3": "Emitfy helps you track payments but doesn't process them directly. You can send invoices via email or download PDFs, and mark invoices as paid when you receive payment through your preferred method (bank transfer, PayPal, Stripe, etc.).",
+            "q4": "Can I import my existing clients?",
+            "a4": "Yes! You can manually add clients one by one, or upload a CSV file to import multiple clients at once. We support standard formats from Excel and Google Sheets.",
+            "q5": "What if I need help?",
+            "a5": "We're here for you! Basic users get email support with responses within 24-48 hours. Pro users get priority support with faster response times. We also have comprehensive documentation and video tutorials."
+        },
+        "cta": {
+            "badge": "The #1 choice for freelancers in 2026",
+            "h2": "Stop chasing,",
+            "h2italic": "start growing.",
+            "subtitle": "Join 2,000+ professionals who save an average of 40 hours a year on billing. Your first 10 invoices are on us.",
+            "button": "Create My Free Account"
+        },
+        "footer": {
+            "brand": "Professional invoice management for freelancers and small businesses.",
+            "product": "Product",
+            "features": "Features",
+            "pricing": "Pricing",
+            "faq": "FAQ",
+            "company": "Company",
+            "about": "About",
+            "blog": "Blog",
+            "contact": "Contact",
+            "legal": "Legal",
+            "privacy": "Privacy",
+            "terms": "Terms",
+            "copyright": "© 2026 Emitfy. All rights reserved."
+        }
+    },
+    "locale": {
+        "toggle": "Language",
+        "en": "EN",
+        "ptBR": "PT"
+    },
+    "currency": {
+        "symbol": "$",
+        "locale": "en-US",
+        "code": "USD"
+    }
+}

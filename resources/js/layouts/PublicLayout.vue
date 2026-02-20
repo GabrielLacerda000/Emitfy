@@ -16,7 +16,7 @@ defineProps<Props>();
         <!-- Simple Header -->
         <header class="border-b bg-background">
             <div class="mx-auto max-w-5xl px-4 py-4">
-                <h1 class="text-xl font-semibold">Emitte</h1>
+                <h1 class="text-xl font-semibold">Emitfy</h1>
             </div>
         </header>
 
@@ -32,9 +32,9 @@ defineProps<Props>();
             <div
                 class="mx-auto max-w-5xl px-4 text-center text-sm text-muted-foreground"
             >
-                <p>Invoice powered by Emitte</p>
+                <p>Invoice powered by Emitfy</p>
             </div>
         </footer>
     </div>
-    <Toaster rich-colors/>
+    <Toaster rich-colors />
 </template>

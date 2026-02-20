@@ -10,6 +10,7 @@ import {
     X,
 } from 'lucide-vue-next';
 import { computed, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import InvoiceController from '@/actions/App/Http/Controllers/InvoiceController';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
@@ -23,9 +24,13 @@ import {
     NumberFieldContent,
     NumberFieldInput,
 } from '@/components/ui/number-field';
+import { useLocale } from '@/composables/useLocale';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { index } from '@/routes/invoices';
 import type { CreateInvoiceData, BreadcrumbItem, Client } from '@/types';
+
+const { t } = useI18n();
+const { locale } = useLocale();
 
 type Props = {
     clients: Client[];
@@ -34,8 +39,8 @@ type Props = {
 const props = defineProps<Props>();
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Invoices', href: index().url },
-    { title: 'New Invoice', href: '#' },
+    { title: t('nav.invoices'), href: index().url },
+    { title: t('invoices.breadcrumbs.new'), href: '#' },
 ];
 
 const formData = ref<CreateInvoiceData>({
@@ -62,6 +67,11 @@ const total = computed(() => {
 });
 
 const clients = ref(props.clients);
+
+const currencyFormatOptions = computed(() => ({
+    style: 'currency' as const,
+    currency: locale.value === 'en' ? 'USD' : 'BRL',
+}));
 
 function handleClientCreated(client: Client) {
     clients.value.push(client);
@@ -98,8 +108,8 @@ const cardClass =
             <div class="mx-auto w-full max-w-4xl">
                 <div class="mb-8 flex flex-col gap-2">
                     <Heading
-                        title="New Invoice"
-                        description="Craft a beautiful invoice for your client"
+                        :title="t('invoices.breadcrumbs.new')"
+                        :description="t('invoices.form.notesTerms')"
                     />
                 </div>
 
@@ -111,14 +121,13 @@ const cardClass =
                             <h3
                                 class="flex items-center gap-2 text-sm font-bold tracking-tight"
                             >
-                                <User class="h-4 w-4 text-primary" /> Client
-                                Details & Timeline
+                                <User class="h-4 w-4 text-primary" /> {{ t('invoices.form.clientDetailsTimeline') }}
                             </h3>
                         </div>
 
                         <div class="grid gap-8 p-6 md:grid-cols-2">
                             <div class="grid gap-2 md:col-span-2">
-                                <Label :class="labelClass">Select Client</Label>
+                                <Label :class="labelClass">{{ t('invoices.form.selectClient') }}</Label>
                                 <ClientSelector
                                     v-model="formData.client_id"
                                     :clients="clients"
@@ -129,7 +138,7 @@ const cardClass =
 
                             <div class="grid gap-2">
                                 <Label :class="labelClass" for="issue_date">
-                                    <Calendar class="h-3 w-3" /> Issue Date
+                                    <Calendar class="h-3 w-3" /> {{ t('invoices.form.issueDate') }}
                                 </Label>
                                 <input
                                     id="issue_date"
@@ -143,7 +152,7 @@ const cardClass =
 
                             <div class="grid gap-2">
                                 <Label :class="labelClass" for="due_date">
-                                    <Calendar class="h-3 w-3" /> Due Date
+                                    <Calendar class="h-3 w-3" /> {{ t('invoices.form.dueDate') }}
                                 </Label>
                                 <input
                                     id="due_date"
@@ -165,7 +174,7 @@ const cardClass =
                                 class="flex items-center gap-2 text-sm font-bold tracking-tight"
                             >
                                 <FileText class="h-4 w-4 text-primary" />
-                                Invoice Items
+                                {{ t('invoices.form.invoiceItems') }}
                             </h3>
                         </div>
                         <div class="p-0">
@@ -188,16 +197,16 @@ const cardClass =
                                 <div
                                     class="border-b border-border/60 bg-muted/30 px-6 py-4"
                                 >
-                                    <Label :class="labelClass" class="mb-0"
-                                        >Notes & Terms</Label
-                                    >
+                                    <Label :class="labelClass" class="mb-0">
+                                        {{ t('invoices.form.notesTerms') }}
+                                    </Label>
                                 </div>
                                 <div class="p-6">
                                     <textarea
                                         id="notes"
                                         v-model="formData.notes"
                                         rows="5"
-                                        placeholder="Add any specific instructions or thank you notes..."
+                                        :placeholder="t('invoices.form.notesPlaceholder')"
                                         class="w-full resize-none rounded-xl border border-border/40 bg-muted/20 p-4 text-sm transition-all outline-none focus:bg-background focus:ring-2 focus:ring-primary/20"
                                     />
                                     <InputError :message="errors.notes" />
@@ -210,24 +219,21 @@ const cardClass =
                                 <div
                                     class="border-b border-border/60 bg-muted/30 px-6 py-4"
                                 >
-                                    <Label :class="labelClass" class="mb-0"
-                                        >Financial Summary</Label
-                                    >
+                                    <Label :class="labelClass" class="mb-0">
+                                        {{ t('invoices.form.financialSummary') }}
+                                    </Label>
                                 </div>
                                 <div class="space-y-6 p-6">
                                     <div class="grid gap-2">
                                         <Label :class="labelClass" for="tax">
                                             <Percent class="h-3 w-3" />
-                                            Adjustments / Tax
+                                            {{ t('invoices.form.adjustmentsTax') }}
                                         </Label>
                                         <NumberField
                                             v-model="formData.tax"
                                             :min="0"
                                             :step="0.01"
-                                            :format-options="{
-                                                style: 'currency',
-                                                currency: 'BRL',
-                                            }"
+                                            :format-options="currencyFormatOptions"
                                         >
                                             <NumberFieldContent>
                                                 <NumberFieldInput
@@ -260,7 +266,7 @@ const cardClass =
                             class="h-12 rounded-xl px-6 transition-colors hover:bg-destructive/5 hover:text-destructive"
                         >
                             <Link :href="index().url">
-                                <X class="mr-2 h-4 w-4" /> Cancel
+                                <X class="mr-2 h-4 w-4" /> {{ t('invoices.form.cancel') }}
                             </Link>
                         </Button>
 
@@ -272,7 +278,7 @@ const cardClass =
                                 @click="submitForm('draft')"
                                 :disabled="processing"
                             >
-                                <Save class="mr-2 h-4 w-4" /> Draft
+                                <Save class="mr-2 h-4 w-4" /> {{ t('invoices.form.draft') }}
                             </Button>
 
                             <Button
@@ -281,7 +287,7 @@ const cardClass =
                                 @click="submitForm('sent')"
                                 :disabled="processing"
                             >
-                                <Send class="mr-2 h-4 w-4" /> Send
+                                <Send class="mr-2 h-4 w-4" /> {{ t('invoices.form.send') }}
                             </Button>
                         </div>
                     </div>

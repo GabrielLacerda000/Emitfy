@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { Users, FileText, Send, DollarSign } from 'lucide-vue-next';
+import { useI18n } from 'vue-i18n';
 import LpSection from './LpSection.vue';
 import LpStepCard from './LpStepCard.vue';
+
+const { t } = useI18n();
 </script>
 
 <template>
@@ -10,10 +13,10 @@ import LpStepCard from './LpStepCard.vue';
 
         <div class="text-center mb-20">
             <h2 class="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl mb-6 bg-linear-to-b from-foreground to-foreground/70 bg-clip-text text-transparent">
-                From Invoice to Payment in 4 Simple Steps
+                {{ t('lp.howItWorks.h2') }}
             </h2>
             <p class="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                Stop chasing paperwork. We've built a seamless workflow that lets you focus on your work while we handle the billing.
+                {{ t('lp.howItWorks.subtitle') }}
             </p>
         </div>
 
@@ -21,26 +24,26 @@ import LpStepCard from './LpStepCard.vue';
             <LpStepCard
                 :step="1"
                 :icon="Users"
-                title="Add Your Clients"
-                description="Quickly import or add client details. Store contact info and payment terms in one place."
+                :title="t('lp.howItWorks.step1.title')"
+                :description="t('lp.howItWorks.step1.desc')"
             />
             <LpStepCard
                 :step="2"
                 :icon="FileText"
-                title="Create Invoice"
-                description="Generate professional invoices in seconds. Add line items and taxes with our intuitive editor."
+                :title="t('lp.howItWorks.step2.title')"
+                :description="t('lp.howItWorks.step2.desc')"
             />
             <LpStepCard
                 :step="3"
                 :icon="Send"
-                title="Send & Track"
-                description="Email invoices directly. See when clients open them and get real-time status notifications."
+                :title="t('lp.howItWorks.step3.title')"
+                :description="t('lp.howItWorks.step3.desc')"
             />
             <LpStepCard
                 :step="4"
                 :icon="DollarSign"
-                title="Get Paid"
-                description="Mark invoices as paid and watch your revenue dashboard update automatically."
+                :title="t('lp.howItWorks.step4.title')"
+                :description="t('lp.howItWorks.step4.desc')"
                 :is-last="true"
             />
         </div>

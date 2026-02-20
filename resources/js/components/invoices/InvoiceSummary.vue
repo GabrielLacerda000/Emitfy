@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { Calculator, Receipt } from 'lucide-vue-next';
+import { useI18n } from 'vue-i18n';
 import { Card } from '@/components/ui/card';
-import { formatBRL } from '@/lib/utils';
+import { useFormatCurrency } from '@/composables/useLocale';
+
+const { t } = useI18n();
+const formatMoney = useFormatCurrency();
 
 interface Props {
     subtotal: string;
@@ -26,26 +30,22 @@ defineProps<Props>();
                 <h3
                     class="text-[10px] font-black tracking-[0.2em] uppercase"
                 >
-                    Financial Summary
+                    {{ t('invoiceSummary.title') }}
                 </h3>
             </div>
 
             <div class="space-y-3">
                 <div class="flex items-center justify-between">
-                    <span class="text-sm font-bold italic"
-                        >Subtotal</span
-                    >
+                    <span class="text-sm font-bold italic">{{ t('invoiceSummary.subtotal') }}</span>
                     <span class="text-sm font-bold text-foreground">
-                        {{ formatBRL(subtotal) }}
+                        {{ formatMoney(subtotal) }}
                     </span>
                 </div>
 
                 <div class="flex items-center justify-between">
-                    <span class="text-sm font-bold italic"
-                        >Taxes & Fees</span
-                    >
+                    <span class="text-sm font-bold italic">{{ t('invoiceSummary.taxesFees') }}</span>
                     <span class="text-sm font-bold text-rose-500/80">
-                        + {{ formatBRL(tax) }}
+                        + {{ formatMoney(tax) }}
                     </span>
                 </div>
 
@@ -65,11 +65,11 @@ defineProps<Props>();
                         <span
                             class="text-[10px] leading-none font-black tracking-widest text-primary/60 uppercase"
                         >
-                            Grand Total
+                            {{ t('invoiceSummary.grandTotal') }}
                         </span>
                         <span
                             class="mt-1 text-xs font-medium italic"
-                            >Final amount to receive</span
+                            >{{ t('invoiceSummary.finalAmount') }}</span
                         >
                     </div>
 
@@ -77,7 +77,7 @@ defineProps<Props>();
                         <span
                             class="text-3xl font-black tracking-tighter text-foreground"
                         >
-                            {{ formatBRL(total) }}
+                            {{ formatMoney(total) }}
                         </span>
                     </div>
                 </div>

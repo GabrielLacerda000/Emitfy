@@ -8,6 +8,7 @@ import {
     ChevronLeft,
     PlusCircle,
 } from 'lucide-vue-next';
+import { useI18n } from 'vue-i18n';
 import ClientController from '@/actions/App/Http/Controllers/ClientController';
 import Heading from '@/components/Heading.vue';
 import InputError from '@/components/InputError.vue';
@@ -18,9 +19,11 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { index, create } from '@/routes/clients';
 import { type BreadcrumbItem } from '@/types';
 
+const { t } = useI18n();
+
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Clients', href: index().url },
-    { title: 'New Client', href: create().url },
+    { title: t('nav.clients'), href: index().url },
+    { title: t('clients.breadcrumbs.new'), href: create().url },
 ];
 
 // Estilos compartilhados para manter a consistência
@@ -40,8 +43,8 @@ const inputClass =
             <div class="mx-auto w-full max-w-2xl">
                 <div class="mb-8">
                     <Heading
-                        title="New Client"
-                        description="Add a new business partner to your network"
+                        :title="t('clients.breadcrumbs.new')"
+                        :description="t('clients.form.preferencesPlaceholder')"
                     />
                 </div>
 
@@ -58,15 +61,15 @@ const inputClass =
                                     class="flex items-center gap-2 text-sm font-bold tracking-tight"
                                 >
                                     <User class="h-4 w-4 text-primary" />
-                                    Identification
+                                    {{ t('clients.form.identification') }}
                                 </h3>
                             </div>
 
                             <div class="space-y-6 p-6">
                                 <div class="grid gap-2">
-                                    <Label for="name" :class="labelClass"
-                                        >Full Name</Label
-                                    >
+                                    <Label for="name" :class="labelClass">
+                                        {{ t('clients.form.name') }}
+                                    </Label>
                                     <Input
                                         id="name"
                                         name="name"
@@ -80,7 +83,7 @@ const inputClass =
 
                                 <div class="grid gap-2">
                                     <Label for="email" :class="labelClass">
-                                        <Mail class="h-3 w-3" /> Email Address
+                                        <Mail class="h-3 w-3" /> {{ t('clients.form.email') }}
                                     </Label>
                                     <Input
                                         id="email"
@@ -104,7 +107,7 @@ const inputClass =
                                     class="flex items-center gap-2 text-sm font-bold tracking-tight"
                                 >
                                     <Building2 class="h-4 w-4 text-primary" />
-                                    Professional Details
+                                    {{ t('clients.form.professionalDetails') }}
                                 </h3>
                             </div>
 
@@ -113,8 +116,9 @@ const inputClass =
                                     <Label
                                         for="company_name"
                                         :class="labelClass"
-                                        >Company Name</Label
                                     >
+                                        {{ t('clients.form.company') }}
+                                    </Label>
                                     <Input
                                         id="company_name"
                                         name="company_name"
@@ -129,14 +133,13 @@ const inputClass =
 
                                 <div class="grid gap-2">
                                     <Label for="notes" :class="labelClass">
-                                        <FileText class="h-3 w-3" /> Internal
-                                        Notes
+                                        <FileText class="h-3 w-3" /> {{ t('clients.form.internalNotes') }}
                                     </Label>
                                     <textarea
                                         id="notes"
                                         name="notes"
                                         rows="4"
-                                        placeholder="Preferences, contact history, or specific billing details..."
+                                        :placeholder="t('clients.form.preferencesPlaceholder')"
                                         class="w-full resize-none rounded-xl border border-border/40 bg-muted/20 p-4 text-sm transition-all outline-none focus:bg-background focus:ring-2 focus:ring-primary/20"
                                     />
                                     <InputError :message="errors.notes" />
@@ -153,8 +156,7 @@ const inputClass =
                                 class="h-11 rounded-xl px-6 hover:bg-destructive/5 hover:text-destructive"
                             >
                                 <Link :href="index().url">
-                                    <ChevronLeft class="mr-2 h-4 w-4" /> Back to
-                                    List
+                                    <ChevronLeft class="mr-2 h-4 w-4" /> {{ t('clients.form.backToList') }}
                                 </Link>
                             </Button>
 
@@ -162,8 +164,7 @@ const inputClass =
                                 :disabled="processing"
                                 class="h-11 rounded-xl bg-primary px-8 font-black text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:shadow-primary/30"
                             >
-                                <PlusCircle class="mr-2 h-4 w-4" /> Create
-                                Client
+                                <PlusCircle class="mr-2 h-4 w-4" /> {{ t('clients.form.createClient') }}
                             </Button>
                         </div>
                     </div>

@@ -14,8 +14,9 @@ import {
 } from 'chart.js';
 import { computed } from 'vue';
 import { Line } from 'vue-chartjs';
+import { useI18n } from 'vue-i18n';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { formatBRL } from '@/lib/utils';
+import { useFormatCurrency, useLocale } from '@/composables/useLocale';
 import type { MonthlyRevenueData } from '@/types';
 
 // Register Chart.js components
@@ -30,21 +31,26 @@ ChartJS.register(
     Legend
 );
 
+const { t } = useI18n();
+const { locale } = useLocale();
+const formatMoney = useFormatCurrency();
+
 interface Props {
     data: MonthlyRevenueData;
 }
 
 const props = defineProps<Props>();
 
-// Helper to format large numbers (e.g., "R$ 5k", "R$ 1.2M")
+// Helper to format large numbers with locale-appropriate symbol
 const formatCurrencyAbbreviated = (value: number): string => {
+    const symbol = locale.value === 'en' ? '$' : 'R$';
     if (value >= 1000000) {
-        return `R$ ${(value / 1000000).toFixed(1)}M`;
+        return `${symbol} ${(value / 1000000).toFixed(1)}M`;
     }
     if (value >= 1000) {
-        return `R$ ${(value / 1000).toFixed(1)}k`;
+        return `${symbol} ${(value / 1000).toFixed(1)}k`;
     }
-    return formatBRL(value);
+    return formatMoney(value);
 };
 
 // Check if dark mode is active
@@ -62,7 +68,7 @@ const chartData = computed<ChartData<'line'>>(() => {
         labels: props.data.labels,
         datasets: [
             {
-                label: 'Revenue',
+                label: t('dashboard.revenueChart.revenue'),
                 data: props.data.data,
                 borderColor: `hsl(${primaryColor})`,
                 backgroundColor: `hsl(${primaryColor} / 0.1)`,
@@ -97,7 +103,7 @@ const chartOptions = computed<ChartOptions<'line'>>(() => {
             tooltip: {
                 callbacks: {
                     label: (context) => {
-                        return `Revenue: ${formatBRL(context.parsed.y ?? 0)}`;
+                        return `${t('dashboard.revenueChart.revenue')}: ${formatMoney(context.parsed.y ?? 0)}`;
                     },
                 },
                 backgroundColor: isDark.value
@@ -143,8 +149,8 @@ const chartOptions = computed<ChartOptions<'line'>>(() => {
 <template>
     <Card class="shadow-sm">
         <CardHeader>
-            <CardTitle>Revenue Overview</CardTitle>
-            <CardDescription>Monthly revenue trends over the last 6 months</CardDescription>
+            <CardTitle>{{ t('dashboard.revenueChart.title') }}</CardTitle>
+            <CardDescription>{{ t('dashboard.revenueChart.description') }}</CardDescription>
         </CardHeader>
         <CardContent>
             <div class="h-[300px]">

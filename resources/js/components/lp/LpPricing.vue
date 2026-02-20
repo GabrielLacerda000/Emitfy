@@ -1,19 +1,48 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { register } from '@/routes';
 import LpPricingCard from './LpPricingCard.vue';
 import LpSection from './LpSection.vue';
+
+const { t } = useI18n();
+
+const starterFeatures = computed(() => [
+    { text: t('lp.pricing.features.clients20'), included: true },
+    { text: t('lp.pricing.features.emails50'), included: true },
+    { text: t('lp.pricing.features.unlimitedInvoices'), included: true },
+    { text: t('lp.pricing.features.basicDashboard'), included: true },
+    { text: t('lp.pricing.features.emailSupport'), included: true },
+    { text: t('lp.pricing.features.recurringInvoices'), included: false },
+]);
+
+const proFeatures = computed(() => [
+    { text: t('lp.pricing.features.clients300'), included: true },
+    { text: t('lp.pricing.features.emails1000'), included: true },
+    { text: t('lp.pricing.features.unlimitedInvoices'), included: true },
+    { text: t('lp.pricing.features.recurringInvoices'), included: true },
+    { text: t('lp.pricing.features.advancedReports'), included: true },
+    { text: t('lp.pricing.features.whatsappSupport'), included: true },
+    { text: t('lp.pricing.features.prioritySupport'), included: true },
+]);
+
+const businessFeatures = computed(() => [
+    { text: t('lp.pricing.features.unlimitedClients'), included: true },
+    { text: t('lp.pricing.features.emails5000'), included: true },
+    { text: t('lp.pricing.features.everythingInPro'), included: true },
+    { text: t('lp.pricing.features.dedicatedSupport'), included: true },
+]);
 </script>
 
 <template>
     <LpSection background="muted" id="pricing" class="py-24">
         <div class="mb-20 text-center">
             <h2 class="mb-4 text-4xl font-extrabold tracking-tight sm:text-5xl">
-                Simple Pricing for
-                <span class="text-primary">Growing Businesses</span>
+                {{ t('lp.pricing.h2') }}
+                <span class="text-primary">{{ t('lp.pricing.h2highlight') }}</span>
             </h2>
             <p class="mx-auto max-w-2xl text-lg text-muted-foreground">
-                Start small and upgrade as your business grows. No hidden fees.
-                No surprises.
+                {{ t('lp.pricing.subtitle') }}
             </p>
         </div>
 
@@ -22,53 +51,33 @@ import LpSection from './LpSection.vue';
         >
             <!-- STARTER -->
             <LpPricingCard
-                name="Starter"
-                price="R$29"
-                description="Perfect for freelancers and small businesses starting out."
-                :features="[
-                    { text: 'Up to 20 clients', included: true },
-                    { text: 'Up to 50 emails per month', included: true },
-                    { text: 'Unlimited invoices', included: true },
-                    { text: 'Basic dashboard', included: true },
-                    { text: 'Email support', included: true },
-                    { text: 'Recurring invoices', included: false },
-                ]"
-                cta="Get Started"
+                :name="t('lp.pricing.plans.starter.name')"
+                :price="t('lp.pricing.plans.starter.price')"
+                :description="t('lp.pricing.plans.starter.desc')"
+                :features="starterFeatures"
+                :cta="t('lp.pricing.plans.starter.cta')"
                 :cta-href="register().url"
             />
 
             <!-- PRO (MOST POPULAR) -->
             <LpPricingCard
-                name="Pro"
-                price="R$69"
+                :name="t('lp.pricing.plans.pro.name')"
+                :price="t('lp.pricing.plans.pro.price')"
                 highlighted
-                description="For professionals who want automation and scale."
-                :features="[
-                    { text: 'Up to 300 clients', included: true },
-                    { text: 'Up to 1000 emails per month', included: true },
-                    { text: 'Unlimited invoices', included: true },
-                    { text: 'Recurring invoices', included: true },
-                    { text: 'Advanced reports', included: true },
-                    { text: 'WhatsApp support', included: true },
-                    { text: 'Priority support', included: true },
-                ]"
-                cta="Upgrade to Pro"
+                :description="t('lp.pricing.plans.pro.desc')"
+                :features="proFeatures"
+                :cta="t('lp.pricing.plans.pro.cta')"
                 :cta-href="register().url"
-                savings="Most Popular"
+                :savings="t('lp.pricing.plans.pro.savings')"
             />
 
             <!-- BUSINESS -->
             <LpPricingCard
-                name="Business"
-                price="R$119"
-                description="For high-volume billing and serious growth."
-                :features="[
-                    { text: 'Unlimited clients', included: true },
-                    { text: 'Up to 5000 emails per month', included: true },
-                    { text: 'Everything in Pro', included: true },
-                    { text: 'Dedicated support', included: true },
-                ]"
-                cta="Scale My Business"
+                :name="t('lp.pricing.plans.business.name')"
+                :price="t('lp.pricing.plans.business.price')"
+                :description="t('lp.pricing.plans.business.desc')"
+                :features="businessFeatures"
+                :cta="t('lp.pricing.plans.business.cta')"
                 :cta-href="register().url"
             />
         </div>
@@ -80,14 +89,12 @@ import LpSection from './LpSection.vue';
                 class="flex flex-col items-center justify-between gap-6 md:flex-row"
             >
                 <div class="text-left">
-                    <h4 class="text-lg font-bold">Why choose Pro?</h4>
+                    <h4 class="text-lg font-bold">{{ t('lp.pricing.whyPro.title') }}</h4>
                     <p class="text-sm text-muted-foreground">
-                        Automating recurring invoices and reminders can save you
-                        hours every month — time you can reinvest into growing
-                        your business.
+                        {{ t('lp.pricing.whyPro.desc') }}
                     </p>
                 </div>
-                <div class="text-2xl font-black text-primary">Best Value</div>
+                <div class="text-2xl font-black text-primary">{{ t('lp.pricing.bestValue') }}</div>
             </div>
         </div>
     </LpSection>

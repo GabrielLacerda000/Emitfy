@@ -1,14 +1,17 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n';
 import { Separator } from '@/components/ui/separator';
+
+const { t } = useI18n();
 </script>
 
 <template>
-    <footer class="bg-card border-t border-border">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+    <footer class="border-t border-border bg-card">
+        <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+            <div class="mb-8 grid grid-cols-1 gap-8 md:grid-cols-4">
                 <!-- Brand -->
                 <div class="md:col-span-1">
-                    <div class="flex items-center gap-2 mb-4">
+                    <div class="mb-4 flex items-center gap-2">
                         <svg
                             class="h-8 w-8 text-primary"
                             fill="none"
@@ -22,59 +25,78 @@ import { Separator } from '@/components/ui/separator';
                                 d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                             />
                         </svg>
-                        <span class="text-xl font-bold">Emitte</span>
+                        <span class="text-xl font-bold">Emitfy</span>
                     </div>
                     <p class="text-sm text-muted-foreground">
-                        Professional invoice management for freelancers and
-                        small businesses.
+                        {{ t('lp.footer.brand') }}
                     </p>
                 </div>
 
                 <!-- Product -->
                 <div>
-                    <h3 class="font-semibold mb-3">Product</h3>
+                    <h3 class="mb-3 font-semibold">
+                        {{ t('lp.footer.product') }}
+                    </h3>
                     <ul class="space-y-2 text-sm text-muted-foreground">
                         <li>
-                            <a href="#how-it-works" class="hover:text-foreground"
-                                >Features</a
+                            <a
+                                href="#how-it-works"
+                                class="hover:text-foreground"
+                                >{{ t('lp.footer.features') }}</a
                             >
                         </li>
                         <li>
-                            <a href="#pricing" class="hover:text-foreground"
-                                >Pricing</a
-                            >
+                            <a href="#pricing" class="hover:text-foreground">{{
+                                t('lp.footer.pricing')
+                            }}</a>
                         </li>
                         <li>
-                            <a href="#faq" class="hover:text-foreground">FAQ</a>
+                            <a href="#faq" class="hover:text-foreground">{{
+                                t('lp.footer.faq')
+                            }}</a>
                         </li>
                     </ul>
                 </div>
 
                 <!-- Company -->
                 <div>
-                    <h3 class="font-semibold mb-3">Company</h3>
+                    <h3 class="mb-3 font-semibold">
+                        {{ t('lp.footer.company') }}
+                    </h3>
                     <ul class="space-y-2 text-sm text-muted-foreground">
                         <li>
-                            <a href="#" class="hover:text-foreground">About</a>
+                            <a href="#" class="hover:text-foreground">{{
+                                t('lp.footer.about')
+                            }}</a>
                         </li>
                         <li>
-                            <a href="#" class="hover:text-foreground">Blog</a>
+                            <a href="#" class="hover:text-foreground">{{
+                                t('lp.footer.blog')
+                            }}</a>
                         </li>
                         <li>
-                            <a href="#" class="hover:text-foreground">Contact</a>
+                            <a href="#" class="hover:text-foreground">{{
+                                t('lp.footer.contact')
+                            }}</a>
                         </li>
                     </ul>
                 </div>
 
                 <!-- Legal -->
                 <div>
-                    <h3 class="font-semibold mb-3">Legal</h3>
+                    <h3 class="mb-3 font-semibold">
+                        {{ t('lp.footer.legal') }}
+                    </h3>
                     <ul class="space-y-2 text-sm text-muted-foreground">
                         <li>
-                            <a href="#" class="hover:text-foreground">Privacy</a>
+                            <a href="#" class="hover:text-foreground">{{
+                                t('lp.footer.privacy')
+                            }}</a>
                         </li>
                         <li>
-                            <a href="#" class="hover:text-foreground">Terms</a>
+                            <a href="#" class="hover:text-foreground">{{
+                                t('lp.footer.terms')
+                            }}</a>
                         </li>
                     </ul>
                 </div>
@@ -83,13 +105,12 @@ import { Separator } from '@/components/ui/separator';
             <Separator class="mb-8" />
 
             <div
-                class="flex flex-col md:flex-row justify-between items-center gap-4"
+                class="flex flex-col items-center justify-between gap-4 md:flex-row"
             >
                 <p class="text-sm text-muted-foreground">
-                    © 2026 Emitte. All rights reserved.
+                    {{ t('lp.footer.copyright') }}
                 </p>
                 <div class="flex gap-4">
-                    <!-- Social media links placeholder -->
                     <a
                         href="#"
                         class="text-muted-foreground hover:text-foreground"
