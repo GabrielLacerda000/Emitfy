@@ -140,7 +140,7 @@ defineProps<{
 
                 <Button
                     type="submit"
-                    class="mt-2 h-12 w-full rounded-xl bg-primary font-black text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:shadow-primary/30 active:translate-y-0"
+                    class="mt-2 h-12 w-full rounded-xl bg-primary text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 hover:shadow-primary/30 active:translate-y-0"
                     :tabindex="4"
                     :disabled="processing"
                 >
