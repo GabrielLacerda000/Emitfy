@@ -44,11 +44,11 @@ const props = defineProps<Props>();
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Invoices',
+        title: t('nav.invoices'),
         href: index().url,
     },
     {
-        title: `Edit ${props.invoice.number}`,
+        title: t('invoices.breadcrumbs.edit', { number: props.invoice.number }),
         href: '#',
     },
 ];

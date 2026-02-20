@@ -11,7 +11,7 @@ import { useI18n } from 'vue-i18n';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { getStatusConfig } from '@/composables/useInvoiceStatus';
+import { useInvoiceStatus } from '@/composables/useInvoiceStatus';
 import { useFormatCurrency } from '@/composables/useLocale';
 import { formatDate } from '@/lib/utils';
 import { show as showInvoice } from '@/routes/invoices';
@@ -19,6 +19,7 @@ import type { PaginatedInvoices } from '@/types';
 
 const { t } = useI18n();
 const formatMoney = useFormatCurrency();
+const { getStatusConfig } = useInvoiceStatus();
 
 interface Props {
     invoices: PaginatedInvoices;

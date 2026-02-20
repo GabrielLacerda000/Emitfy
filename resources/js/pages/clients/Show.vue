@@ -31,7 +31,7 @@ const props = defineProps<{
 }>();
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Clients', href: index().url },
+    { title: t('nav.clients'), href: index().url },
     { title: props.client.name, href: '#' },
 ];
 

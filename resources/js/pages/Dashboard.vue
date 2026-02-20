@@ -36,7 +36,7 @@ const props = defineProps<Props>();
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Dashboard',
+        title: t('nav.dashboard'),
         href: dashboard().url,
     },
 ];

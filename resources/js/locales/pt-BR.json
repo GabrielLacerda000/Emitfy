@@ -157,7 +157,8 @@
             "deleting": "Excluindo..."
         },
         "breadcrumbs": {
-            "new": "Nova Fatura"
+            "new": "Nova Fatura",
+            "edit": "Editar {number}"
         },
         "form": {
             "client": "Cliente",

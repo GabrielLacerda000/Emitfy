@@ -4,13 +4,14 @@ import { ArrowRight, FileText, Plus, Calendar, User2, ExternalLink } from 'lucid
 import { useI18n } from 'vue-i18n';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { getStatusConfig } from '@/composables/useInvoiceStatus';
+import { useInvoiceStatus } from '@/composables/useInvoiceStatus';
 import { useFormatCurrency } from '@/composables/useLocale';
 import { formatDate } from '@/lib/utils';
 import type { Invoice } from '@/types';
 
 const { t } = useI18n();
 const formatMoney = useFormatCurrency();
+const { getStatusConfig } = useInvoiceStatus();
 
 type Props = {
     invoices: Invoice[];

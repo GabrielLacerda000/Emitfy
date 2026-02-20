@@ -29,8 +29,8 @@ type Props = {
 const props = defineProps<Props>();
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Clients', href: index().url },
-    { title: 'Edit Client', href: edit({ client: props.client.id }).url },
+    { title: t('nav.clients'), href: index().url },
+    { title: t('clients.breadcrumbs.edit'), href: edit({ client: props.client.id }).url },
 ];
 </script>
 

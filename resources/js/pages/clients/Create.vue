@@ -22,8 +22,8 @@ import { type BreadcrumbItem } from '@/types';
 const { t } = useI18n();
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Clients', href: index().url },
-    { title: 'New Client', href: create().url },
+    { title: t('nav.clients'), href: index().url },
+    { title: t('clients.breadcrumbs.new'), href: create().url },
 ];
 
 // Estilos compartilhados para manter a consistência

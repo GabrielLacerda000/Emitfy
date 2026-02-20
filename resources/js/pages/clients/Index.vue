@@ -38,7 +38,7 @@ interface PaginatedClients {
 type Props = { clients: PaginatedClients };
 const props = defineProps<Props>();
 
-const breadcrumbs: BreadcrumbItem[] = [{ title: 'Clients', href: index().url }];
+const breadcrumbs: BreadcrumbItem[] = [{ title: t('nav.clients'), href: index().url }];
 
 const deleteDialogOpen = ref(false);
 const clientToDelete = ref<Client | null>(null);

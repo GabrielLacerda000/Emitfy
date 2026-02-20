@@ -157,7 +157,8 @@
             "deleting": "Deleting..."
         },
         "breadcrumbs": {
-            "new": "New Invoice"
+            "new": "New Invoice",
+            "edit": "Edit {number}"
         },
         "form": {
             "client": "Client",
