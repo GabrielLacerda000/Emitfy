@@ -36,18 +36,20 @@ class UpdateInvoiceRequest extends FormRequest
      */
     public function attributes(): array
     {
+        $attrs = trans('validation.attributes');
+
         return [
-            'client_id' => 'client',
-            'issue_date' => 'issue date',
-            'due_date' => 'due date',
-            'tax' => 'tax amount',
-            'notes' => 'notes',
-            'status' => 'status',
-            'paid_at' => 'paid date',
-            'items' => 'items',
-            'items.*.description' => 'item description',
-            'items.*.quantity' => 'item quantity',
-            'items.*.unit_price' => 'item unit price',
+            'client_id'           => $attrs['client_id'],
+            'issue_date'          => $attrs['issue_date'],
+            'due_date'            => $attrs['due_date'],
+            'tax'                 => $attrs['tax'],
+            'notes'               => $attrs['notes'],
+            'status'              => $attrs['status'],
+            'paid_at'             => $attrs['paid_at'],
+            'items'               => $attrs['items'],
+            'items.*.description' => $attrs['items.*.description'],
+            'items.*.quantity'    => $attrs['items.*.quantity'],
+            'items.*.unit_price'  => $attrs['items.*.unit_price'],
         ];
     }
 }
