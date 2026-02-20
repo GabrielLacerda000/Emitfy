@@ -17,7 +17,6 @@ import { Line } from 'vue-chartjs';
 import { useI18n } from 'vue-i18n';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useFormatCurrency, useLocale } from '@/composables/useLocale';
-import { formatCurrency } from '@/lib/utils';
 import type { MonthlyRevenueData } from '@/types';
 
 // Register Chart.js components
