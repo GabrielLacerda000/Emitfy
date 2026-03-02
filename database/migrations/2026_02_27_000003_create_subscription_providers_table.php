@@ -14,7 +14,6 @@ return new class extends Migration
             $table->string('provider');
             $table->string('provider_customer_id');
             $table->string('provider_subscription_id');
-            $table->string('provider_payment_id')->nullable();
             $table->string('status');
             $table->timestamps();
         });
