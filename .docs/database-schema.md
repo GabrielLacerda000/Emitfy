@@ -25,7 +25,7 @@ erDiagram
 
     invoices {
         bigint id PK
-        bigint user_id FK
+        uuid user_id FK
         bigint client_id FK
         string number
         string status
@@ -77,7 +77,7 @@ erDiagram
 
     subscriptions {
         bigint id PK
-        bigint user_id FK
+        uuid user_id FK
         bigint plan_id FK
         string status
         string billing_cycle
@@ -89,7 +89,7 @@ erDiagram
         bigint subscription_id FK
         string provider
         string provider_customer_id
-        string provider_subscription_id
+        string provider_subscription_id nullable
         string provider_payment_id
         string status
         json metadata
@@ -136,7 +136,7 @@ erDiagram
 ### invoices
 
 - Purpose: billing document lifecycle (`draft`/`sent`/`paid`/`overdue` in domain model).
-- Key fields: `id` (PK), `user_id` (FK), `client_id` (FK), `number`, `status`, `issue_date`, `due_date`, `subtotal`, `tax`, `total`, `public_token`, `sent_at`, `paid_at`.
+- Key fields: `id` (PK), `user_id` (UUID FK), `client_id` (FK), `number`, `status`, `issue_date`, `due_date`, `subtotal`, `tax`, `total`, `public_token`, `sent_at`, `paid_at`.
 - Relationships: belongs to `users` and `clients`; one-to-many with `invoice_items`, `payments`, `reminder_schedules`.
 - Important indexes: `user_id + status`, `user_id + number`, `public_token`, `due_date`.
 - Delete behavior: deleting referenced user/client cascades and deletes invoices.
@@ -171,14 +171,14 @@ erDiagram
 ### subscriptions
 
 - Purpose: user subscription state and billing period tracking.
-- Key fields: `id` (PK), `user_id` (FK), `plan_id` (FK), `status`, `billing_cycle`, `current_period_end`.
+- Key fields: `id` (PK), `user_id` (UUID FK), `plan_id` (FK), `status`, `billing_cycle`, `current_period_end`.
 - Relationships: belongs to `users` and `plans`; one-to-many with `subscription_providers` and `subscription_payments`.
 - Delete behavior: deleting the referenced user or plan cascades and deletes subscriptions.
 
 ### subscription_providers
 
 - Purpose: external subscription linkage data per provider (customer/subscription/payment IDs and metadata).
-- Key fields: `id` (PK), `subscription_id` (FK), `provider`, `provider_customer_id`, `provider_subscription_id`, `provider_payment_id`, `status`, `metadata`.
+- Key fields: `id` (PK), `subscription_id` (FK), `provider`, `provider_customer_id`, `provider_subscription_id` (nullable), `provider_payment_id`, `status`, `metadata`.
 - Relationships: belongs to `subscriptions`.
 - Delete behavior: deleting a subscription cascades and deletes provider rows.
 
@@ -191,6 +191,6 @@ erDiagram
 
 ## Known Inconsistencies / Notes
 
-- `users.id` is UUID, while `invoices.user_id` and `subscriptions.user_id` were created as `foreignId` (integer FK). This is a type mismatch in migration intent and should be corrected in future migrations.
-- Migration `2026_03_02_151410_make_provider_subscription_id_nullable_in_subscription_providers.php` is currently empty, so `subscription_providers.provider_subscription_id` remains non-nullable in the applied schema.
+- `invoices.user_id` and `subscriptions.user_id` were corrected to UUID foreign keys to align with `users.id`.
+- Migration `2026_03_02_151410_make_provider_subscription_id_nullable_in_subscription_providers.php` is now implemented, so `subscription_providers.provider_subscription_id` is nullable.
 - The diagram and table notes document current observed schema state from migrations and `database/database.sqlite`.
