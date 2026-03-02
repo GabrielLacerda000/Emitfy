@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Subscriptions>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Subscription>
  */
 class SubscriptionsFactory extends Factory
 {
@@ -17,10 +17,8 @@ class SubscriptionsFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => $this->faker->numberBetween(1, 100),
-            'plan' => $this->faker->randomElement(['free', 'pro', 'business']),
-            'provider' => $this->faker->randomElement(['stripe']),
-            'provider_subscription_id' => $this->faker->uuid,
+            'user_id' => \App\Models\User::factory(),
+            'plan_id' => \App\Models\Plan::factory(),
             'status' => $this->faker->randomElement(['active', 'canceled', 'past_due']),
             'current_period_end' => $this->faker->dateTimeBetween('-1 year', 'now'),
         ];
