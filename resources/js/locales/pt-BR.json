@@ -75,7 +75,7 @@
         "createInvoice": "Criar Fatura",
         "stats": {
             "totalOutstanding": "Total Pendente",
-            "totalOutstandingDesc": "Faturas enviadas e vencidas",
+            "totalOutstandingDesc": "Faturas enviadas",
             "totalPaid": "Total Recebido",
             "totalPaidDesc": "{count} faturas pagas",
             "dueSoon": "Vence Em Breve",

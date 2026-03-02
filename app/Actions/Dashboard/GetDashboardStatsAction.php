@@ -13,10 +13,10 @@ class GetDashboardStatsAction
 
         // Calculate total outstanding (SENT + OVERDUE invoices)
         $totalOutstanding = $user->invoices()
-            ->whereIn('status', [InvoiceStatus::SENT, InvoiceStatus::OVERDUE])
+            ->whereIn('status', [InvoiceStatus::SENT])
             ->sum('total');
 
-            $totalPaidStats = $user->invoices()
+        $totalPaidStats = $user->invoices()
             ->where('status', InvoiceStatus::PAID)
             ->selectRaw('COALESCE(SUM(total), 0) as total, COUNT(*) as count')
             ->first();

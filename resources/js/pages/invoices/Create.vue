@@ -26,6 +26,7 @@ import {
 } from '@/components/ui/number-field';
 import { useLocale } from '@/composables/useLocale';
 import AppLayout from '@/layouts/AppLayout.vue';
+import { toLocalDateInputValue } from '@/lib/utils';
 import { index } from '@/routes/invoices';
 import type { CreateInvoiceData, BreadcrumbItem, Client } from '@/types';
 
@@ -45,8 +46,8 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 const formData = ref<CreateInvoiceData>({
     client_id: null,
-    issue_date: new Date().toISOString().split('T')[0],
-    due_date: new Date().toISOString().split('T')[0],
+    issue_date: toLocalDateInputValue(),
+    due_date: toLocalDateInputValue(),
     tax: 0,
     notes: '',
     status: 'draft',

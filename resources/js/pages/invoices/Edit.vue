@@ -25,6 +25,7 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import AppLayout from '@/layouts/AppLayout.vue';
+import { toLocalDateInputValue } from '@/lib/utils';
 import { index } from '@/routes/invoices';
 import {
     type BreadcrumbItem,
@@ -99,7 +100,7 @@ watch(
             !formData.value.paid_at
         ) {
             // Status changed to paid and no paid_at exists - default to today
-            formData.value.paid_at = new Date().toISOString().split('T')[0];
+            formData.value.paid_at = toLocalDateInputValue();
         } else if (newStatus !== 'paid' && oldStatus === 'paid') {
             // Status changed from paid to something else - clear paid_at
             formData.value.paid_at = '';
@@ -288,11 +289,7 @@ function submitForm() {
                                     <input
                                         v-model="formData.paid_at"
                                         type="date"
-                                        :max="
-                                            new Date()
-                                                .toISOString()
-                                                .split('T')[0]
-                                        "
+                                        :max="toLocalDateInputValue()"
                                         class="h-11 rounded-xl border-border/60 bg-muted/20 px-4 text-sm transition-all outline-none focus:bg-background"
                                     />
                                     <InputError :message="errors.paid_at" />
