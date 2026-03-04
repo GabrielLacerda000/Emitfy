@@ -530,18 +530,23 @@
             }
         },
         "faq": {
-            "h2": "Questions? We've Got Answers",
-            "subtitle": "Everything you need to know about Emitfy.",
-            "q1": "Is Emitfy really free?",
-            "a1": "Yes! Our Basic plan is completely free forever. You get 10 invoices per month, unlimited clients, and all core features. Upgrade to Pro when you need unlimited invoicing and advanced features.",
-            "q2": "Can I customize my invoices?",
-            "a2": "Absolutely. Pro users can add custom branding including logos, colors, and custom footer text. All users can customize invoice details, line items, taxes, and notes.",
-            "q3": "How do I get paid?",
-            "a3": "Emitfy helps you track payments but doesn't process them directly. You can send invoices via email or download PDFs, and mark invoices as paid when you receive payment through your preferred method (bank transfer, PayPal, Stripe, etc.).",
-            "q4": "Can I import my existing clients?",
-            "a4": "Yes! You can manually add clients one by one, or upload a CSV file to import multiple clients at once. We support standard formats from Excel and Google Sheets.",
-            "q5": "What if I need help?",
-            "a5": "We're here for you! Basic users get email support with responses within 24-48 hours. Pro users get priority support with faster response times. We also have comprehensive documentation and video tutorials."
+            "h2": "Frequently Asked Questions",
+            "subtitle": "Clear answers about how Emitfy works.",
+
+            "q1": "What is Emitfy?",
+            "a1": "Emitfy is an invoice management platform designed to help you organize, send, and track your invoices in one place. It allows you to monitor due dates, manage clients, and keep control of your billing workflow.",
+
+            "q2": "Does Emitfy process payments?",
+            "a2": "No. Emitfy does not process payments. It helps you manage invoices and track their status. Payments can be received through Pix, bank transfer, card, or any other method you use externally.",
+
+            "q3": "How do recurring invoices and reminders work?",
+            "a3": "You can configure recurring invoices based on your preferred frequency. The system automatically sends reminders 3 days before the due date, on the due date, and up to 7 days after if the invoice remains unpaid.",
+
+            "q4": "How do I mark an invoice as paid?",
+            "a4": "Once you receive payment outside the platform, you can manually mark the invoice as paid. This keeps your records updated and ensures accurate tracking.",
+
+            "q5": "Is my data secure?",
+            "a5": "Yes. We follow modern security practices, including protected authentication and secure data storage, to safeguard your information."
         },
         "cta": {
             "badge": "The #1 choice for freelancers in 2026",

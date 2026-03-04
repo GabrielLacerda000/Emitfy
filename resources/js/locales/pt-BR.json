@@ -530,18 +530,22 @@
             }
         },
         "faq": {
-            "h2": "Perguntas? Temos as Respostas",
-            "subtitle": "Tudo que você precisa saber sobre o Emitfy.",
-            "q1": "O Emitfy é realmente gratuito?",
-            "a1": "Sim! Nosso plano Básico é completamente gratuito para sempre. Você tem 10 faturas por mês, clientes ilimitados e todos os recursos essenciais. Faça upgrade para o Pro quando precisar de faturamento ilimitado e recursos avançados.",
-            "q2": "Posso personalizar minhas faturas?",
-            "a2": "Com certeza. Usuários Pro podem adicionar branding personalizado incluindo logos, cores e texto de rodapé. Todos os usuários podem personalizar detalhes da fatura, itens, impostos e observações.",
-            "q3": "Como recebo o pagamento?",
-            "a3": "O Emitfy ajuda você a rastrear pagamentos, mas não os processa diretamente. Você pode enviar faturas por e-mail ou baixar PDFs, e marcar as faturas como pagas quando receber o pagamento pelo seu método preferido (transferência bancária, PayPal, Stripe, etc.).",
-            "q4": "Posso importar meus clientes existentes?",
-            "a4": "Sim! Você pode adicionar clientes manualmente um por um, ou fazer upload de um arquivo CSV para importar vários clientes de uma vez. Suportamos formatos padrão do Excel e Google Sheets.",
-            "q5": "E se eu precisar de ajuda?",
-            "a5": "Estamos aqui para você! Usuários Básicos têm suporte por e-mail com respostas em 24-48 horas. Usuários Pro têm suporte prioritário com tempos de resposta mais rápidos. Também temos documentação completa e tutoriais em vídeo."
+            "h2": "Perguntas Frequentes",
+            "subtitle": "Tudo o que você precisa saber antes de começar.",
+            "q1": "O Emitfy tem plano gratuito?",
+            "a1": "Atualmente trabalhamos com um plano pago simples e acessível, que dá acesso a todos os recursos da plataforma. Nossa proposta é oferecer uma solução profissional desde o primeiro dia, sem limitações artificiais.",
+
+            "q2": "O Emitfy processa pagamentos?",
+            "a2": "Não. O Emitfy é uma plataforma de gestão de faturas. Você pode gerar e enviar cobranças, acompanhar vencimentos e marcar como pagas após receber via Pix, transferência bancária, cartão ou outro meio da sua preferência.",
+
+            "q3": "Posso gerenciar cobranças recorrentes?",
+            "a3": "Sim. As cobranças sao enviadas 3 dias antes, no dia e até 7 dias após o vencimento",
+
+            "q4": "Os dados ficam seguros?",
+            "a4": "Sim. Utilizamos boas práticas de segurança, autenticação protegida e armazenamento seguro de dados para garantir a integridade das suas informações.",
+
+            "q5": "E se eu precisar de suporte?",
+            "a5": "Oferecemos suporte direto por e-mail para todos os clientes. Nosso objetivo é responder o mais rápido possível e evoluir o sistema com base no feedback dos usuários."
         },
         "cta": {
             "badge": "A #1 escolha para freelancers em 2026",
