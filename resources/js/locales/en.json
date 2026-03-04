@@ -427,23 +427,27 @@
             "betterWay": "There is a better way"
         },
         "howItWorks": {
-            "h2": "From Invoice to Payment in 4 Simple Steps",
-            "subtitle": "Stop chasing paperwork. We've built a seamless workflow that lets you focus on your work while we handle the billing.",
+            "h2": "From Invoice to Control in 4 Simple Steps",
+            "subtitle": "Organize your billing in a clear and efficient way. A straightforward workflow to keep full control of your invoicing.",
+
             "step1": {
                 "title": "Add Your Clients",
-                "desc": "Quickly import or add client details. Store contact info and payment terms in one place."
+                "desc": "Manually add your clients. Store contact details and payment terms in one centralized place."
             },
+
             "step2": {
-                "title": "Create Invoice",
-                "desc": "Generate professional invoices in seconds. Add line items and taxes with our intuitive editor."
+                "title": "Create the Invoice",
+                "desc": "Generate invoices quickly with items, amounts, and due dates. Set up recurring invoices whenever needed."
             },
+
             "step3": {
-                "title": "Send & Track",
-                "desc": "Email invoices directly. See when clients open them and get real-time status notifications."
+                "title": "Send and Track",
+                "desc": "Send invoices via email and monitor their due status. The system automatically sends reminders 3 days before, on the due date, and up to 7 days after if unpaid."
             },
+
             "step4": {
-                "title": "Get Paid",
-                "desc": "Mark invoices as paid and watch your revenue dashboard update automatically."
+                "title": "Update the Status",
+                "desc": "After receiving payment through your preferred method (Pix, bank transfer, card, etc.), mark the invoice as paid and keep your financial records up to date."
             }
         },
         "benefits": {

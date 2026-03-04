@@ -427,23 +427,27 @@
             "betterWay": "Existe uma forma melhor"
         },
         "howItWorks": {
-            "h2": "Da Fatura ao Pagamento em 4 Passos Simples",
-            "subtitle": "Pare de correr atrás de burocracia. Criamos um fluxo de trabalho fluido para você focar no seu trabalho enquanto cuidamos do faturamento.",
+            "h2": "Da Fatura ao Controle em 4 Passos Simples",
+            "subtitle": "Organize suas cobranças de forma clara e eficiente. Um fluxo direto para você manter controle total do seu faturamento.",
+
             "step1": {
                 "title": "Adicione seus Clientes",
-                "desc": "Importe ou adicione dados de clientes rapidamente. Armazene contatos e condições de pagamento em um só lugar."
+                "desc": "Cadastre seus clientes. Centralize informações como contato e condições de pagamento em um único lugar."
             },
+
             "step2": {
                 "title": "Crie a Fatura",
-                "desc": "Gere faturas profissionais em segundos. Adicione itens e impostos com nosso editor intuitivo."
+                "desc": "Gere faturas rapidamente com itens, valores e vencimento. Configure cobranças recorrentes quando necessário."
             },
+
             "step3": {
                 "title": "Envie e Acompanhe",
-                "desc": "Envie faturas por e-mail. Veja quando os clientes as abrem e receba notificações de status em tempo real."
+                "desc": "Envie a fatura por e-mail e acompanhe o status de vencimento. O sistema envia lembretes automáticos 3 dias antes, no dia e até 7 dias após o vencimento."
             },
+
             "step4": {
-                "title": "Receba o Pagamento",
-                "desc": "Marque faturas como pagas e veja seu painel de receita atualizar automaticamente."
+                "title": "Atualize o Status",
+                "desc": "Após receber o pagamento pelo seu método preferido (Pix, transferência, cartão, etc.), marque a fatura como paga e mantenha seu controle financeiro atualizado."
             }
         },
         "benefits": {
