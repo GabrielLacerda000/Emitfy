@@ -451,31 +451,37 @@
             }
         },
         "benefits": {
-            "h2": "Por que Freelancers e Pequenas Empresas Escolhem o Emitfy",
-            "subtitle": "Resultados reais que impactam sua receita e liberam seu tempo.",
+            "h2": "Por que usar o Emitfy",
+            "subtitle": "Benefícios práticos para organizar suas cobranças com mais clareza e controle.",
+
             "card1": {
-                "title": "Economize +10 Horas por Mês",
-                "desc": "Pare de copiar dados entre planilhas. Automatize a criação e rastreamento de faturas para focar no trabalho faturável."
+                "title": "Economize Tempo na Gestão",
+                "desc": "Centralize clientes e faturas em um único sistema. Reduza tarefas manuais e evite retrabalho com planilhas."
             },
+
             "card2": {
-                "title": "Receba 40% Mais Rápido",
-                "desc": "Faturas profissionais e lembretes automáticos fazem os clientes pagarem mais cedo. Sem mais e-mails constrangedores de cobrança."
+                "title": "Lembretes Automáticos",
+                "desc": "Envio automático de lembretes antes e depois do vencimento. Menos esquecimento, menos cobrança manual."
             },
+
             "card3": {
-                "title": "Nunca Perca o Controle",
-                "desc": "Saiba exatamente o que está pendente. Veja quais faturas estão vencidas de relance. Nunca deixe receita escapar."
+                "title": "Visão Clara do que Está Pendente",
+                "desc": "Saiba exatamente quais faturas estão abertas, vencidas ou pagas. Controle simples e direto."
             },
+
             "card4": {
-                "title": "Pareça Profissional",
-                "desc": "Faturas elegantes e com sua marca causam a impressão certa. Conquiste clientes que pagam mais e valorizam qualidade."
+                "title": "Faturas Organizadas e Profissionais",
+                "desc": "Gere faturas estruturadas e padronizadas para manter sua comunicação mais profissional."
             },
+
             "card5": {
-                "title": "Escale Sem Caos",
-                "desc": "Indo de 5 para 50 clientes? Nosso sistema cresce com você. Sem colapsos de planilha quando o negócio bombar."
+                "title": "Cobranças Recorrentes Simplificadas",
+                "desc": "Automatize faturas recorrentes e reduza o risco de esquecer cobranças mensais."
             },
+
             "card6": {
-                "title": "Veja a Receita com Clareza",
-                "desc": "Painéis bonitos mostram seu pipeline de receita. Planeje com confiança em vez de adivinhar seu fluxo de caixa."
+                "title": "Controle Financeiro Mais Consciente",
+                "desc": "Tenha uma visão consolidada das suas receitas e acompanhe seu fluxo de cobranças com mais segurança."
             }
         },
         "screenshot": {
@@ -552,11 +558,11 @@
             "a5": "Oferecemos suporte direto por e-mail para todos os clientes. Nosso objetivo é responder o mais rápido possível e evoluir o sistema com base no feedback dos usuários."
         },
         "cta": {
-            "badge": "A #1 escolha para freelancers em 2026",
-            "h2": "Pare de correr,",
-            "h2italic": "comece a crescer.",
-            "subtitle": "Junte-se a mais de 2.000 profissionais que economizam em média 40 horas por ano com faturamento. Suas primeiras 10 faturas são por nossa conta.",
-            "button": "Criar Minha Conta Grátis"
+            "badge": "Gestão simples de faturas",
+            "h2": "Organize suas cobranças",
+            "h2italic": "sem complicação.",
+            "subtitle": "Centralize clientes, envie faturas e acompanhe pagamentos em um só lugar. Simples, direto e eficiente.",
+            "button": "Criar Conta"
         },
         "footer": {
             "brand": "Gestão profissional de faturas para freelancers e pequenas empresas.",

@@ -451,31 +451,37 @@
             }
         },
         "benefits": {
-            "h2": "Why Freelancers & Small Businesses Choose Emitfy",
-            "subtitle": "Real outcomes that impact your bottom line and free up your time.",
+            "h2": "Why Use Emitfy",
+            "subtitle": "Practical benefits to organize your invoicing with clarity and control.",
+
             "card1": {
-                "title": "Save 10+ Hours Monthly",
-                "desc": "Stop copying data between spreadsheets. Automate invoice creation and tracking so you can focus on billable work."
+                "title": "Save Time on Billing Management",
+                "desc": "Centralize clients and invoices in one system. Reduce manual work and avoid spreadsheet chaos."
             },
+
             "card2": {
-                "title": "Get Paid 40% Faster",
-                "desc": "Professional invoices and automated reminders mean clients pay sooner. No more awkward follow-up emails."
+                "title": "Automatic Reminders",
+                "desc": "Automatically send reminders before and after due dates. Less manual follow-up, fewer missed payments."
             },
+
             "card3": {
-                "title": "Never Lose Track",
-                "desc": "Know exactly what's outstanding. See which invoices are overdue at a glance. Never let revenue slip through the cracks."
+                "title": "Clear Overview of What's Pending",
+                "desc": "Know exactly which invoices are open, overdue, or paid. Simple and direct control."
             },
+
             "card4": {
-                "title": "Look Professional",
-                "desc": "Polished, branded invoices make the right impression. Win higher-paying clients who value quality."
+                "title": "Structured and Professional Invoices",
+                "desc": "Generate well-organized invoices to maintain a more professional client experience."
             },
+
             "card5": {
-                "title": "Scale Without Chaos",
-                "desc": "Going from 5 to 50 clients? Our system grows with you. No spreadsheet meltdowns when business booms."
+                "title": "Simplified Recurring Billing",
+                "desc": "Automate recurring invoices and reduce the risk of forgetting monthly charges."
             },
+
             "card6": {
-                "title": "See Revenue Clearly",
-                "desc": "Beautiful dashboards show your revenue pipeline. Plan ahead with confidence instead of guessing your cash flow."
+                "title": "Better Revenue Visibility",
+                "desc": "Get a consolidated view of your billing activity and monitor your revenue flow with more confidence."
             }
         },
         "screenshot": {
@@ -553,11 +559,11 @@
             "a5": "Yes. We follow modern security practices, including protected authentication and secure data storage, to safeguard your information."
         },
         "cta": {
-            "badge": "The #1 choice for freelancers in 2026",
-            "h2": "Stop chasing,",
-            "h2italic": "start growing.",
-            "subtitle": "Join 2,000+ professionals who save an average of 40 hours a year on billing. Your first 10 invoices are on us.",
-            "button": "Create My Free Account"
+            "badge": "Simple invoice management",
+            "h2": "Organize your billing",
+            "h2italic": "without complexity.",
+            "subtitle": "Centralize clients, send invoices, and track payments in one place. Simple, clear, and efficient.",
+            "button": "Create Account"
         },
         "footer": {
             "brand": "Professional invoice management for freelancers and small businesses.",
