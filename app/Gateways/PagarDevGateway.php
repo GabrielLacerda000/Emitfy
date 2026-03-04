@@ -2,8 +2,9 @@
 
 namespace App\Gateways;
 
+use App\Dto\Asaas\CreateSubscriptionData;
+use App\Dto\Asaas\SubscriptionResponse;
 use App\Interfaces\Payments\PaymentGatewayInterface;
-use Illuminate\Support\Facades\Http;
 
 class PagarDevGateway implements PaymentGatewayInterface
 {
@@ -17,14 +18,9 @@ class PagarDevGateway implements PaymentGatewayInterface
         $this->apiKey = config('services.pagar_dev.api_key');
     }
 
-    public function createSubscription(array $data): array
+    public function createSubscription(CreateSubscriptionData $data): SubscriptionResponse
     {
         // TODO: implement when PagarDev API docs are available
-        // $response = Http::withToken($this->apiKey)
-        //     ->post("{$this->baseUrl}/subscriptions", $data)
-        //     ->throw()
-        //     ->json();
-
         throw new \RuntimeException('PagarDev gateway not yet implemented.');
     }
 

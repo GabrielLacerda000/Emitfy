@@ -2,6 +2,7 @@
 
 namespace App\Actions\Payments;
 
+use App\Dto\Asaas\CreateSubscriptionData;
 use App\Factories\PaymentGatewayFactory;
 use App\Models\Subscription;
 
@@ -17,21 +18,36 @@ class CreateSubscriptionAction
             ? $subscription->plan->price_yearly
             : $subscription->plan->price_monthly;
 
-        $response = $gateway->createSubscription([
-            'customer' => $provider->provider_customer_id,
-            'value' => $price,
-            'cycle' => strtoupper($subscription->billing_cycle) === 'YEARLY' ? 'YEARLY' : 'MONTHLY',
-            'nextDueDate' => now()->addMonth()->toDateString(),
-        ]);
+        $data = new CreateSubscriptionData(
+            customer: $provider->provider_customer_id,
+            billingType: 'UNDEFINED',
+            value: (float) $price,
+            nextDueDate: now()->addMonth()->toDateString(),
+            cycle: strtoupper($subscription->billing_cycle) === 'YEARLY' ? 'YEARLY' : 'MONTHLY',
+        );
+
+        $response = $gateway->createSubscription($data);
 
         $provider->update([
-            'provider_subscription_id' => $response['external_subscription_id'],
-            'provider_customer_id' => $response['external_customer_id'],
-            'status' => $response['status'],
+            'provider_subscription_id' => $response->id,
+            'provider_customer_id' => $response->customer,
+            'status' => $this->normalizeStatus($response->status),
         ]);
 
-        $subscription->update(['status' => $response['status']]);
+        $subscription->update(['status' => $this->normalizeStatus($response->status)]);
 
         return $subscription->fresh(['activeProvider', 'plan']);
+    }
+
+    private function normalizeStatus(string $asaasStatus): string
+    {
+        return match ($asaasStatus) {
+            'ACTIVE' => 'active',
+            'INACTIVE', 'CANCELLED' => 'cancelled',
+            'PENDING' => 'pending',
+            'OVERDUE' => 'overdue',
+            'CONFIRMED', 'RECEIVED' => 'paid',
+            default => strtolower($asaasStatus),
+        };
     }
 }
