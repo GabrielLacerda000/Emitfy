@@ -40,13 +40,13 @@ test('dashboard returns correct stats structure', function () {
     );
 });
 
-test('total outstanding includes sent and overdue invoices only', function () {
+test('total outstanding includes only sent invoices', function () {
     $user = User::factory()->create();
     $client = Client::factory()->for($user)->create();
 
     // Create invoices with different statuses
     Invoice::factory()->for($user)->for($client)->create(['status' => 'sent', 'total' => 1000]);
-    Invoice::factory()->for($user)->for($client)->create(['status' => 'overdue', 'total' => 500]);
+    Invoice::factory()->for($user)->for($client)->create(['status' => 'overdue', 'total' => 500]); // excluded
     Invoice::factory()->for($user)->for($client)->create(['status' => 'paid', 'total' => 300]);
     Invoice::factory()->for($user)->for($client)->create(['status' => 'draft', 'total' => 200]);
 
@@ -55,7 +55,7 @@ test('total outstanding includes sent and overdue invoices only', function () {
 
     $response->assertOk();
     $response->assertInertia(fn ($page) => $page
-        ->where('stats.totalOutstanding', '1500.00')
+        ->where('stats.totalOutstanding', '1000.00')
     );
 });
 

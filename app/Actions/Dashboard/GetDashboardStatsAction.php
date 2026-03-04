@@ -11,7 +11,7 @@ class GetDashboardStatsAction
     {
         // COALESCE - return the first parameter if it's not null, otherwise return the second parameter
 
-        // Calculate total outstanding (SENT + OVERDUE invoices)
+        // Calculate total outstanding (SENT invoices only — upcoming)
         $totalOutstanding = $user->invoices()
             ->whereIn('status', [InvoiceStatus::SENT])
             ->sum('total');
