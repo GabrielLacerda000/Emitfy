@@ -14,24 +14,24 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
-   ->withMiddleware(function (Middleware $middleware): void {
-    $middleware->encryptCookies(except: ['appearance', 'sidebar_state', 'locale']);
+    ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->encryptCookies(except: ['appearance', 'sidebar_state', 'locale']);
 
-    // 👉 liberar webhook do Resend do CSRF
-    $middleware->validateCsrfTokens(except: [
-        'resend/*',
-    ]);
+        // 👉 liberar webhook do Resend do CSRF
+        $middleware->validateCsrfTokens(except: [
+            'resend/*',
+        ]);
 
-    $middleware->web(prepend: [
-        HandleLocale::class,
-    ]);
+        $middleware->web(prepend: [
+            HandleLocale::class,
+        ]);
 
-    $middleware->web(append: [
-        HandleAppearance::class,
-        HandleInertiaRequests::class,
-        AddLinkHeadersForPreloadedAssets::class,
-    ]);
-})
+        $middleware->web(append: [
+            HandleAppearance::class,
+            HandleInertiaRequests::class,
+            AddLinkHeadersForPreloadedAssets::class,
+        ]);
+    })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })->create();

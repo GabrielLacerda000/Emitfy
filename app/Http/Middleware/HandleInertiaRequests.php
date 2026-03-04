@@ -49,13 +49,22 @@ class HandleInertiaRequests extends Middleware
                     ?? $request->session()->get('warning')
                     ?? $request->session()->get('message'),
                 'type' => function () use ($request) {
-                    if ($request->session()->has('success')) return 'success';
-                    if ($request->session()->has('error')) return 'error';
-                    if ($request->session()->has('info')) return 'info';
-                    if ($request->session()->has('warning')) return 'warning';
+                    if ($request->session()->has('success')) {
+                        return 'success';
+                    }
+                    if ($request->session()->has('error')) {
+                        return 'error';
+                    }
+                    if ($request->session()->has('info')) {
+                        return 'info';
+                    }
+                    if ($request->session()->has('warning')) {
+                        return 'warning';
+                    }
+
                     return $request->session()->get('type', 'success');
                 },
-            ]
+            ],
         ];
     }
 }

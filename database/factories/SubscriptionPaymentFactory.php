@@ -15,7 +15,7 @@ class SubscriptionPaymentFactory extends Factory
         return [
             'subscription_id' => Subscription::factory(),
             'provider' => $this->faker->randomElement(['asaas', 'pagar_dev']),
-            'external_payment_id' => 'pay_' . $this->faker->uuid(),
+            'external_payment_id' => 'pay_'.$this->faker->uuid(),
             'amount' => $this->faker->randomFloat(2, 10, 500),
             'status' => $this->faker->randomElement(['paid', 'pending', 'failed']),
             'paid_at' => null,

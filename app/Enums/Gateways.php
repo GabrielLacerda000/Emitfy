@@ -2,7 +2,8 @@
 
 namespace App\Enums;
 
-enum Gaetways: string {
+enum Gaetways: string
+{
     case ASAAS = 'asaas';
     case PAGARDEV = 'pagardev';
 }

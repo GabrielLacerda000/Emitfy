@@ -15,8 +15,8 @@ class SubscriptionProviderFactory extends Factory
         return [
             'subscription_id' => Subscription::factory(),
             'provider' => $this->faker->randomElement(['asaas', 'pagar_dev']),
-            'provider_customer_id' => 'cus_' . $this->faker->uuid(),
-            'provider_subscription_id' => 'sub_' . $this->faker->uuid(),
+            'provider_customer_id' => 'cus_'.$this->faker->uuid(),
+            'provider_subscription_id' => 'sub_'.$this->faker->uuid(),
             'provider_payment_id' => null,
             'status' => $this->faker->randomElement(['active', 'pending', 'cancelled']),
             'metadata' => null,

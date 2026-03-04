@@ -4,8 +4,10 @@ namespace App\Gateways;
 
 use App\Dto\Asaas\CreateCustomerData;
 use App\Dto\Asaas\CreateSubscriptionData;
+use App\Dto\Asaas\CreditCardTokenResponse;
 use App\Dto\Asaas\CustomerResponse;
 use App\Dto\Asaas\SubscriptionResponse;
+use App\Dto\Asaas\TokenizeCreditCardData;
 use App\Enums\Gateways;
 use App\Interfaces\Payments\PaymentGatewayInterface;
 use App\Models\User;
@@ -41,6 +43,16 @@ class AsaasGateway implements PaymentGatewayInterface
             ->json();
 
         return SubscriptionResponse::fromArray($response);
+    }
+
+    public function tokenizeCreditCard(TokenizeCreditCardData $data): CreditCardTokenResponse
+    {
+        $response = Http::withHeaders(['access_token' => $this->apiKey])
+            ->post("{$this->baseUrl}/creditCard/tokenizeCreditCard", $data->toArray())
+            ->throw()
+            ->json();
+
+        return CreditCardTokenResponse::fromArray($response);
     }
 
     public function charge(array $data): array

@@ -69,7 +69,7 @@ class ClientController extends Controller
             abort(403);
         }
 
-        $statsAction = new GetClientStatsAction();
+        $statsAction = new GetClientStatsAction;
         $stats = $statsAction->execute($client);
 
         $invoices = $client->invoices()
