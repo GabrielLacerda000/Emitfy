@@ -190,6 +190,43 @@ test('invoices can be updated', function () {
     expect($invoice->total)->toBe('1015.00');
 });
 
+test('paid invoices can be updated with paid_at set to today', function () {
+    $user = User::factory()->create();
+    $client = Client::factory()->create(['user_id' => $user->id]);
+    $invoice = Invoice::factory()->create([
+        'user_id' => $user->id,
+        'client_id' => $client->id,
+        'status' => InvoiceStatus::SENT,
+    ]);
+
+    $today = now()->toDateString();
+
+    $response = $this
+        ->actingAs($user)
+        ->put(route('invoices.update', $invoice), [
+            'client_id' => $client->id,
+            'issue_date' => '2026-02-10',
+            'due_date' => '2026-03-10',
+            'tax' => 15.00,
+            'notes' => 'Updated notes',
+            'status' => InvoiceStatus::PAID->value,
+            'paid_at' => $today,
+            'items' => [
+                ['description' => 'Updated Service', 'quantity' => 5, 'unit_price' => 200.00],
+            ],
+        ]);
+
+    $response
+        ->assertSessionHasNoErrors()
+        ->assertRedirect(route('invoices.index'));
+
+    $invoice->refresh();
+
+    expect($invoice->status)->toBe(InvoiceStatus::PAID);
+    expect($invoice->paid_at)->not->toBeNull();
+    expect($invoice->paid_at?->toDateString())->toBe($today);
+});
+
 test('invoices can be deleted', function () {
     $user = User::factory()->create();
     $client = Client::factory()->create(['user_id' => $user->id]);

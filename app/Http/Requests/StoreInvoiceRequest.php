@@ -37,16 +37,16 @@ class StoreInvoiceRequest extends FormRequest
         $attrs = trans('validation.attributes');
 
         return [
-            'client_id'           => $attrs['client_id'],
-            'issue_date'          => $attrs['issue_date'],
-            'due_date'            => $attrs['due_date'],
-            'tax'                 => $attrs['tax'],
-            'notes'               => $attrs['notes'],
-            'status'              => $attrs['status'],
-            'items'               => $attrs['items'],
+            'client_id' => $attrs['client_id'],
+            'issue_date' => $attrs['issue_date'],
+            'due_date' => $attrs['due_date'],
+            'tax' => $attrs['tax'],
+            'notes' => $attrs['notes'],
+            'status' => $attrs['status'],
+            'items' => $attrs['items'],
             'items.*.description' => $attrs['items.*.description'],
-            'items.*.quantity'    => $attrs['items.*.quantity'],
-            'items.*.unit_price'  => $attrs['items.*.unit_price'],
+            'items.*.quantity' => $attrs['items.*.quantity'],
+            'items.*.unit_price' => $attrs['items.*.unit_price'],
         ];
     }
 }

@@ -2,7 +2,7 @@
 import { Download } from 'lucide-vue-next';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { toast } from 'vue-sonner'
+// import { toast } from 'vue-sonner'
 import InvoicePdfController from '@/actions/App/Http/Controllers/InvoicePdfController';
 import InvoiceItemsTable from '@/components/invoices/InvoiceItemsTable.vue';
 import InvoiceSummary from '@/components/invoices/InvoiceSummary.vue';
@@ -58,9 +58,9 @@ function downloadPdf() {
     }, 2000);
 }
 
-function payNow() {
-    toast.info('Payment integration will be available soon.');
-}
+// function payNow() {
+//     toast.info('Payment integration will be available soon.');
+// }
 </script>
 
 <template>
@@ -177,12 +177,13 @@ function payNow() {
                 <Download class="mr-2 h-4 w-4" />
                 {{ downloadingPdf ? t('invoices.public.downloading') : t('invoices.public.downloadPdf') }}
             </Button>
-            <Button
+            <!-- FEATURE FUTURA -->
+            <!-- <Button
                 :disabled="invoice.status === 'paid'"
                 @click="payNow"
             >
                 {{ invoice.status === 'paid' ? t('invoices.public.paid') : t('invoices.public.payNow') }}
-            </Button>
+            </Button> -->
         </div>
     </PublicLayout>
 </template>

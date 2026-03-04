@@ -75,7 +75,7 @@
         "createInvoice": "Create Invoice",
         "stats": {
             "totalOutstanding": "Total Outstanding",
-            "totalOutstandingDesc": "Sent and overdue invoices",
+            "totalOutstandingDesc": "Sent invoices",
             "totalPaid": "Total Paid",
             "totalPaidDesc": "{count} invoices paid",
             "dueSoon": "Due Soon",

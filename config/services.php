@@ -35,4 +35,16 @@ return [
         ],
     ],
 
+    'asaas' => [
+        'base_url' => env('ASAAS_BASE_URL'),
+        'base_url_prod' => env('ASAAS_BASE_URL_PROD'),
+        'api_key' => env('ASAAS_API_KEY'),
+    ],
+
+    'pagar_dev' => [
+        'base_url' => env('PAGAR_DEV_BASE_URL'),
+        'base_url_prod' => env('PAGAR_DEV_BASE_URL_PROD'),
+        'api_key' => env('PAGAR_DEV_API_KEY'),
+    ],
+
 ];

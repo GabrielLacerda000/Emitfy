@@ -1,166 +1,200 @@
-# SimpleInvoice – Data Models
+# SimpleInvoice - Data Models
 
-This document defines the core database entities for the SimpleInvoice MVP.
-The schema is optimized for simplicity, clarity, and fast iteration.
+This document defines the core database entities currently represented in migrations.
 
 ---
 
 ## 1. Users
 
-Represents the freelancer account owner.
+Represents the account owner.
 
-| Field      | Type      | Notes                       |
-| ---------- | --------- | --------------------------- |
-| id         | UUID      | Primary key                 |
-| name       | string    | Freelancer full name        |
-| email      | string    | Unique                      |
-| password   | string    | Hashed                      |
-| currency   | string    | Default currency (e.g. USD) |
-| logo_url   | string    | Optional                    |
-| created_at | timestamp |                             |
-| updated_at | timestamp |                             |
+| Field      | Type      | Notes               |
+| ---------- | --------- | ------------------- |
+| id         | UUID      | Primary key         |
+| name       | string    |                     |
+| email      | string    | Unique              |
+| password   | string    | Hashed              |
+| currency   | string    | Default user locale |
+| logo_url   | string    | Nullable            |
+| created_at | timestamp |                     |
+| updated_at | timestamp |                     |
 
 ---
 
 ## 2. Clients
 
-Represents a client that receives invoices.
+Represents invoice recipients per user.
 
-| Field        | Type      | Notes                 |
-| ------------ | --------- | --------------------- |
-| id           | UUID      | Primary key           |
-| user_id      | UUID      | Owner (FK → users.id) |
-| name         | string    | Client name           |
-| email        | string    | Billing email         |
-| company_name | string    | Optional              |
-| notes        | text      | Optional              |
-| created_at   | timestamp |                       |
-| updated_at   | timestamp |                       |
+| Field        | Type      | Notes              |
+| ------------ | --------- | ------------------ |
+| id           | UUID      | Primary key        |
+| user_id      | UUID      | FK -> users.id     |
+| name         | string    |                    |
+| email        | string    |                    |
+| company_name | string    | Nullable           |
+| notes        | text      | Nullable           |
+| created_at   | timestamp |                    |
+| updated_at   | timestamp |                    |
 
 ---
 
 ## 3. Invoices
 
-Represents an invoice document.
+Represents invoice documents and lifecycle state.
 
-| Field        | Type      | Notes                         |
-| ------------ | --------- | ----------------------------- |
-| id           | UUID      | Primary key                   |
-| user_id      | UUID      | Owner (FK → users.id)         |
-| client_id    | UUID      | FK → clients.id               |
-| number       | string    | Auto-generated invoice number |
-| status       | enum      | draft, sent, paid, overdue    |
-| issue_date   | date      |                               |
-| due_date     | date      |                               |
-| subtotal     | decimal   | Calculated                    |
-| tax          | decimal   | Optional (MVP default = 0)    |
-| total        | decimal   | Calculated                    |
-| notes        | text      | Optional                      |
-| public_token | string    | Used for public invoice link  |
-| sent_at      | timestamp | Nullable                      |
-| paid_at      | timestamp | Nullable                      |
-| created_at   | timestamp |                               |
-| updated_at   | timestamp |                               |
+| Field        | Type      | Notes                       |
+| ------------ | --------- | --------------------------- |
+| id           | bigint    | Primary key                 |
+| user_id      | UUID      | FK -> users.id              |
+| client_id    | bigint    | FK                          |
+| number       | string    | Invoice number              |
+| status       | string    | draft, sent, paid, overdue  |
+| issue_date   | date      |                             |
+| due_date     | date      |                             |
+| subtotal     | decimal   |                             |
+| tax          | decimal   |                             |
+| total        | decimal   |                             |
+| notes        | text      | Nullable                    |
+| public_token | string    | Public invoice access token |
+| sent_at      | timestamp | Nullable                    |
+| paid_at      | timestamp | Nullable                    |
+| created_at   | timestamp |                             |
+| updated_at   | timestamp |                             |
 
 ---
 
 ## 4. Invoice Items
 
-Line items that compose an invoice.
+Line items attached to invoices.
 
-| Field       | Type      | Notes                          |
-| ----------- | --------- | ------------------------------ |
-| id          | UUID      | Primary key                    |
-| invoice_id  | UUID      | FK → invoices.id               |
-| description | string    | Service or product description |
-| quantity    | integer   | Default = 1                    |
-| unit_price  | decimal   |                                |
-| total       | decimal   | quantity × unit_price          |
-| created_at  | timestamp |                                |
-| updated_at  | timestamp |                                |
+| Field       | Type      | Notes             |
+| ----------- | --------- | ----------------- |
+| id          | bigint    | Primary key       |
+| invoice_id  | bigint    | FK -> invoices.id |
+| description | string    |                   |
+| quantity    | integer   |                   |
+| unit_price  | decimal   |                   |
+| total       | decimal   |                   |
+| created_at  | timestamp |                   |
+| updated_at  | timestamp |                   |
 
 ---
 
 ## 5. Payments
 
-Tracks payment attempts and confirmations.
+Invoice payment records.
 
-| Field               | Type      | Notes                      |
-| ------------------- | --------- | -------------------------- |
-| id                  | UUID      | Primary key                |
-| invoice_id          | UUID      | FK → invoices.id           |
-| provider            | enum      | stripe, paypal             |
-| provider_payment_id | string    | External reference         |
-| amount              | decimal   | Paid amount                |
-| status              | enum      | pending, completed, failed |
-| paid_at             | timestamp | Nullable                   |
-| created_at          | timestamp |                            |
-| updated_at          | timestamp |                            |
+| Field               | Type      | Notes              |
+| ------------------- | --------- | ------------------ |
+| id                  | bigint    | Primary key        |
+| invoice_id          | bigint    | FK -> invoices.id  |
+| provider            | string    | Gateway identifier |
+| provider_payment_id | string    | External reference |
+| amount              | decimal   |                    |
+| status              | string    |                    |
+| paid_at             | timestamp | Nullable           |
+| created_at          | timestamp |                    |
+| updated_at          | timestamp |                    |
 
 ---
 
 ## 6. Reminder Schedules
 
-Defines automated reminder rules for invoices.
+Scheduled invoice reminder records.
 
-| Field       | Type      | Notes                         |
-| ----------- | --------- | ----------------------------- |
-| id          | UUID      | Primary key                   |
-| invoice_id  | UUID      | FK → invoices.id              |
-| type        | enum      | before_due, on_due, after_due |
-| offset_days | integer   | -3, 0, +7                     |
-| sent_at     | timestamp | Nullable                      |
-| created_at  | timestamp |                               |
-| updated_at  | timestamp |                               |
-
----
-
-## 7. Subscriptions
-
-Tracks user subscription plans.
-
-| Field                    | Type      | Notes                      |
-| ------------------------ | --------- | -------------------------- |
-| id                       | UUID      | Primary key                |
-| user_id                  | UUID      | FK → users.id              |
-| plan                     | enum      | free, pro, business        |
-| provider                 | enum      | stripe                     |
-| provider_subscription_id | string    | External reference         |
-| status                   | enum      | active, canceled, past_due |
-| current_period_end       | timestamp |                            |
-| created_at               | timestamp |                            |
-| updated_at               | timestamp |                            |
+| Field       | Type      | Notes                    |
+| ----------- | --------- | ------------------------ |
+| id          | bigint    | Primary key              |
+| invoice_id  | bigint    | FK -> invoices.id        |
+| type        | string    | before_due, on_due, etc. |
+| offset_days | integer   |                          |
+| sent_at     | timestamp | Nullable                 |
+| created_at  | timestamp |                          |
+| updated_at  | timestamp |                          |
 
 ---
 
-## 8. Relationships Overview
+## 7. Plans
 
-* User has many Clients
-* User has many Invoices
-* Client has many Invoices
-* Invoice has many Invoice Items
-* Invoice has many Payments
-* Invoice has many Reminder Schedules
-* User has one Subscription
+Subscription plan catalog.
 
----
-
-## 9. MVP Simplifications
-
-* Single currency per user
-* Single default invoice template
-* One reminder schedule per invoice (system-defined)
-* Stripe as primary payment provider
+| Field         | Type      | Notes       |
+| ------------- | --------- | ----------- |
+| id            | bigint    | Primary key |
+| name          | string    |             |
+| price_monthly | decimal   |             |
+| price_yearly  | decimal   |             |
+| max_clients   | integer   |             |
+| max_invoices  | integer   |             |
+| created_at    | timestamp |             |
+| updated_at    | timestamp |             |
 
 ---
 
-## 10. Future Extensions
+## 8. Subscriptions
 
-* Recurring invoices table
-* Multi-currency support
-* Client portal users
-* Audit logs
+User subscription state.
+
+| Field              | Type      | Notes                    |
+| ------------------ | --------- | ------------------------ |
+| id                 | bigint    | Primary key              |
+| user_id            | UUID      | FK -> users.id           |
+| plan_id            | bigint    | FK -> plans.id           |
+| status             | string    | active, cancelled, etc.  |
+| billing_cycle      | string    | monthly or yearly        |
+| current_period_end | timestamp | Nullable                 |
+| created_at         | timestamp |                          |
+| updated_at         | timestamp |                          |
 
 ---
 
-**Status:** MVP Ready
+## 9. Subscription Providers
+
+External provider mapping for subscriptions.
+
+| Field                    | Type      | Notes                    |
+| ------------------------ | --------- | ------------------------ |
+| id                       | bigint    | Primary key              |
+| subscription_id          | bigint    | FK -> subscriptions.id   |
+| provider                 | string    | asaas, pagar_dev, etc.   |
+| provider_customer_id     | string    | External customer id     |
+| provider_subscription_id | string    | Nullable external sub id |
+| provider_payment_id      | string    | Nullable provider pay id |
+| status                   | string    |                          |
+| metadata                 | json      | Nullable                 |
+| created_at               | timestamp |                          |
+| updated_at               | timestamp |                          |
+
+---
+
+## 10. Subscription Payments
+
+Subscription payment history.
+
+| Field               | Type      | Notes                  |
+| ------------------- | --------- | ---------------------- |
+| id                  | bigint    | Primary key            |
+| subscription_id     | bigint    | FK -> subscriptions.id |
+| provider            | string    |                        |
+| external_payment_id | string    | Nullable               |
+| amount              | decimal   |                        |
+| status              | string    |                        |
+| paid_at             | timestamp | Nullable               |
+| raw_payload         | json      | Nullable               |
+| created_at          | timestamp |                        |
+| updated_at          | timestamp |                        |
+
+---
+
+## 11. Relationships Overview
+
+- User has many clients.
+- User has many invoices.
+- User has many subscriptions.
+- Client has many invoices.
+- Invoice has many invoice items.
+- Invoice has many payments.
+- Invoice has many reminder schedules.
+- Plan has many subscriptions.
+- Subscription has many subscription providers.
+- Subscription has many subscription payments.

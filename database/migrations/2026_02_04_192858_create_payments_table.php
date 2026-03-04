@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('invoice_id')->constrained()->cascadeOnDelete();
             $table->string('provider');
+            $table->foreignId('subscription_provider_id')->constrained()->cascadeOnDelete();
             $table->string('provider_payment_id');
             $table->decimal('amount', 10, 2);
             $table->string('status');

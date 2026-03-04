@@ -15,7 +15,7 @@ class HandleLocale
 
         $laravelLocale = match ($frontendLocale) {
             'pt-BR' => 'pt_BR',
-            'en'    => 'en',
+            'en' => 'en',
             default => 'en',
         };
 

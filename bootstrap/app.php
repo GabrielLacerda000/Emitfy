@@ -17,6 +17,11 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->encryptCookies(except: ['appearance', 'sidebar_state', 'locale']);
 
+        // 👉 liberar webhook do Resend do CSRF
+        $middleware->validateCsrfTokens(except: [
+            'resend/*',
+        ]);
+
         $middleware->web(prepend: [
             HandleLocale::class,
         ]);

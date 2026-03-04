@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Dto\Asaas;
+
+readonly class CreateSubscriptionData
+{
+    public function __construct(
+        public string $customer,
+        public string $billingType,
+        public float $value,
+        public string $nextDueDate,
+        public string $cycle,
+        public ?string $description = null,
+        public ?string $endDate = null,
+        public ?int $maxPayments = null,
+        public ?string $externalReference = null,
+    ) {}
+
+    public function toArray(): array
+    {
+        return array_filter([
+            'customer' => $this->customer,
+            'billingType' => $this->billingType,
+            'value' => $this->value,
+            'nextDueDate' => $this->nextDueDate,
+            'cycle' => $this->cycle,
+            'description' => $this->description,
+            'endDate' => $this->endDate,
+            'maxPayments' => $this->maxPayments,
+            'externalReference' => $this->externalReference,
+        ], fn ($value) => $value !== null);
+    }
+}
