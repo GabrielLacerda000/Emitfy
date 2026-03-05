@@ -131,6 +131,6 @@ withDefaults(
         </main>
 
         <!-- Footer -->
-        <LpFooter />
+    <LpFooter />
     </div>
 </template>

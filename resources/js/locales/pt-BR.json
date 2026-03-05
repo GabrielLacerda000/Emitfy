@@ -490,53 +490,22 @@
             "placeholder": "Visão Completa do Painel"
         },
         "pricing": {
-            "h2": "Preços Simples para",
-            "h2highlight": "Negócios em Crescimento",
-            "subtitle": "Comece pequeno e faça upgrade conforme seu negócio cresce. Sem taxas ocultas. Sem surpresas.",
-            "perMonth": "/mês",
-            "mostPopular": "Mais Popular",
-            "bestValue": "Melhor Custo-Benefício",
-            "whyPro": {
-                "title": "Por que escolher o Pro?",
-                "desc": "Automatizar faturas recorrentes e lembretes pode economizar horas todo mês — tempo que você pode reinvestir para crescer seu negócio."
-            },
-            "plans": {
-                "starter": {
-                    "name": "Starter",
-                    "price": "R$29",
-                    "desc": "Perfeito para freelancers e pequenas empresas começando.",
-                    "cta": "Começar Agora"
-                },
-                "pro": {
-                    "name": "Pro",
-                    "price": "R$69",
-                    "desc": "Para profissionais que querem automação e escala.",
-                    "cta": "Upgrade para Pro",
-                    "savings": "Mais Popular"
-                },
-                "business": {
-                    "name": "Business",
-                    "price": "R$119",
-                    "desc": "Para alto volume de cobranças e crescimento acelerado.",
-                    "cta": "Escalar Meu Negócio"
-                }
+            "h2": "Plano Simples e Transparente",
+            "subtitle": "Tudo o que você precisa para organizar suas cobranças.",
+            "perMonth": "por mês",
+            "plan": {
+                "name": "Plano Profissional",
+                "price": "R$29",
+                "desc": "Sem limites artificiais. Cancele quando quiser.",
+                "cta": "Começar Agora"
             },
             "features": {
-                "clients20": "Até 20 clientes",
-                "emails50": "Até 50 e-mails por mês",
-                "unlimitedInvoices": "Faturas ilimitadas",
-                "basicDashboard": "Painel básico",
-                "emailSupport": "Suporte por e-mail",
-                "recurringInvoices": "Faturas recorrentes",
-                "clients300": "Até 300 clientes",
-                "emails1000": "Até 1000 e-mails por mês",
-                "advancedReports": "Relatórios avançados",
-                "whatsappSupport": "Suporte por WhatsApp",
-                "prioritySupport": "Suporte prioritário",
                 "unlimitedClients": "Clientes ilimitados",
-                "emails5000": "Até 5000 e-mails por mês",
-                "everythingInPro": "Tudo do Pro",
-                "dedicatedSupport": "Suporte dedicado"
+                "unlimitedInvoices": "Faturas ilimitadas",
+                "recurringInvoices": "Cobranças recorrentes",
+                "automaticReminders": "Lembretes automáticos",
+                "fullDashboard": "Painel completo",
+                "emailSupport": "Suporte por e-mail"
             }
         },
         "faq": {

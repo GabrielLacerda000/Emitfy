@@ -490,53 +490,22 @@
             "placeholder": "Full Dashboard View"
         },
         "pricing": {
-            "h2": "Simple Pricing for",
-            "h2highlight": "Growing Businesses",
-            "subtitle": "Start small and upgrade as your business grows. No hidden fees. No surprises.",
-            "perMonth": "/month",
-            "mostPopular": "Most Popular",
-            "bestValue": "Best Value",
-            "whyPro": {
-                "title": "Why choose Pro?",
-                "desc": "Automating recurring invoices and reminders can save you hours every month — time you can reinvest into growing your business."
-            },
-            "plans": {
-                "starter": {
-                    "name": "Starter",
-                    "price": "$29",
-                    "desc": "Perfect for freelancers and small businesses starting out.",
-                    "cta": "Get Started"
-                },
-                "pro": {
-                    "name": "Pro",
-                    "price": "$69",
-                    "desc": "For professionals who want automation and scale.",
-                    "cta": "Upgrade to Pro",
-                    "savings": "Most Popular"
-                },
-                "business": {
-                    "name": "Business",
-                    "price": "$119",
-                    "desc": "For high-volume billing and serious growth.",
-                    "cta": "Scale My Business"
-                }
+            "h2": "Simple and Transparent Pricing",
+            "subtitle": "Everything you need to manage your invoicing in one place.",
+            "perMonth": "per motnth",
+            "plan": {
+                "name": "Professional Plan",
+                "price": "$9",
+                "desc": "No artificial limits. Cancel anytime.",
+                "cta": "Get Started"
             },
             "features": {
-                "clients20": "Up to 20 clients",
-                "emails50": "Up to 50 emails per month",
-                "unlimitedInvoices": "Unlimited invoices",
-                "basicDashboard": "Basic dashboard",
-                "emailSupport": "Email support",
-                "recurringInvoices": "Recurring invoices",
-                "clients300": "Up to 300 clients",
-                "emails1000": "Up to 1000 emails per month",
-                "advancedReports": "Advanced reports",
-                "whatsappSupport": "WhatsApp support",
-                "prioritySupport": "Priority support",
                 "unlimitedClients": "Unlimited clients",
-                "emails5000": "Up to 5000 emails per month",
-                "everythingInPro": "Everything in Pro",
-                "dedicatedSupport": "Dedicated support"
+                "unlimitedInvoices": "Unlimited invoices",
+                "recurringInvoices": "Recurring invoices",
+                "automaticReminders": "Automatic reminders",
+                "fullDashboard": "Full dashboard",
+                "emailSupport": "Email support"
             }
         },
         "faq": {

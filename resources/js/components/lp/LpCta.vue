@@ -10,7 +10,7 @@ const { t } = useI18n();
 
 <template>
     <LpSection spacing="compact" class="relative overflow-hidden py-20">
-        <div class="absolute inset-0 bg-primary rounded-[3rem] mx-4 lg:mx-8">
+        <div class="absolute inset-0 mx-0 rounded-xl bg-primary sm:mx-4 sm:rounded-[2.5rem] lg:mx-8 lg:rounded-[3rem]">
             <div class="absolute inset-0 opacity-10 mask-[linear-gradient(to_bottom,white,transparent)]"
                  style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 30px 30px;">
             </div>
@@ -19,7 +19,7 @@ const { t } = useI18n();
             <div class="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-96 h-96 bg-indigo-500/30 blur-[100px] rounded-full"></div>
         </div>
 
-        <div class="relative z-10 text-center max-w-4xl mx-auto px-6 py-12">
+        <div class="relative z-10 mx-auto max-w-4xl px-4 py-10 text-center sm:px-6 sm:py-12">
             <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white text-sm font-medium mb-8 backdrop-blur-md">
                 <Star class="h-4 w-4 fill-yellow-400 text-yellow-400" />
                 <span>{{ t('lp.cta.badge') }}</span>
