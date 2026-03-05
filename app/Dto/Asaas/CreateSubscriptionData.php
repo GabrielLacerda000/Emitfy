@@ -2,11 +2,13 @@
 
 namespace App\Dto\Asaas;
 
+use App\Enums\AsaasBillingType;
+
 readonly class CreateSubscriptionData
 {
     public function __construct(
         public string $customer,
-        public string $billingType,
+        public AsaasBillingType $billingType,
         public float $value,
         public string $nextDueDate,
         public string $cycle,
@@ -20,7 +22,7 @@ readonly class CreateSubscriptionData
     {
         return array_filter([
             'customer' => $this->customer,
-            'billingType' => $this->billingType,
+            'billingType' => $this->billingType->value,
             'value' => $this->value,
             'nextDueDate' => $this->nextDueDate,
             'cycle' => $this->cycle,

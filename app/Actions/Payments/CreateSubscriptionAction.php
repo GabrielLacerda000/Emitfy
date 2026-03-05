@@ -3,6 +3,7 @@
 namespace App\Actions\Payments;
 
 use App\Dto\Asaas\CreateSubscriptionData;
+use App\Enums\AsaasBillingType;
 use App\Factories\PaymentGatewayFactory;
 use App\Models\Subscription;
 
@@ -20,7 +21,7 @@ class CreateSubscriptionAction
 
         $data = new CreateSubscriptionData(
             customer: $provider->provider_customer_id,
-            billingType: 'UNDEFINED',
+            billingType: AsaasBillingType::Undefined,
             value: (float) $price,
             nextDueDate: now()->addMonth()->toDateString(),
             cycle: strtoupper($subscription->billing_cycle) === 'YEARLY' ? 'YEARLY' : 'MONTHLY',
