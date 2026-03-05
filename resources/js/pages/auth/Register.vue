@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Form, Head, Link } from '@inertiajs/vue3';
-import { ArrowLeft, Lock, Mail, User } from 'lucide-vue-next'; // Adicionado ícones
+import { ArrowLeft, Eye, EyeOff, Lock, Mail, User } from 'lucide-vue-next'; // Adicionado ícones
+import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import InputError from '@/components/InputError.vue';
 import TextLink from '@/components/TextLink.vue';
@@ -13,6 +14,9 @@ import { login } from '@/routes';
 import { store } from '@/routes/register';
 
 const { t } = useI18n();
+
+const showPassword = ref(false);
+const showPasswordConfirmation = ref(false);
 </script>
 
 <template>
@@ -108,14 +112,24 @@ const { t } = useI18n();
                         />
                         <Input
                             id="password"
-                            type="password"
+                            :type="showPassword ? 'text' : 'password'"
                             required
                             :tabindex="3"
                             autocomplete="new-password"
                             name="password"
                             placeholder="••••••••"
-                            class="h-12 rounded-xl border-border/60 bg-muted/20 pl-11 transition-all focus:bg-background"
+                            class="h-12 rounded-xl border-border/60 bg-muted/20 pl-11 pr-11 transition-all focus:bg-background"
                         />
+                        <button
+                            type="button"
+                            tabindex="-1"
+                            class="absolute top-1/2 right-3.5 -translate-y-1/2 text-muted-foreground/40 transition-colors hover:text-muted-foreground focus:outline-none"
+                            @click="showPassword = !showPassword"
+                            :aria-label="showPassword ? 'Hide password' : 'Show password'"
+                        >
+                            <EyeOff v-if="showPassword" class="h-4 w-4" />
+                            <Eye v-else class="h-4 w-4" />
+                        </button>
                     </div>
                     <InputError :message="errors.password" />
                 </div>
@@ -133,14 +147,24 @@ const { t } = useI18n();
                         />
                         <Input
                             id="password_confirmation"
-                            type="password"
+                            :type="showPasswordConfirmation ? 'text' : 'password'"
                             required
                             :tabindex="4"
                             autocomplete="new-password"
                             name="password_confirmation"
                             placeholder="••••••••"
-                            class="h-12 rounded-xl border-border/60 bg-muted/20 pl-11 transition-all focus:bg-background"
+                            class="h-12 rounded-xl border-border/60 bg-muted/20 pl-11 pr-11 transition-all focus:bg-background"
                         />
+                        <button
+                            type="button"
+                            tabindex="-1"
+                            class="absolute top-1/2 right-3.5 -translate-y-1/2 text-muted-foreground/40 transition-colors hover:text-muted-foreground focus:outline-none"
+                            @click="showPasswordConfirmation = !showPasswordConfirmation"
+                            :aria-label="showPasswordConfirmation ? 'Hide password' : 'Show password'"
+                        >
+                            <EyeOff v-if="showPasswordConfirmation" class="h-4 w-4" />
+                            <Eye v-else class="h-4 w-4" />
+                        </button>
                     </div>
                     <InputError :message="errors.password_confirmation" />
                 </div>
