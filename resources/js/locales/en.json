@@ -391,15 +391,16 @@
             "dashboard": "Dashboard"
         },
         "hero": {
-            "h1part1": "Invoice Like",
-            "h1pro": "a Pro",
-            "h1part2": ", Get Paid",
-            "h1faster": "Faster.",
-            "subtitle": "Stop wrestling with spreadsheets. Emitfy streamlines your billing so you can get back to what you do best.",
+            "h1part1": "Get Paid",
+            "h1pro": "Faster",
+            "h1part2": " — Invoice Like",
+            "h1faster": "a Pro.",
+            "subtitle": "Built for freelancers and small businesses. Stop wrestling with spreadsheets and get paid with zero invoice chaos.",
             "cta1": "Start Invoicing",
             "cta2": "Watch Demo",
-            "badge1": "Easy to use",
-            "badge2": "Setup in 2 mins",
+            "badge1": "No credit card required",
+            "badge2": "Setup in 2 minutes",
+            "badge3": "Cancel anytime",
             "paymentReceived": "Payment received",
             "justNow": "Just now"
         },
@@ -452,36 +453,21 @@
         },
         "benefits": {
             "h2": "Why Use Emitfy",
-            "subtitle": "Practical benefits to organize your invoicing with clarity and control.",
+            "subtitle": "The practical benefits that actually move the needle on your bottom line.",
 
             "card1": {
-                "title": "Save Time on Billing Management",
-                "desc": "Centralize clients and invoices in one system. Reduce manual work and avoid spreadsheet chaos."
+                "title": "Save 10+ Hours Every Month",
+                "desc": "Centralize your clients and invoices in one place. No more digging through spreadsheets or manually tracking who owes what."
             },
 
             "card2": {
-                "title": "Automatic Reminders",
-                "desc": "Automatically send reminders before and after due dates. Less manual follow-up, fewer missed payments."
+                "title": "Never Chase a Client Again",
+                "desc": "Automatic reminders go out before and after due dates. Your clients pay on time — without you having to follow up."
             },
 
             "card3": {
-                "title": "Clear Overview of What's Pending",
-                "desc": "Know exactly which invoices are open, overdue, or paid. Simple and direct control."
-            },
-
-            "card4": {
-                "title": "Structured and Professional Invoices",
-                "desc": "Generate well-organized invoices to maintain a more professional client experience."
-            },
-
-            "card5": {
-                "title": "Simplified Recurring Billing",
-                "desc": "Automate recurring invoices and reduce the risk of forgetting monthly charges."
-            },
-
-            "card6": {
-                "title": "Better Revenue Visibility",
-                "desc": "Get a consolidated view of your billing activity and monitor your revenue flow with more confidence."
+                "title": "Always Know Who Owes You",
+                "desc": "See exactly which invoices are open, overdue, or paid at a glance. Clear, real-time visibility into your cash flow."
             }
         },
         "screenshot": {
@@ -492,7 +478,7 @@
         "pricing": {
             "h2": "Simple and Transparent Pricing",
             "subtitle": "Everything you need to manage your invoicing in one place.",
-            "perMonth": "per motnth",
+            "perMonth": "per month",
             "plan": {
                 "name": "Professional Plan",
                 "price": "$9",
@@ -510,29 +496,39 @@
         },
         "faq": {
             "h2": "Frequently Asked Questions",
-            "subtitle": "Clear answers about how Emitfy works.",
+            "subtitle": "Straight answers to the questions that actually matter.",
 
-            "q1": "What is Emitfy?",
-            "a1": "Emitfy is an invoice management platform designed to help you organize, send, and track your invoices in one place. It allows you to monitor due dates, manage clients, and keep control of your billing workflow.",
+            "q1": "Is $9/month really worth it?",
+            "a1": "At $9/month with no per-invoice fees, no client limits, and no hidden costs, Emitfy pays for itself the moment you stop wasting hours on manual billing. That's less than a coffee per week.",
 
-            "q2": "Does Emitfy process payments?",
-            "a2": "No. Emitfy does not process payments. It helps you manage invoices and track their status. Payments can be received through Pix, bank transfer, card, or any other method you use externally.",
+            "q2": "How quickly can I start using Emitfy?",
+            "a2": "Your account takes about 2 minutes to set up. Add your first client, create your first invoice, and send it — all in under 10 minutes. No training, no lengthy onboarding.",
 
-            "q3": "How do recurring invoices and reminders work?",
-            "a3": "You can configure recurring invoices based on your preferred frequency. The system automatically sends reminders 3 days before the due date, on the due date, and up to 7 days after if the invoice remains unpaid.",
+            "q3": "I only have a handful of clients. Is this for me?",
+            "a3": "Yes — especially for you. Emitfy is built for freelancers and small operators who don't need enterprise software. Whether you have 2 clients or 200, you get the same full tool at the same flat price.",
 
-            "q4": "How do I mark an invoice as paid?",
-            "a4": "Once you receive payment outside the platform, you can manually mark the invoice as paid. This keeps your records updated and ensures accurate tracking.",
+            "q4": "Do I need any technical knowledge to get started?",
+            "a4": "None whatsoever. If you can send an email, you can use Emitfy. No code, no complex integrations, no setup wizards. Create your account and start invoicing.",
 
-            "q5": "Is my data secure?",
-            "a5": "Yes. We follow modern security practices, including protected authentication and secure data storage, to safeguard your information."
+            "q5": "What if I want to cancel?",
+            "a5": "Cancel anytime, no questions asked. No contracts, no cancellation fees, no 30-day notice periods. Your data stays accessible until the end of your billing period."
         },
         "cta": {
             "badge": "Simple invoice management",
             "h2": "Organize your billing",
             "h2italic": "without complexity.",
             "subtitle": "Centralize clients, send invoices, and track payments in one place. Simple, clear, and efficient.",
-            "button": "Create Account"
+            "button": "Start Invoicing",
+            "riskReducer": "No credit card required · Cancel anytime"
+        },
+        "stats": {
+            "badge": "By The Numbers",
+            "h2": "Built to save time and get you paid",
+            "subtitle": "No fluff. Just the features that matter for your billing workflow.",
+            "stat1": { "value": "10+", "label": "Hours saved per month on billing" },
+            "stat2": { "value": "2 min", "label": "Average time to set up your account" },
+            "stat3": { "value": "3×", "label": "Automatic reminders sent per invoice" },
+            "stat4": { "value": "$9", "label": "Per month, all features included" }
         },
         "footer": {
             "brand": "Professional invoice management for freelancers and small businesses.",

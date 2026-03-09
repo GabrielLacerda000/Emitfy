@@ -37,13 +37,6 @@ Existing tools are either:
 * Increase on-time payments
 * Provide clear visibility into outstanding revenue
 
-### Success Metrics (MVP)
-
-* Time to first invoice: < 60 seconds
-* Invoice creation completion rate > 70%
-* At least 30% of users send reminders
-* 200 paying users within first 6 months
-
 ---
 
 ## 4. Target Audience
@@ -78,8 +71,7 @@ SimpleInvoice offers:
 ### 6.1 Authentication & Account Setup
 
 * Email/password authentication
-* Minimal profile setup (name, email, currency)
-* Optional logo upload
+* Minimal profile setup (name, email)
 
 ### 6.2 Client Management
 

@@ -391,15 +391,16 @@
             "dashboard": "Painel"
         },
         "hero": {
-            "h1part1": "Emita Faturas",
-            "h1pro": "Profissionais",
-            "h1part2": ", Receba",
-            "h1faster": "Mais Rápido.",
-            "subtitle": "Chega de planilhas. O Emitfy simplifica seu faturamento para você focar no que faz de melhor.",
+            "h1part1": "Receba",
+            "h1pro": "Mais Rápido",
+            "h1part2": " — Emita Faturas",
+            "h1faster": "Profissionais.",
+            "subtitle": "Feito para freelancers e pequenas empresas. Chega de planilhas e cobranças em atraso.",
             "cta1": "Começar Agora",
             "cta2": "Ver Demo",
-            "badge1": "Fácil de usar",
-            "badge2": "Configure em 2 min",
+            "badge1": "Sem cartão de crédito",
+            "badge2": "Configure em 2 minutos",
+            "badge3": "Cancele quando quiser",
             "paymentReceived": "Pagamento recebido",
             "justNow": "Agora mesmo"
         },
@@ -452,36 +453,21 @@
         },
         "benefits": {
             "h2": "Por que usar o Emitfy",
-            "subtitle": "Benefícios práticos para organizar suas cobranças com mais clareza e controle.",
+            "subtitle": "Os benefícios práticos que realmente fazem diferença no seu faturamento.",
 
             "card1": {
-                "title": "Economize Tempo na Gestão",
-                "desc": "Centralize clientes e faturas em um único sistema. Reduza tarefas manuais e evite retrabalho com planilhas."
+                "title": "Economize 10+ Horas por Mês",
+                "desc": "Centralize clientes e faturas em um só lugar. Sem planilhas, sem rastreamento manual de quem deve o quê."
             },
 
             "card2": {
-                "title": "Lembretes Automáticos",
-                "desc": "Envio automático de lembretes antes e depois do vencimento. Menos esquecimento, menos cobrança manual."
+                "title": "Nunca Mais Corra Atrás de Clientes",
+                "desc": "Lembretes automáticos são enviados antes e depois do vencimento. Seus clientes pagam no prazo — sem você precisar cobrar."
             },
 
             "card3": {
-                "title": "Visão Clara do que Está Pendente",
-                "desc": "Saiba exatamente quais faturas estão abertas, vencidas ou pagas. Controle simples e direto."
-            },
-
-            "card4": {
-                "title": "Faturas Organizadas e Profissionais",
-                "desc": "Gere faturas estruturadas e padronizadas para manter sua comunicação mais profissional."
-            },
-
-            "card5": {
-                "title": "Cobranças Recorrentes Simplificadas",
-                "desc": "Automatize faturas recorrentes e reduza o risco de esquecer cobranças mensais."
-            },
-
-            "card6": {
-                "title": "Controle Financeiro Mais Consciente",
-                "desc": "Tenha uma visão consolidada das suas receitas e acompanhe seu fluxo de cobranças com mais segurança."
+                "title": "Saiba Sempre Quem Está Devendo",
+                "desc": "Veja exatamente quais faturas estão abertas, vencidas ou pagas de relance. Controle claro e em tempo real do seu fluxo de caixa."
             }
         },
         "screenshot": {
@@ -510,28 +496,39 @@
         },
         "faq": {
             "h2": "Perguntas Frequentes",
-            "subtitle": "Tudo o que você precisa saber antes de começar.",
-            "q1": "O Emitfy tem plano gratuito?",
-            "a1": "Atualmente trabalhamos com um plano pago simples e acessível, que dá acesso a todos os recursos da plataforma. Nossa proposta é oferecer uma solução profissional desde o primeiro dia, sem limitações artificiais.",
+            "subtitle": "Respostas diretas para as dúvidas que realmente importam.",
 
-            "q2": "O Emitfy processa pagamentos?",
-            "a2": "Não. O Emitfy é uma plataforma de gestão de faturas. Você pode gerar e enviar cobranças, acompanhar vencimentos e marcar como pagas após receber via Pix, transferência bancária, cartão ou outro meio da sua preferência.",
+            "q1": "R$29/mês realmente vale a pena?",
+            "a1": "Com R$29/mês sem taxa por fatura, sem limite de clientes e sem custos escondidos, o Emitfy se paga no momento em que você para de perder horas com controles manuais. É menos do que um café por semana.",
 
-            "q3": "Posso gerenciar cobranças recorrentes?",
-            "a3": "Sim. As cobranças sao enviadas 3 dias antes, no dia e até 7 dias após o vencimento",
+            "q2": "Quanto tempo leva para começar a usar?",
+            "a2": "Sua conta leva cerca de 2 minutos para ser criada. Adicione seu primeiro cliente, crie sua primeira fatura e envie — tudo em menos de 10 minutos. Sem treinamento, sem onboarding complicado.",
 
-            "q4": "Os dados ficam seguros?",
-            "a4": "Sim. Utilizamos boas práticas de segurança, autenticação protegida e armazenamento seguro de dados para garantir a integridade das suas informações.",
+            "q3": "Tenho poucos clientes. O Emitfy é para mim?",
+            "a3": "Sim — especialmente para você. O Emitfy foi criado para freelancers e pequenos negócios que não precisam de sistemas complexos. Seja com 2 ou 200 clientes, você tem acesso ao mesmo sistema completo pelo mesmo preço fixo.",
 
-            "q5": "E se eu precisar de suporte?",
-            "a5": "Oferecemos suporte direto por e-mail para todos os clientes. Nosso objetivo é responder o mais rápido possível e evoluir o sistema com base no feedback dos usuários."
+            "q4": "Preciso de conhecimento técnico para começar?",
+            "a4": "Nenhum. Se você sabe enviar um e-mail, sabe usar o Emitfy. Sem código, sem integrações complexas, sem configurações difíceis. Basta criar sua conta e começar a faturar.",
+
+            "q5": "E se eu quiser cancelar?",
+            "a5": "Cancele quando quiser, sem perguntas. Sem contratos, sem multas de cancelamento, sem aviso prévio. Seus dados ficam acessíveis até o fim do período pago."
         },
         "cta": {
             "badge": "Gestão simples de faturas",
             "h2": "Organize suas cobranças",
             "h2italic": "sem complicação.",
             "subtitle": "Centralize clientes, envie faturas e acompanhe pagamentos em um só lugar. Simples, direto e eficiente.",
-            "button": "Criar Conta"
+            "button": "Começar Agora",
+            "riskReducer": "Sem cartão de crédito · Cancele quando quiser"
+        },
+        "stats": {
+            "badge": "Em Números",
+            "h2": "Criado para economizar tempo e garantir seus pagamentos",
+            "subtitle": "Sem enrolação. Só as funcionalidades que importam para seu faturamento.",
+            "stat1": { "value": "10+", "label": "Horas economizadas por mês com faturamento" },
+            "stat2": { "value": "2 min", "label": "Tempo médio para configurar sua conta" },
+            "stat3": { "value": "3×", "label": "Lembretes automáticos enviados por fatura" },
+            "stat4": { "value": "R$29", "label": "Por mês, todos os recursos incluídos" }
         },
         "footer": {
             "brand": "Gestão profissional de faturas para freelancers e pequenas empresas.",

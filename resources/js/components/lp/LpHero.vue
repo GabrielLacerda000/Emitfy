@@ -88,6 +88,12 @@ const { t } = useI18n();
                         <CheckCircle2 class="h-4 w-4 text-primary" />
                         {{ t('lp.hero.badge2') }}
                     </div>
+                    <div
+                        class="flex items-center gap-2 text-sm font-medium text-muted-foreground"
+                    >
+                        <CheckCircle2 class="h-4 w-4 text-primary" />
+                        {{ t('lp.hero.badge3') }}
+                    </div>
                 </div>
             </div>
 

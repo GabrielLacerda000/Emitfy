@@ -6,6 +6,7 @@ import { useI18n } from 'vue-i18n';
 import AppLogoIcon from '@/components/AppLogoIcon.vue';
 import LpBenefits from '@/components/lp/LpBenefits.vue';
 import LpCta from '@/components/lp/LpCta.vue';
+import LpStats from '@/components/lp/LpStats.vue';
 import LpFaq from '@/components/lp/LpFaq.vue';
 import LpFooter from '@/components/lp/LpFooter.vue';
 import LpHero from '@/components/lp/LpHero.vue';
@@ -209,6 +210,7 @@ withDefaults(
             <LpProblem />
             <LpHowItWorks />
             <LpBenefits />
+            <LpStats />
             <LpScreenshot />
             <LpPricing />
             <LpFaq />

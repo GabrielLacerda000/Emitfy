@@ -34,7 +34,7 @@ const { t } = useI18n();
                 {{ t('lp.cta.subtitle') }}
             </p>
 
-            <div class="flex flex-col items-center gap-6">
+            <div class="flex flex-col items-center gap-4">
                 <Button
                     size="lg"
                     variant="secondary"
@@ -46,6 +46,9 @@ const { t } = useI18n();
                         <ArrowRight class="ml-2 h-6 w-6 transition-transform group-hover:translate-x-2" />
                     </a>
                 </Button>
+                <p class="text-sm text-indigo-200/70">
+                    {{ t('lp.cta.riskReducer') }}
+                </p>
             </div>
         </div>
     </LpSection>
