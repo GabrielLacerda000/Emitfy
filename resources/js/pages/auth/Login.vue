@@ -25,7 +25,7 @@ defineProps<{
     canRegister: boolean;
 }>();
 </script>
-
+    
 <template>
     <AuthBase
         :title="t('auth.login.title')"
