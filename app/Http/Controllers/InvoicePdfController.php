@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Gates\InvoiceGate;
 use App\Models\Invoice;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -17,6 +18,10 @@ class InvoicePdfController extends Controller
         // Authorization check
         if ($invoice->user_id !== $request->user()->id) {
             abort(403);
+        }
+
+        if (! InvoiceGate::canViewPdf($request->user())) {
+            abort(403, 'Upgrade required to access invoice PDFs.');
         }
 
         // Load relationships

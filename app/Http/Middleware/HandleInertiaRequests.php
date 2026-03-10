@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Gates\InvoiceGate;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -41,6 +42,11 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+            'features' => fn () => $request->user() ? [
+                'canSendInvoice' => InvoiceGate::canSendInvoice($request->user()),
+                'canViewPdf'     => InvoiceGate::canViewPdf($request->user()),
+                'canChangeStatus' => InvoiceGate::canChangeStatus($request->user()),
+            ] : null,
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
             'flash' => [
                 'message' => fn () => $request->session()->get('success')

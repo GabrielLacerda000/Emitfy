@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Head, Link, router } from '@inertiajs/vue3';
-import { User, Settings2, ListTree, LoaderCircle } from 'lucide-vue-next';
+import { Head, Link, router, usePage } from '@inertiajs/vue3';
+import { User, Settings2, ListTree, LoaderCircle, Lock } from 'lucide-vue-next';
 import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import InvoiceController from '@/actions/App/Http/Controllers/InvoiceController';
@@ -24,10 +24,13 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
+import UpgradeModal from '@/components/UpgradeModal.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
+import { canChangeStatus } from '@/lib/featureGate';
 import { toLocalDateInputValue } from '@/lib/utils';
 import { index } from '@/routes/invoices';
 import {
+    type AppPageProps,
     type BreadcrumbItem,
     type Client,
     type Invoice,
@@ -35,6 +38,7 @@ import {
 } from '@/types';
 
 const { t } = useI18n();
+const page = usePage<AppPageProps>();
 
 type Props = {
     invoice: Invoice;
@@ -71,6 +75,9 @@ const formData = ref<InvoiceFormData>({
             total: Number(item.total),
         })) ?? [],
 });
+
+const features = page.props.features;
+const upgradeModalOpen = ref(false);
 
 const errors = ref<Record<string, string>>({});
 const processing = ref(false);
@@ -110,6 +117,12 @@ watch(
 
 function handleClientCreated(client: Client) {
     clients.value.push(client);
+}
+
+function handleStatusClick() {
+    if (!canChangeStatus(features)) {
+        upgradeModalOpen.value = true;
+    }
 }
 
 function submitForm() {
@@ -159,7 +172,9 @@ function submitForm() {
                             class="rounded-xl px-6"
                             as-child
                         >
-                            <Link :href="index().url">{{ t('invoices.form.cancel') }}</Link>
+                            <Link :href="index().url">{{
+                                t('invoices.form.cancel')
+                            }}</Link>
                         </Button>
                         <Button
                             @click="submitForm"
@@ -257,23 +272,48 @@ function submitForm() {
                             <div class="space-y-6 p-6">
                                 <div class="grid gap-2">
                                     <Label
-                                        class="ml-1 text-[10px] font-black tracking-widest text-muted-foreground/80 uppercase"
+                                        class="ml-1 flex items-center gap-1.5 text-[10px] font-black tracking-widest text-muted-foreground/80 uppercase"
                                     >
                                         {{ t('invoices.form.status') }}
+                                        <Lock
+                                            v-if="!canChangeStatus(features)"
+                                            class="h-3 w-3 text-muted-foreground/50"
+                                        />
                                     </Label>
-                                    <Select v-model="formData.status">
-                                        <SelectTrigger
-                                            class="h-11 rounded-xl border-border/60 bg-muted/20 transition-all focus:bg-background"
+                                    <div @click.capture="handleStatusClick">
+                                        <Select
+                                            v-model="formData.status"
+                                            :disabled="
+                                                !canChangeStatus(features)
+                                            "
                                         >
-                                            <SelectValue />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="draft">{{ t('invoices.status.draft') }}</SelectItem>
-                                            <SelectItem value="sent">{{ t('invoices.status.sent') }}</SelectItem>
-                                            <SelectItem value="paid">{{ t('invoices.status.paid') }}</SelectItem>
-                                            <SelectItem value="overdue">{{ t('invoices.status.overdue') }}</SelectItem>
-                                        </SelectContent>
-                                    </Select>
+                                            <SelectTrigger
+                                                class="h-11 rounded-xl border-border/60 bg-muted/20 transition-all focus:bg-background"
+                                                :class="{
+                                                    'cursor-not-allowed opacity-60':
+                                                        !canChangeStatus(
+                                                            features,
+                                                        ),
+                                                }"
+                                            >
+                                                <SelectValue />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="draft">{{
+                                                    t('invoices.status.draft')
+                                                }}</SelectItem>
+                                                <SelectItem value="sent">{{
+                                                    t('invoices.status.sent')
+                                                }}</SelectItem>
+                                                <SelectItem value="paid">{{
+                                                    t('invoices.status.paid')
+                                                }}</SelectItem>
+                                                <SelectItem value="overdue">{{
+                                                    t('invoices.status.overdue')
+                                                }}</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
                                     <InputError :message="errors.status" />
                                 </div>
 
@@ -351,7 +391,9 @@ function submitForm() {
                             <textarea
                                 v-model="formData.notes"
                                 rows="5"
-                                :placeholder="t('invoices.form.additionalDetails')"
+                                :placeholder="
+                                    t('invoices.form.additionalDetails')
+                                "
                                 class="resize-none rounded-3xl border-border/60 bg-muted/20 p-4 text-sm transition-all outline-none focus:bg-background"
                             />
                         </div>
@@ -378,5 +420,7 @@ function submitForm() {
                 </form>
             </div>
         </div>
+
+        <UpgradeModal v-model:open="upgradeModalOpen" />
     </AppLayout>
 </template>

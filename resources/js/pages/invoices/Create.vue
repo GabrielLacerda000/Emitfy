@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Head, Link, router } from '@inertiajs/vue3';
+import { Head, Link, router, usePage } from '@inertiajs/vue3';
 import {
     Calendar,
     User,
@@ -24,14 +24,17 @@ import {
     NumberFieldContent,
     NumberFieldInput,
 } from '@/components/ui/number-field';
+import UpgradeModal from '@/components/UpgradeModal.vue';
 import { useLocale } from '@/composables/useLocale';
 import AppLayout from '@/layouts/AppLayout.vue';
+import { canSendInvoice } from '@/lib/featureGate';
 import { toLocalDateInputValue } from '@/lib/utils';
 import { index } from '@/routes/invoices';
-import type { CreateInvoiceData, BreadcrumbItem, Client } from '@/types';
+import type { AppPageProps, CreateInvoiceData, BreadcrumbItem, Client } from '@/types';
 
 const { t } = useI18n();
 const { locale } = useLocale();
+const page = usePage<AppPageProps>();
 
 type Props = {
     clients: Client[];
@@ -53,6 +56,9 @@ const formData = ref<CreateInvoiceData>({
     status: 'draft',
     items: [{ description: '', quantity: 1, unit_price: 0, total: 0 }],
 });
+
+const features = page.props.features;
+const upgradeModalOpen = ref(false);
 
 const errors = ref<Record<string, string>>({});
 const processing = ref(false);
@@ -79,6 +85,10 @@ function handleClientCreated(client: Client) {
 }
 
 function submitForm(status: 'draft' | 'sent') {
+    if (status === 'sent' && !canSendInvoice(features)) {
+        upgradeModalOpen.value = true;
+        return;
+    }
     formData.value.status = status;
     processing.value = true;
     errors.value = {};
@@ -295,5 +305,7 @@ const cardClass =
                 </form>
             </div>
         </div>
+
+        <UpgradeModal v-model:open="upgradeModalOpen" />
     </AppLayout>
 </template>

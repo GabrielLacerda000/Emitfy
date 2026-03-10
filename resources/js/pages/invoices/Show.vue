@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Head, Link, router } from '@inertiajs/vue3';
+import { Head, Link, router, usePage } from '@inertiajs/vue3';
 import {
     Download,
     Mail,
@@ -22,6 +22,7 @@ import InvoiceController from '@/actions/App/Http/Controllers/InvoiceController'
 import InvoicePdfController from '@/actions/App/Http/Controllers/InvoicePdfController';
 import InvoiceItemsTable from '@/components/invoices/InvoiceItemsTable.vue';
 import InvoiceSummary from '@/components/invoices/InvoiceSummary.vue';
+import UpgradeModal from '@/components/UpgradeModal.vue';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -35,11 +36,13 @@ import {
     DialogTitle,
 } from '@/components/ui/dialog';
 import AppLayout from '@/layouts/AppLayout.vue';
+import { canSendInvoice, canViewPdf } from '@/lib/featureGate';
 import { formatDate } from '@/lib/utils';
 import { edit, index } from '@/routes/invoices';
-import { type BreadcrumbItem, type Invoice } from '@/types';
+import { type AppPageProps, type BreadcrumbItem, type Invoice } from '@/types';
 
 const { t } = useI18n();
+const page = usePage<AppPageProps>();
 
 type Props = {
     invoice: Invoice;
@@ -82,7 +85,10 @@ function getStatusConfig(status: string) {
     return configs[status as keyof typeof configs] || configs.draft;
 }
 
+const features = page.props.features;
+
 const deleteDialogOpen = ref(false);
+const upgradeModalOpen = ref(false);
 const deleting = ref(false);
 const downloadingPdf = ref(false);
 const sending = ref(false);
@@ -98,6 +104,10 @@ function deleteInvoice() {
 }
 
 function downloadPdf() {
+    if (!canViewPdf(features)) {
+        upgradeModalOpen.value = true;
+        return;
+    }
     downloadingPdf.value = true;
     window.location.href = InvoicePdfController.show.url({
         invoice: props.invoice.id,
@@ -106,11 +116,19 @@ function downloadPdf() {
 }
 
 function viewPdf() {
+    if (!canViewPdf(features)) {
+        upgradeModalOpen.value = true;
+        return;
+    }
     const url = `${InvoicePdfController.show.url({ invoice: props.invoice.id })}?mode=stream`;
     window.open(url, '_blank');
 }
 
 function sendInvoice() {
+    if (!canSendInvoice(features)) {
+        upgradeModalOpen.value = true;
+        return;
+    }
     sending.value = true;
     router.post(
         InvoiceController.send.url({ invoice: props.invoice.id }),
@@ -448,6 +466,8 @@ function sendInvoice() {
                 </div>
             </div>
         </div>
+
+        <UpgradeModal v-model:open="upgradeModalOpen" />
 
         <Dialog v-model:open="deleteDialogOpen">
             <DialogContent class="rounded-xl">

@@ -6,6 +6,8 @@ use App\Models\User;
 
 beforeEach(function () {
     $this->user = User::factory()->create();
+    $this->user->bypass_billing = true;
+    $this->user->save();
 });
 
 test('authenticated user can download their invoice PDF', function () {

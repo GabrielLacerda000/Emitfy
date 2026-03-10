@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Queue;
 test('draft invoice can be sent', function () {
     Queue::fake();
     $user = User::factory()->create();
+    $user->bypass_billing = true;
+    $user->save();
+    
     $client = Client::factory()->create(['user_id' => $user->id]);
     $invoice = Invoice::factory()->create([
         'user_id' => $user->id,
@@ -37,7 +40,7 @@ test('draft invoice can be sent', function () {
 
 test('sent invoice can be resent', function () {
     Queue::fake();
-    $user = User::factory()->create();
+    $user = User::factory()->create(['bypass_billing' => true]);
     $client = Client::factory()->create(['user_id' => $user->id]);
     $originalSentAt = now()->subDays(5);
     $invoice = Invoice::factory()->create([
@@ -63,7 +66,7 @@ test('sent invoice can be resent', function () {
 
 test('paid invoice cannot be sent', function () {
     Queue::fake();
-    $user = User::factory()->create();
+    $user = User::factory()->create(['bypass_billing' => true]);
     $client = Client::factory()->create(['user_id' => $user->id]);
     $invoice = Invoice::factory()->create([
         'user_id' => $user->id,
@@ -120,7 +123,7 @@ test('job sends email with pdf attachment to client', function () {
 
 test('sending draft invoice creates 3 reminder schedules', function () {
     Queue::fake();
-    $user = User::factory()->create();
+    $user = User::factory()->create(['bypass_billing' => true]);
     $client = Client::factory()->create(['user_id' => $user->id]);
     $invoice = Invoice::factory()->create([
         'user_id' => $user->id,
@@ -144,7 +147,7 @@ test('sending draft invoice creates 3 reminder schedules', function () {
 
 test('resending invoice does not create duplicate reminder schedules', function () {
     Queue::fake();
-    $user = User::factory()->create();
+    $user = User::factory()->create(['bypass_billing' => true]);
     $client = Client::factory()->create(['user_id' => $user->id]);
     $invoice = Invoice::factory()->create([
         'user_id' => $user->id,

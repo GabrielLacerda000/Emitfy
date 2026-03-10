@@ -555,5 +555,16 @@
         "symbol": "$",
         "locale": "en-US",
         "code": "USD"
+    },
+    "upgradeModal": {
+        "title": "Premium Feature",
+        "description": "This feature is available on the paid plan. Upgrade to unlock sending invoices, PDF access, and full status management.",
+        "comingSoon": "Payment integration coming soon.",
+        "features": {
+            "send": "Send invoices directly to clients",
+            "pdf": "Download and view invoice PDFs",
+            "status": "Change invoice status"
+        },
+        "close": "Got it"
     }
 }

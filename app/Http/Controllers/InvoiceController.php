@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Actions\Invoice\SendInvoiceAction;
 use App\Actions\Invoice\StoreInvoiceAction;
 use App\Actions\Invoice\UpdateInvoiceAction;
+use App\Gates\InvoiceGate;
 use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Requests\UpdateInvoiceRequest;
 use App\Models\Invoice;
@@ -69,7 +70,13 @@ class InvoiceController extends Controller
      */
     public function store(StoreInvoiceRequest $request): RedirectResponse
     {
-        ($this->storeInvoice)($request->user(), $request->validated());
+        $validated = $request->validated();
+
+        if (($validated['status'] ?? 'draft') !== 'draft' && ! InvoiceGate::canSendInvoice($request->user())) {
+            abort(403, 'Upgrade required to send invoices.');
+        }
+
+        ($this->storeInvoice)($request->user(), $validated);
 
         return redirect()->route('invoices.index')
             ->with('success', 'Invoice created successfully.');
@@ -113,7 +120,13 @@ class InvoiceController extends Controller
      */
     public function update(UpdateInvoiceRequest $request, Invoice $invoice): RedirectResponse
     {
-        ($this->updateInvoice)($invoice, $request->validated());
+        $validated = $request->validated();
+
+        if (isset($validated['status']) && $validated['status'] !== $invoice->status->value && ! InvoiceGate::canChangeStatus($request->user())) {
+            abort(403, 'Upgrade required to change invoice status.');
+        }
+
+        ($this->updateInvoice)($invoice, $validated);
 
         return redirect()->route('invoices.index')
             ->with('success', 'Invoice updated successfully.');
@@ -140,6 +153,10 @@ class InvoiceController extends Controller
     {
         if ($invoice->user_id !== $request->user()->id) {
             abort(403);
+        }
+
+        if (! InvoiceGate::canSendInvoice($request->user())) {
+            abort(403, 'Upgrade required to send invoices.');
         }
 
         try {

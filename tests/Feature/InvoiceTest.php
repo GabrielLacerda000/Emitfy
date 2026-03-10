@@ -163,6 +163,9 @@ test('edit invoice page can be rendered', function () {
 
 test('invoices can be updated', function () {
     $user = User::factory()->create();
+    $user->bypass_billing = true;
+    $user->save();
+    
     $client = Client::factory()->create(['user_id' => $user->id]);
     $invoice = Invoice::factory()->create(['user_id' => $user->id, 'client_id' => $client->id]);
 
@@ -191,7 +194,7 @@ test('invoices can be updated', function () {
 });
 
 test('paid invoices can be updated with paid_at set to today', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->create(['bypass_billing' => true]);
     $client = Client::factory()->create(['user_id' => $user->id]);
     $invoice = Invoice::factory()->create([
         'user_id' => $user->id,
