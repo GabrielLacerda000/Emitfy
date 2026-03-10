@@ -18,6 +18,7 @@ Represents the account owner.
 | logo_url   | string    | Nullable            |
 | created_at | timestamp |                     |
 | updated_at | timestamp |                     |
+| bypass_billing | boolean | Nullable            |
 
 ---
 
