@@ -126,6 +126,12 @@ export interface FlashMessage {
     type: 'success' | 'error' | 'info' | 'warning';
 }
 
+export interface Features {
+    canSendInvoice: boolean;
+    canViewPdf: boolean;
+    canChangeStatus: boolean;
+}
+
 export type AppPageProps<
     T extends Record<string, unknown> = Record<string, unknown>,
 > = T & {
@@ -133,5 +139,6 @@ export type AppPageProps<
     auth: Auth;
     sidebarOpen: boolean;
     flash: FlashMessage;
+    features: Features | null;
     [key: string]: unknown;
 };

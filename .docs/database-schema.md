@@ -12,6 +12,7 @@ erDiagram
         string email
         string currency
         timestamp email_verified_at
+        boolean bypass_billing
     }
 
     clients {
@@ -125,6 +126,7 @@ erDiagram
 - Purpose: tenant/account owner for billing data.
 - Key fields: `id` (UUID PK), `email` (unique), `currency` (3-char default), 2FA fields.
 - Relationships: one-to-many with `clients`, `invoices`, and `subscriptions`.
+- `bypass_billing` field added to allow bypassing billing for testing and development.
 
 ### clients
 

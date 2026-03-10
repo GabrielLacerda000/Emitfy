@@ -555,5 +555,16 @@
         "symbol": "R$",
         "locale": "pt-BR",
         "code": "BRL"
+    },
+    "upgradeModal": {
+        "title": "Recurso Premium",
+        "description": "Este recurso está disponível no plano pago. Faça upgrade para desbloquear envio de faturas, acesso a PDF e gerenciamento de status.",
+        "comingSoon": "Integração de pagamento em breve.",
+        "features": {
+            "send": "Envie faturas diretamente para clientes",
+            "pdf": "Baixe e visualize faturas em PDF",
+            "status": "Altere o status da fatura"
+        },
+        "close": "Entendi"
     }
 }
