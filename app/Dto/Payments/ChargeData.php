@@ -2,7 +2,7 @@
 
 namespace App\Dto\Payments;
 
-class ChargeData
+readonly class ChargeData
 {
     public function __construct(
         public string $customerId,

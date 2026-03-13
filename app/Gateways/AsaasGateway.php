@@ -2,6 +2,8 @@
 
 namespace App\Gateways;
 
+use App\Dto\Payments\ChargeData;
+use App\Dto\Payments\ChargeResponse;
 use App\Dto\Payments\CreateCustomerData;
 use App\Dto\Payments\CreateSubscriptionData;
 use App\Dto\Payments\CreditCardTokenResponse;
@@ -105,17 +107,31 @@ class AsaasGateway implements PaymentGatewayInterface
         return CreditCardTokenResponse::fromArray($response);
     }
 
-    public function charge(array $data): array
+    public function charge(ChargeData $data): ChargeResponse
     {
+        $payload = array_filter([
+            'customer'      => $data->customerId,
+            'billingType'   => $data->paymentMethod,
+            'value'         => $data->amount,
+            'dueDate'       => $data->dueDate,
+            'description'   => $data->description,
+        ], fn ($v) => $v !== null);
+
         $response = Http::withHeaders(['access_token' => $this->apiKey])
-            ->post("{$this->baseUrl}/payments", $data)
+            ->post("{$this->baseUrl}/payments", $payload)
             ->throw()
             ->json();
 
-        return [
-            'external_payment_id' => $response['id'],
-            'status' => $this->normalizeStatus($response['status']),
-        ];
+        return new ChargeResponse(
+            externalPaymentId: $response['id'],
+            status: $this->normalizeStatus($response['status']),
+            amount: isset($response['value']) ? (float) $response['value'] : null,
+            dueDate: $response['dueDate'] ?? null,
+            billingType: $response['billingType'] ?? null,
+            invoiceUrl: $response['invoiceUrl'] ?? null,
+            pixCode: $response['pixQrCode']['payload'] ?? null,
+            barCode: $response['bankSlipUrl'] ?? null,
+        );
     }
 
     public function cancelSubscription(string $externalId): bool

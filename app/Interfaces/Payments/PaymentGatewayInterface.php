@@ -2,11 +2,27 @@
 
 namespace App\Interfaces\Payments;
 
-use App\Dto\Asaas\CreateSubscriptionData;
-use App\Dto\Asaas\SubscriptionResponse;
+use App\Dto\Payments\ChargeData;
+use App\Dto\Payments\ChargeResponse;
+use App\Dto\Payments\CreateCustomerData;
+use App\Dto\Payments\CreateSubscriptionData;
+use App\Dto\Payments\CreditCardTokenResponse;
+use App\Dto\Payments\CustomerResponse;
+use App\Dto\Payments\SubscriptionResponse;
+use App\Dto\Payments\TokenizeCreditCardData;
 
 interface PaymentGatewayInterface
 {
+    /**
+     * Create a customer on the gateway.
+     */
+    public function createCustomer(CreateCustomerData $data): CustomerResponse;
+
+    /**
+     * Tokenize a credit card on the gateway.
+     */
+    public function tokenizeCreditCard(TokenizeCreditCardData $data): CreditCardTokenResponse;
+
     /**
      * Create a subscription on the gateway.
      */
@@ -14,9 +30,8 @@ interface PaymentGatewayInterface
 
     /**
      * Charge a one-off payment on the gateway.
-     * Returns normalized data: external_payment_id, status.
      */
-    public function charge(array $data): array;
+    public function charge(ChargeData $data): ChargeResponse;
 
     /**
      * Cancel a subscription on the gateway by its external ID.
