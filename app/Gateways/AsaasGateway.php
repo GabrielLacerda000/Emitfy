@@ -2,12 +2,12 @@
 
 namespace App\Gateways;
 
-use App\Dto\Asaas\CreateCustomerData;
-use App\Dto\Asaas\CreateSubscriptionData;
-use App\Dto\Asaas\CreditCardTokenResponse;
-use App\Dto\Asaas\CustomerResponse;
-use App\Dto\Asaas\SubscriptionResponse;
-use App\Dto\Asaas\TokenizeCreditCardData;
+use App\Dto\Payments\CreateCustomerData;
+use App\Dto\Payments\CreateSubscriptionData;
+use App\Dto\Payments\CreditCardTokenResponse;
+use App\Dto\Payments\CustomerResponse;
+use App\Dto\Payments\SubscriptionResponse;
+use App\Dto\Payments\TokenizeCreditCardData;
 use App\Enums\Gateways;
 use App\Interfaces\Payments\PaymentGatewayInterface;
 use App\Models\User;
@@ -27,8 +27,28 @@ class AsaasGateway implements PaymentGatewayInterface
 
     public function createCustomer(CreateCustomerData $data): CustomerResponse
     {
+        $payload = array_filter([
+            'name'                 => $data->name,
+            'cpfCnpj'              => $data->cpfCnpj,
+            'email'                => $data->email,
+            'phone'                => $data->phone,
+            'mobilePhone'          => $data->mobilePhone,
+            'address'              => $data->address,
+            'addressNumber'        => $data->addressNumber,
+            'complement'           => $data->complement,
+            'province'             => $data->province,
+            'postalCode'           => $data->postalCode,
+            'externalReference'    => $data->externalReference,
+            'notificationDisabled' => $data->notificationDisabled,
+            'additionalEmails'     => $data->additionalEmails,
+            'observations'         => $data->observations,
+            'groupName'            => $data->groupName,
+            'company'              => $data->company,
+            'foreignCustomer'      => $data->foreignCustomer,
+        ], fn ($v) => $v !== null);
+
         $response = Http::withHeaders(['access_token' => $this->apiKey])
-            ->post("{$this->baseUrl}/customers", $data->toArray())
+            ->post("{$this->baseUrl}/customers", $payload)
             ->throw()
             ->json();
 
@@ -37,8 +57,16 @@ class AsaasGateway implements PaymentGatewayInterface
 
     public function createSubscription(CreateSubscriptionData $data): SubscriptionResponse
     {
+        $payload = [
+            'customer' => $data->customer,
+            'billingType' => $data->billingType->value,
+            'value' => $data->value,
+            'nextDueDate' => $data->nextDueDate,
+            'cycle' => $data->cycle,
+        ];
+
         $response = Http::withHeaders(['access_token' => $this->apiKey])
-            ->post("{$this->baseUrl}/subscriptions", $data->toArray())
+            ->post("{$this->baseUrl}/subscriptions", $payload)
             ->throw()
             ->json();
 
@@ -47,8 +75,30 @@ class AsaasGateway implements PaymentGatewayInterface
 
     public function tokenizeCreditCard(TokenizeCreditCardData $data): CreditCardTokenResponse
     {
+        $payload = [
+            'customer'  => $data->customer,
+            'remoteIp'  => $data->remoteIp,
+            'creditCard' => [
+                'holderName'  => $data->holderName,
+                'number'      => $data->number,
+                'expiryMonth' => $data->expiryMonth,
+                'expiryYear'  => $data->expiryYear,
+                'ccv'         => $data->ccv,
+            ],
+            'creditCardHolderInfo' => array_filter([
+                'name'               => $data->holderInfoName,
+                'email'              => $data->holderInfoEmail,
+                'cpfCnpj'            => $data->holderInfoCpfCnpj,
+                'postalCode'         => $data->holderInfoPostalCode,
+                'addressNumber'      => $data->holderInfoAddressNumber,
+                'addressComplement'  => $data->holderInfoAddressComplement,
+                'phone'              => $data->holderInfoPhone,
+                'mobilePhone'        => $data->holderInfoMobilePhone,
+            ], fn ($v) => $v !== null),
+        ];
+
         $response = Http::withHeaders(['access_token' => $this->apiKey])
-            ->post("{$this->baseUrl}/creditCard/tokenizeCreditCard", $data->toArray())
+            ->post("{$this->baseUrl}/creditCard/tokenizeCreditCard", $payload)
             ->throw()
             ->json();
 

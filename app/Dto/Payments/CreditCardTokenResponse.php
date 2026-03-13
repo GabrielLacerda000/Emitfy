@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Dto\Asaas;
+namespace App\Dto\Payments;
 
 readonly class CreditCardTokenResponse
 {

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Dto\Asaas;
+namespace App\Dto\Payments;
 
-use App\Enums\AsaasBillingType;
+use App\Enums\BillingType;
 
 readonly class CreateSubscriptionData
 {
     public function __construct(
         public string $customer,
-        public AsaasBillingType $billingType,
+        public BillingType $billingType,
         public float $value,
         public string $nextDueDate,
         public string $cycle,

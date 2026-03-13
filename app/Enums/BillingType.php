@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum AsaasBillingType: string
+enum BillingType: string
 {
     case Pix = 'PIX';
     case CreditCard = 'CREDIT_CARD';
