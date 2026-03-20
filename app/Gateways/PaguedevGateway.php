@@ -47,6 +47,21 @@ class PaguedevGateway implements PaymentGatewayInterface
         );
     }
 
+    public function createCustomer(CreateCustomerData $data): CustomerResponse
+    {
+        throw new \RuntimeException('PagueDev createCustomer not yet implemented.');
+    }
+
+    public function tokenizeCreditCard(TokenizeCreditCardData $data): CreditCardTokenResponse
+    {
+        throw new \RuntimeException('PagueDev tokenizeCreditCard not yet implemented.');
+    }
+
+    public function createSubscription(CreateSubscriptionData $data): SubscriptionResponse
+    {
+        throw new \RuntimeException('PagueDev createSubscription not yet implemented.');
+    }
+
     public function cancelSubscription(string $externalId): bool
     {
         // TODO: implement when PagarDev API docs are available

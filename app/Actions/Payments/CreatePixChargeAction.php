@@ -52,7 +52,8 @@ class CreatePixChargeAction
             'raw_payload'         => (array) $response,
         ]);
 
-        $subscription->update(['status' => $status->value]);
+        // webhook concern
+        // $subscription->update(['status' => $status->value]);
 
         return $payment;
     }

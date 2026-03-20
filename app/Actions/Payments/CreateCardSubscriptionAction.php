@@ -38,7 +38,8 @@ class CreateCardSubscriptionAction
             'status' => $this->normalizeStatus($response->status),
         ]);
 
-        $subscription->update(['status' => $this->normalizeStatus($response->status)]);
+        // webhook concern
+        // $subscription->update(['status' => $this->normalizeStatus($response->status)]);
 
         return $subscription->fresh(['activeProvider', 'plan']);
     }
