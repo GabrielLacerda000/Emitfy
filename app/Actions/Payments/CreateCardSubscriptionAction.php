@@ -4,6 +4,7 @@ namespace App\Actions\Payments;
 
 use App\Dto\Payments\CreateSubscriptionData;
 use App\Enums\BillingType;
+use App\Enums\SubscriptionStatus;
 use App\Factories\PaymentGatewayFactory;
 use App\Models\Subscription;
 
@@ -42,15 +43,14 @@ class CreateCardSubscriptionAction
         return $subscription->fresh(['activeProvider', 'plan']);
     }
 
-    private function normalizeStatus(string $asaasStatus): string
+    private function normalizeStatus(string $asaasStatus): SubscriptionStatus
     {
         return match ($asaasStatus) {
-            'ACTIVE' => 'active',
-            'INACTIVE', 'CANCELLED' => 'cancelled',
-            'PENDING' => 'pending',
-            'OVERDUE' => 'overdue',
-            'CONFIRMED', 'RECEIVED' => 'paid',
-            default => strtolower($asaasStatus),
+            'ACTIVE'              => SubscriptionStatus::ACTIVE,
+            'INACTIVE','CANCELLED'=> SubscriptionStatus::CANCELLED,
+            'CONFIRMED','RECEIVED'=> SubscriptionStatus::ACTIVE,
+            'OVERDUE'             => SubscriptionStatus::OVERDUE,
+            default               => SubscriptionStatus::PENDING,
         };
     }
 }

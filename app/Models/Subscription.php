@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Database\Factories\SubscriptionsFactory;
+use App\Enums\SubscriptionStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -31,7 +32,8 @@ class Subscription extends Model
     {
         return [
             'current_period_end' => 'datetime',
-            'plan_id' => 'integer',
+            'plan_id'            => 'integer',
+            'status'             => SubscriptionStatus::class,
         ];
     }
 
