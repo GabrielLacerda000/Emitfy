@@ -11,6 +11,7 @@ use App\Dto\Payments\CustomerResponse;
 use App\Dto\Payments\SubscriptionResponse;
 use App\Dto\Payments\TokenizeCreditCardData;
 use App\Interfaces\Payments\PaymentGatewayInterface;
+use Illuminate\Support\Facades\Http;
 
 class PaguedevGateway implements PaymentGatewayInterface
 {
@@ -26,8 +27,24 @@ class PaguedevGateway implements PaymentGatewayInterface
 
     public function charge(ChargeData $data): ChargeResponse
     {
-        // TODO: implement when PagarDev API docs are available
-        throw new \RuntimeException('PagarDev gateway not yet implemented.');
+        $payload = array_filter([
+            'amount'            => $data->amount,
+            'description'       => $data->description,
+            'externalReference' => $data->metadata['externalReference'] ?? null,
+        ], fn ($v) => $v !== null);
+
+        $response = Http::withHeaders(['X-API-Key' => $this->apiKey])
+            ->post("{$this->baseUrl}/pix/qrcode-static", $payload)
+            ->throw()
+            ->json();
+
+        return new ChargeResponse(
+            externalPaymentId: $response['id'],
+            status:            $response['status'],
+            amount:            isset($response['amount']) ? (float) $response['amount'] : null,
+            pixCode:           $response['pixCopyPaste'] ?? null,
+            invoiceUrl:        null,
+        );
     }
 
     public function cancelSubscription(string $externalId): bool
