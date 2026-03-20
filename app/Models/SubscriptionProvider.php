@@ -15,7 +15,7 @@ class SubscriptionProvider extends Model
         'provider',
         'provider_customer_id',
         'provider_subscription_id',
-        'provider_payment_id',
+        'last_provider_payment_id',
         'status',
         'metadata',
     ];

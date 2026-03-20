@@ -89,9 +89,9 @@ erDiagram
         bigint id PK
         bigint subscription_id FK
         string provider
-        string provider_customer_id
+        string provider_customer_id nullable
         string provider_subscription_id nullable
-        string provider_payment_id
+        string last_provider_payment_id nullable
         string status
         json metadata
     }
@@ -180,7 +180,7 @@ erDiagram
 ### subscription_providers
 
 - Purpose: external subscription linkage data per provider (customer/subscription/payment IDs and metadata).
-- Key fields: `id` (PK), `subscription_id` (FK), `provider`, `provider_customer_id`, `provider_subscription_id` (nullable), `provider_payment_id`, `status`, `metadata`.
+- Key fields: `id` (PK), `subscription_id` (FK), `provider`, `provider_customer_id` (nullable), `provider_subscription_id` (nullable), `last_provider_payment_id` (nullable), `status`, `metadata`.
 - Relationships: belongs to `subscriptions`.
 - Delete behavior: deleting a subscription cascades and deletes provider rows.
 
@@ -195,4 +195,6 @@ erDiagram
 
 - `invoices.user_id` and `subscriptions.user_id` were corrected to UUID foreign keys to align with `users.id`.
 - Migration `2026_03_02_151410_make_provider_subscription_id_nullable_in_subscription_providers.php` is now implemented, so `subscription_providers.provider_subscription_id` is nullable.
+- Migration `2026_03_20_000001` made `subscription_providers.provider_customer_id` nullable.
+- Migration `2026_03_20_000002` renamed `subscription_providers.provider_payment_id` → `last_provider_payment_id` to clarify it holds only the most recent payment ID (full history lives in `subscription_payments`).
 - The diagram and table notes document current observed schema state from migrations and `database/database.sqlite`.

@@ -158,9 +158,9 @@ External provider mapping for subscriptions.
 | id                       | bigint    | Primary key              |
 | subscription_id          | bigint    | FK -> subscriptions.id   |
 | provider                 | string    | asaas, pagar_dev, etc.   |
-| provider_customer_id     | string    | External customer id     |
-| provider_subscription_id | string    | Nullable external sub id |
-| provider_payment_id      | string    | Nullable provider pay id |
+| provider_customer_id      | string    | Nullable external customer id     |
+| provider_subscription_id  | string    | Nullable external sub id          |
+| last_provider_payment_id  | string    | Nullable last provider payment id |
 | status                   | string    |                          |
 | metadata                 | json      | Nullable                 |
 | created_at               | timestamp |                          |

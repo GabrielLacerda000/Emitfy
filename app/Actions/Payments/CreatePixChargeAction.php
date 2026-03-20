@@ -34,7 +34,7 @@ class CreatePixChargeAction
         $status = $this->normalizeStatus($response->status);
 
         $provider->update([
-            'provider_payment_id' => $response->externalPaymentId,
+            'last_provider_payment_id' => $response->externalPaymentId,
             'status'              => $status->value,
             'metadata'            => array_merge($provider->metadata ?? [], [
                 'pix_code'    => $response->pixCode,
