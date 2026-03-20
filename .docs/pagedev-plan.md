@@ -170,42 +170,74 @@ class ChargePixAction
 
 ## ⚙️ 6. Implementação do `Paguedev::charge()`
 
-> SDK já instalado: `mountbit/pague-dev-php-sdk`
+> Usa `Http` facade do Laravel — igual ao padrão de `AsaasGateway::charge()`. Sem SDK direto.
 > Config já configurada: `config('services.pagar_dev.api_key')` e `config('services.pagar_dev.base_url')`
-> **Sem lógica de negócio aqui** — apenas adapter HTTP/SDK. Padrão espelhado em `AsaasGateway::charge()`.
+> **Sem lógica de negócio aqui** — apenas adapter HTTP. Padrão espelhado em `AsaasGateway::charge()`.
 
 Arquivo: `app/Gateways/PaguedevGateway.php`
 
 ```php
 use App\Enums\PaymentStatus;
-use MountBit\PagueDev\Client;
+use Illuminate\Support\Facades\Http;
 
 public function charge(ChargeData $data): ChargeResponse
 {
-    $client = new Client($this->apiKey);
+    $payload = array_filter([
+        'projectId'      => config('services.pagar_dev.project_id'),
+        'name'           => $data->description,
+        'amount'         => (int) ($data->amount * 100), // reais → centavos
+        'paymentMethods' => ['pix'],
+        'customerId'     => $data->customerId ?: null,
+        'expiresAt'      => $data->dueDate,
+    ], fn ($v) => $v !== null);
 
-    $response = $client->pix()->create(array_filter([
-        'customerId'  => $data->customerId,
-        'amount'      => (int) ($data->amount * 100), // reais → centavos
-        'description' => $data->description,
-        'dueDate'     => $data->dueDate,
-        'metadata'    => $data->metadata ?: null,
-    ], fn ($v) => $v !== null));
+    $response = Http::withHeaders(['X-API-Key' => $this->apiKey])
+        ->post("{$this->baseUrl}/charges", $payload)
+        ->throw()
+        ->json();
 
     return new ChargeResponse(
-        externalPaymentId: $response['transaction_id'],
-        status:            $this->normalizeStatus($response['status'] ?? 'pending'),
+        externalPaymentId: $response['id'],
+        status:            $this->normalizeStatus($response['status'] ?? 'pending')->value,
         amount:            $data->amount,
-        dueDate:           $data->dueDate,
+        dueDate:           $response['expiresAt'] ?? null,
         billingType:       'pix',
-        invoiceUrl:        $response['invoice_url'] ?? null,
-        pixCode:           $response['pix_code'] ?? null,
+        invoiceUrl:        $response['url'] ?? null,
+        pixCode:           $response['pix_code'] ?? $response['pixCode'] ?? null,
     );
 }
 ```
 
-> `normalizeStatus()` retorna **string** (`.value` já aplicado), consistente com `ChargeResponse->status: string`.
+> `normalizeStatus()` retorna `PaymentStatus` enum — aplicar `.value` ao gravar em `ChargeResponse->status: string`.
 > Os demais métodos (`createCustomer`, `tokenizeCreditCard`, `createSubscription`, `cancelSubscription`, `refund`) continuam lançando `RuntimeException` — não implementar agora.
+
+### ⚠️ `projectId` — nova chave de config
+
+Adicionar em `config/services.php` sob `pagar_dev`:
+
+```php
+'pagar_dev' => [
+    'base_url'   => env('PAGAR_DEV_BASE_URL'),
+    'api_key'    => env('PAGAR_DEV_API_KEY'),
+    'project_id' => env('PAGAR_DEV_PROJECT_ID'), // novo
+],
+```
+
+E no `.env`:
+```
+PAGAR_DEV_PROJECT_ID=xxx
+```
+
+### ⚠️ Verificar field names da resposta da API
+
+Confirmar com a documentação real da PagueDev que os campos retornados são:
+- `id` → `externalPaymentId`
+- `status` → status da cobrança
+- `expiresAt` → data de expiração
+- `url` → link da fatura
+- `pix_code` ou `pixCode` → copia-e-cola Pix
+
+Ajustar os field names acima antes de implementar `PaguedevGateway.php`.
 
 ---
 
