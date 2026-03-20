@@ -12,7 +12,7 @@ use App\Dto\Payments\SubscriptionResponse;
 use App\Dto\Payments\TokenizeCreditCardData;
 use App\Interfaces\Payments\PaymentGatewayInterface;
 
-class PagarDevGateway implements PaymentGatewayInterface
+class PaguedevGateway implements PaymentGatewayInterface
 {
     protected string $baseUrl;
 
@@ -22,24 +22,6 @@ class PagarDevGateway implements PaymentGatewayInterface
     {
         $this->baseUrl = config('services.pagar_dev.base_url');
         $this->apiKey = config('services.pagar_dev.api_key');
-    }
-
-    public function createCustomer(CreateCustomerData $data): CustomerResponse
-    {
-        // TODO: implement when PagarDev API docs are available
-        throw new \RuntimeException('PagarDev gateway not yet implemented.');
-    }
-
-    public function tokenizeCreditCard(TokenizeCreditCardData $data): CreditCardTokenResponse
-    {
-        // TODO: implement when PagarDev API docs are available
-        throw new \RuntimeException('PagarDev gateway not yet implemented.');
-    }
-
-    public function createSubscription(CreateSubscriptionData $data): SubscriptionResponse
-    {
-        // TODO: implement when PagarDev API docs are available
-        throw new \RuntimeException('PagarDev gateway not yet implemented.');
     }
 
     public function charge(ChargeData $data): ChargeResponse

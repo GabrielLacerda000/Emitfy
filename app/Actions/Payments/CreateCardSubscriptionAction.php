@@ -7,7 +7,7 @@ use App\Enums\BillingType;
 use App\Factories\PaymentGatewayFactory;
 use App\Models\Subscription;
 
-class CreateSubscriptionAction
+class CreateCardSubscriptionAction
 {
     public function execute(Subscription $subscription): Subscription
     {
@@ -23,7 +23,9 @@ class CreateSubscriptionAction
             customer: $provider->provider_customer_id,
             billingType: BillingType::CreditCard,
             value: (float) $price,
-            nextDueDate: now()->addMonth()->toDateString(),
+            nextDueDate: $subscription->billing_cycle === 'yearly'
+                ? now()->addYear()->toDateString()
+                : now()->addMonth()->toDateString(),
             cycle: strtoupper($subscription->billing_cycle) === 'YEARLY' ? 'YEARLY' : 'MONTHLY',
         );
 

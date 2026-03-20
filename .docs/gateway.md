@@ -8,11 +8,11 @@ Abaixo está um **plano técnico em Markdown**, estruturado para você usar como
 
 Criar uma arquitetura desacoplada que permita:
 
-* Usar múltiplos gateways simultaneamente
-* Trocar gateway sem alterar regra de negócio
-* Adicionar novos gateways (ex: Stripe) sem refatoração estrutural
-* Manter padrão baseado em Actions
-* Centralizar regras de assinatura no seu sistema (não no gateway)
+- Usar múltiplos gateways simultaneamente
+- Trocar gateway sem alterar regra de negócio
+- Adicionar novos gateways (ex: Stripe) sem refatoração estrutural
+- Manter padrão baseado em Actions
+- Centralizar regras de assinatura no seu sistema (não no gateway)
 
 ---
 
@@ -32,12 +32,12 @@ app/
 │
 ├── Gateways/
 │   ├── AsaasGateway.php
-│   ├── PagarDevGateway.php
+│   ├── Paguedev.php
 │   └── StripeGateway.php (futuro)
 │
 ├── Actions/
 │   └── Payments/
-│       ├── CreateSubscriptionAction.php
+│       ├── CreateCardSubscriptionAction.php
 │       ├── ChargeSubscriptionAction.php
 │       └── CancelSubscriptionAction.php
 ```
@@ -70,9 +70,9 @@ Cada classe sabe falar com a API específica.
 
 Ex:
 
-* Asaas usa REST
-* Pagar.dev usa outro formato
-* Stripe tem SDK próprio
+- Asaas usa REST
+- Pagar.dev usa outro formato
+- Stripe tem SDK próprio
 
 ---
 
@@ -121,7 +121,7 @@ Arquivo:
 namespace App\Factories;
 
 use App\Gateways\AsaasGateway;
-use App\Gateways\PagarDevGateway;
+use App\Gateways\Paguedev;
 use App\Gateways\StripeGateway;
 use App\Interfaces\Payments\PaymentGatewayInterface;
 use InvalidArgumentException;
@@ -132,7 +132,7 @@ class PaymentGatewayFactory
     {
         return match ($provider) {
             'asaas' => app(AsaasGateway::class),
-            'pagar_dev' => app(PagarDevGateway::class),
+            'pagar_dev' => app(Paguedev::class),
             'stripe' => app(StripeGateway::class),
             default => throw new InvalidArgumentException("Gateway não suportado"),
         };
@@ -221,7 +221,7 @@ namespace App\Actions\Payments;
 use App\Factories\PaymentGatewayFactory;
 use App\Models\Subscription;
 
-class CreateSubscriptionAction
+class CreateCardSubscriptionAction
 {
     public function execute(Subscription $subscription)
     {
@@ -322,9 +322,9 @@ Nenhuma Action precisa ser alterada.
 
 Sua regra de negócio NUNCA deve depender:
 
-* de nome de campo da API
-* de status bruto do gateway
-* de payload original
+- de nome de campo da API
+- de status bruto do gateway
+- de payload original
 
 Sempre normalize.
 
@@ -336,15 +336,15 @@ Não delegue a lógica de planos ao gateway.
 
 O gateway:
 
-* só cobra
-* só cria assinatura técnica
+- só cobra
+- só cria assinatura técnica
 
 Quem decide:
 
-* upgrade
-* downgrade
-* período de teste
-* cancelamento futuro
+- upgrade
+- downgrade
+- período de teste
+- cancelamento futuro
 
 É o seu sistema.
 

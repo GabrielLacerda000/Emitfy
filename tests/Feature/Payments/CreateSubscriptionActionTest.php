@@ -1,6 +1,6 @@
 <?php
 
-use App\Actions\Payments\CreateSubscriptionAction;
+use App\Actions\Payments\CreateCardSubscriptionAction;
 use App\Factories\PaymentGatewayFactory;
 use App\Models\Plan;
 use App\Models\Subscription;
@@ -39,7 +39,7 @@ test('creates subscription via asaas gateway and updates provider record', funct
         'status' => 'pending',
     ]);
 
-    $result = app(CreateSubscriptionAction::class)->execute($subscription);
+    $result = app(CreateCardSubscriptionAction::class)->execute($subscription);
 
     expect($result->status)->toBe('active');
     expect($result->activeProvider->provider_subscription_id)->toBe('sub_asaas_123');
