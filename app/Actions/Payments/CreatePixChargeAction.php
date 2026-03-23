@@ -6,6 +6,7 @@ use App\Dto\Payments\ChargeData;
 use App\Enums\BillingType;
 use App\Enums\PaymentStatus;
 use App\Factories\PaymentGatewayFactory;
+use App\Gateways\PaguedevGateway;
 use App\Models\Subscription;
 use App\Models\SubscriptionPayment;
 
@@ -14,7 +15,9 @@ class CreatePixChargeAction
     public function execute(Subscription $subscription): SubscriptionPayment
     {
         $provider = $subscription->activeProvider;
-        $gateway  = PaymentGatewayFactory::make($provider->provider);
+
+        /** @var PaguedevGateway $gateway */
+        $gateway = PaymentGatewayFactory::make($provider->provider);
 
         $price = $subscription->billing_cycle === 'yearly'
             ? $subscription->plan->price_yearly
@@ -27,20 +30,12 @@ class CreatePixChargeAction
             description:   "Subscription - {$subscription->plan->name}",
             dueDate:       now()->addDay()->toDateString(),
             paymentMethod: BillingType::Pix->value,
+            metadata:      ['externalReference' => "sub:{$subscription->id}"],
         );
 
         $response = $gateway->charge($data);
 
-        $status = $this->normalizeStatus($response->status);
-
-        $provider->update([
-            'last_provider_payment_id' => $response->externalPaymentId,
-            'status'              => $status->value,
-            'metadata'            => array_merge($provider->metadata ?? [], [
-                'pix_code'    => $response->pixCode,
-                'invoice_url' => $response->invoiceUrl,
-            ]),
-        ]);
+        $status = $gateway->mapStatus($response->status);
 
         $payment = SubscriptionPayment::create([
             'subscription_id'     => $subscription->id,
@@ -52,19 +47,7 @@ class CreatePixChargeAction
             'raw_payload'         => (array) $response,
         ]);
 
-        // webhook concern
-        // $subscription->update(['status' => $status->value]);
 
         return $payment;
-    }
-
-    private function normalizeStatus(string $status): PaymentStatus
-    {
-        return match ($status) {
-            'paid', 'CONFIRMED', 'RECEIVED', 'completed' => PaymentStatus::PAID,
-            'overdue', 'OVERDUE'            => PaymentStatus::EXPIRED,
-            'cancelled', 'CANCELLED'        => PaymentStatus::FAILED,
-            default                         => PaymentStatus::PENDING,
-        };
     }
 }

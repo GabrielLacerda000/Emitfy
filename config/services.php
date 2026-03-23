@@ -41,10 +41,11 @@ return [
         'api_key' => env('ASAAS_API_KEY'),
     ],
 
-    'pagar_dev' => [
-        'base_url' => env('PAGAR_DEV_BASE_URL'),
-        'base_url_prod' => env('PAGAR_DEV_BASE_URL_PROD'),
-        'api_key' => env('PAGAR_DEV_API_KEY'),
+    'pague_dev' => [
+        'base_url'       => env('PAGUE_DEV_BASE_URL'),
+        'base_url_prod'  => env('PAGUE_DEV_BASE_URL_PROD'),
+        'api_key'        => env('PAGUE_DEV_API_KEY'),
+        'webhook_secret' => env('PAGUE_DEV_WEBHOOK_SECRET'),
     ],
 
 ];

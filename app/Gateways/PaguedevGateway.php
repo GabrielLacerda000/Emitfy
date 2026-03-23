@@ -10,6 +10,7 @@ use App\Dto\Payments\CreditCardTokenResponse;
 use App\Dto\Payments\CustomerResponse;
 use App\Dto\Payments\SubscriptionResponse;
 use App\Dto\Payments\TokenizeCreditCardData;
+use App\Enums\PaymentStatus;
 use App\Interfaces\Payments\PaymentGatewayInterface;
 use Illuminate\Support\Facades\Http;
 
@@ -21,8 +22,8 @@ class PaguedevGateway implements PaymentGatewayInterface
 
     public function __construct()
     {
-        $this->baseUrl = config('services.pagar_dev.base_url');
-        $this->apiKey = config('services.pagar_dev.api_key');
+        $this->baseUrl = config('services.pague_dev.base_url');
+        $this->apiKey = config('services.pague_dev.api_key');
     }
 
     public function charge(ChargeData $data): ChargeResponse
@@ -47,6 +48,16 @@ class PaguedevGateway implements PaymentGatewayInterface
             expiresAt:         $response['expiresAt'] ?? null,
             qrCodeBase64:      $response['qrCodeBase64'] ?? null,
         );
+    }
+
+    public function mapStatus(string $status): PaymentStatus
+    {
+        return match ($status) {
+            'payment_completed', 'CONFIRMED', 'RECEIVED', 'paid', 'completed' => PaymentStatus::PAID,
+            'payment_expired', 'OVERDUE', 'overdue'                           => PaymentStatus::EXPIRED,
+            'cancelled', 'CANCELLED', 'payment_cancelled'                    => PaymentStatus::FAILED,
+            default                                                           => PaymentStatus::PENDING,
+        };
     }
 
     public function createCustomer(CreateCustomerData $data): CustomerResponse
