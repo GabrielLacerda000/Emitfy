@@ -13,6 +13,8 @@ readonly class ChargeResponse
         public ?string $invoiceUrl = null,
         public ?string $pixCode = null,
         public ?string $barCode = null,
+        public ?string $expiresAt = null,
+        public ?string $qrCodeBase64 = null,
     ) {}
 
     public static function fromArray(array $data): self
@@ -26,6 +28,8 @@ readonly class ChargeResponse
             invoiceUrl: $data['invoiceUrl'] ?? $data['invoice_url'] ?? null,
             pixCode: $data['pixCode'] ?? $data['pix_code'] ?? null,
             barCode: $data['barCode'] ?? $data['bar_code'] ?? null,
+            expiresAt: $data['expiresAt'] ?? $data['expires_at'] ?? null,
+            qrCodeBase64: $data['qrCodeBase64'] ?? $data['qr_code_base64'] ?? null,
         );
     }
 }

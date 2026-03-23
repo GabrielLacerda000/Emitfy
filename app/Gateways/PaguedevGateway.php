@@ -44,6 +44,8 @@ class PaguedevGateway implements PaymentGatewayInterface
             amount:            isset($response['amount']) ? (float) $response['amount'] : null,
             pixCode:           $response['pixCopyPaste'] ?? null,
             invoiceUrl:        null,
+            expiresAt:         $response['expiresAt'] ?? null,
+            qrCodeBase64:      $response['qrCodeBase64'] ?? null,
         );
     }
 
