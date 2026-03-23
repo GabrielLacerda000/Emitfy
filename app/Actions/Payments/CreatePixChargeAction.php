@@ -16,6 +16,12 @@ class CreatePixChargeAction
     {
         $provider = $subscription->activeProvider;
 
+        if (! $provider) {
+            throw new \RuntimeException(
+                "Subscription {$subscription->id} has no active provider. Call CreateSubscriptionProviderAction first."
+            );
+        }
+
         /** @var PaguedevGateway $gateway */
         $gateway = PaymentGatewayFactory::make($provider->provider);
 

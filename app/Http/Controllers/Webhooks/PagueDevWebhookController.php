@@ -35,7 +35,7 @@ class PagueDevWebhookController extends Controller
             return false;
         }
 
-        $secret = config('services.pagar_dev.webhook_secret');
+        $secret = config('services.pague_dev.webhook_secret');
 
         if (! $secret) {
             return false;
