@@ -34,7 +34,7 @@ class PaguedevGateway implements PaymentGatewayInterface
         ], fn ($v) => $v !== null);
 
         $response = Http::withHeaders(['X-API-Key' => $this->apiKey])
-            ->post("{$this->baseUrl}/pix/qrcode-static", $payload)
+            ->post("{$this->baseUrl}/pix", $payload)
             ->throw()
             ->json();
 
