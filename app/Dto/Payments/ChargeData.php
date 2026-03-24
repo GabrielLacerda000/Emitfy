@@ -2,10 +2,12 @@
 
 namespace App\Dto\Payments;
 
+use App\Dto\Payments\CustomerData;
+
 readonly class ChargeData
 {
     public function __construct(
-        public string $customerId,
+        public CustomerData $customer,
         public float $amount,
         public string $currency,
         public string $description,
@@ -17,7 +19,9 @@ readonly class ChargeData
     public function toArray(): array
     {
         return [
-            'customer' => $this->customerId,
+            'customer' => is_string($this->customer)
+                ? $this->customer
+                : $this->customer->toArray(),
             'amount' => $this->amount,
             'currency' => $this->currency,
             'description' => $this->description,

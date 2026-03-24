@@ -29,6 +29,7 @@ class PaguedevGateway implements PaymentGatewayInterface
     public function charge(ChargeData $data): ChargeResponse
     {
         $payload = array_filter([
+            'customer'          => $data->customer->toArray(),
             'amount'            => $data->amount,
             'description'       => $data->description,
             'externalReference' => $data->metadata['externalReference'] ?? null,
