@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Dto\Webhooks\PagueDevWebhookPayload;
 use App\Enums\PaymentStatus;
 use App\Enums\SubscriptionStatus;
 use App\Gateways\PaguedevGateway;
@@ -21,13 +22,13 @@ class ProcessPagueDevWebhook implements ShouldQueue
 
     public array $backoff = [2, 5, 10, 20, 30];
 
-    public function __construct(public readonly array $payload) {}
+    public function __construct(public readonly PagueDevWebhookPayload $payload) {}
 
     public function handle(PaguedevGateway $gateway): void
     {
-        $eventId = $this->payload['eventId'] ?? null;
-        $event   = $this->payload['event']   ?? null;
-        $data    = $this->payload['data']    ?? [];
+        $eventId = $this->payload->eventId;
+        $event   = $this->payload->event;
+        $data    = $this->payload->data;
 
         // Idempotency: skip if this eventId was already processed
         if ($eventId && SubscriptionPayment::whereJsonContains('raw_payload->eventId', $eventId)->exists()) {

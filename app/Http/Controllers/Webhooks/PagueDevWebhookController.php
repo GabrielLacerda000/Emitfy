@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Webhooks;
 
+use App\Dto\Webhooks\PagueDevWebhookPayload;
 use App\Http\Controllers\Controller;
 use App\Jobs\ProcessPagueDevWebhook;
 use Illuminate\Http\JsonResponse;
@@ -12,7 +13,7 @@ class PagueDevWebhookController extends Controller
 {
     public function __invoke(Request $request): JsonResponse
     {
-        $rawBody   = $request->getContent();
+        $rawBody   = (string) $request->getContent();
         $signature = $request->header('X-Webhook-Signature');
 
         if (! $this->verifySignature($rawBody, $signature)) {
@@ -24,7 +25,9 @@ class PagueDevWebhookController extends Controller
             return response()->json(['error' => 'Invalid signature'], 400);
         }
 
-        ProcessPagueDevWebhook::dispatch(json_decode($rawBody, true) ?? []);
+        ProcessPagueDevWebhook::dispatch(
+            PagueDevWebhookPayload::fromArray(json_decode($rawBody, true) ?? [])
+        );
 
         return response()->json(['ok' => true]);
     }
