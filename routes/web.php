@@ -6,6 +6,8 @@ use App\Http\Controllers\ExportController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\InvoicePdfController;
 use App\Http\Controllers\PublicInvoiceController;
+use App\Http\Controllers\Subscription\PixCheckoutController;
+use App\Models\Plan;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -13,6 +15,7 @@ use Laravel\Fortify\Features;
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canRegister' => Features::enabled(Features::registration()),
+        'planId'      => Plan::first()?->id,
     ]);
 })->name('home');
 
@@ -24,6 +27,9 @@ Route::get('dashboard', [DashboardController::class, 'index'])
     ->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::post('checkout/pix', [PixCheckoutController::class, 'store'])->name('checkout.pix.store');
+    Route::get('checkout/pix/{payment}', [PixCheckoutController::class, 'show'])->name('checkout.pix.show');
+
     Route::resource('clients', ClientController::class);
     Route::get('invoices/export', [ExportController::class, 'invoicesCsv'])->name('invoices.export');
     Route::resource('invoices', InvoiceController::class);

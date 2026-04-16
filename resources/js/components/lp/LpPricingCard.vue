@@ -24,9 +24,12 @@ defineProps<{
     description: string;
     features: Array<{ text: string; included: boolean; info?: string }>;
     cta: string;
-    ctaHref: string;
     highlighted?: boolean;
     savings?: string;
+}>();
+
+const emit = defineEmits<{
+    (e: 'cta-click'): void;
 }>();
 </script>
 
@@ -163,20 +166,15 @@ defineProps<{
                 <Button
                     size="lg"
                     class="group/btn relative h-14 w-full overflow-hidden text-lg shadow-xl shadow-primary/20 transition-all duration-300 hover:scale-[1.02]"
-                    as-child
+                    @click="emit('cta-click')"
                 >
-                    <a :href="ctaHref">
-                        <span class="relative z-10 flex items-center gap-2">
-                            {{ cta }}
-                            <span
-                                class="transition-transform group-hover/btn:translate-x-1"
-                                >→</span
-                            >
-                        </span>
-                        <div
-                            class="absolute inset-0 bg-linear-to-r from-primary via-white/20 to-primary opacity-0 transition-opacity duration-500 group-hover/btn:opacity-100"
-                        ></div>
-                    </a>
+                    <span class="relative z-10 flex items-center gap-2">
+                        {{ cta }}
+                        <span class="transition-transform group-hover/btn:translate-x-1">→</span>
+                    </span>
+                    <div
+                        class="absolute inset-0 bg-linear-to-r from-primary via-white/20 to-primary opacity-0 transition-opacity duration-500 group-hover/btn:opacity-100"
+                    ></div>
                 </Button>
             </CardFooter>
         </Card>

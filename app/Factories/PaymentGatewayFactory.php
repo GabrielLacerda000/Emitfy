@@ -13,7 +13,7 @@ class PaymentGatewayFactory
     {
         return match ($provider) {
             'asaas' => app(AsaasGateway::class),
-            'pagar_dev' => app(PaguedevGateway::class),
+            'pague_dev' => app(PaguedevGateway::class),
             default => throw new InvalidArgumentException("Unsupported payment gateway: {$provider}"),
         };
     }

@@ -19,6 +19,9 @@ class SubscriptionPayment extends Model
         'status',
         'paid_at',
         'raw_payload',
+        'pix_code',
+        'qr_code_base64',
+        'expires_at',
     ];
 
     public function casts(): array
@@ -26,6 +29,7 @@ class SubscriptionPayment extends Model
         return [
             'amount'      => 'decimal:2',
             'paid_at'     => 'datetime',
+            'expires_at'  => 'datetime',
             'raw_payload' => 'array',
             'status'      => PaymentStatus::class,
         ];

@@ -38,9 +38,11 @@ const changeLocale = (newLocale: 'en' | 'pt-BR'): void => {
 withDefaults(
     defineProps<{
         canRegister: boolean;
+        planId: number | null;
     }>(),
     {
         canRegister: true,
+        planId: null,
     },
 );
 </script>
@@ -212,7 +214,7 @@ withDefaults(
             <LpBenefits />
             <LpStats />
             <LpScreenshot />
-            <LpPricing />
+            <LpPricing :plan-id="planId" />
             <LpFaq />
             <LpCta />
         </main>
