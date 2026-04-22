@@ -45,15 +45,13 @@ class CreatePixChargeAction
 
         $response = $gateway->charge($data);
 
-        $status = $gateway->mapStatus($response->status);
-
         return SubscriptionPayment::create([
             'subscription_id'     => $subscription->id,
             'provider'            => $provider->provider,
             'external_payment_id' => $response->externalPaymentId,
             'amount'              => $price,
-            'status'              => $status,
-            'paid_at'             => $status === PaymentStatus::PAID ? now() : null,
+            'status'              => PaymentStatus::PENDING,
+            'paid_at'             => null,
             'pix_code'            => $response->pixCode,
             'qr_code_base64'      => $response->qrCodeBase64,
             'expires_at'          => $response->expiresAt,
