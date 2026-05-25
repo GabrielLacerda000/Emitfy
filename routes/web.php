@@ -29,6 +29,7 @@ Route::get('dashboard', [DashboardController::class, 'index'])
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('checkout/pix', [PixCheckoutController::class, 'store'])->name('checkout.pix.store');
     Route::get('checkout/pix/{payment}', [PixCheckoutController::class, 'show'])->name('checkout.pix.show');
+    Route::get('checkout/pix/{payment}/status', [PixCheckoutController::class, 'status'])->name('checkout.pix.status');
 
     Route::resource('clients', ClientController::class);
     Route::get('invoices/export', [ExportController::class, 'invoicesCsv'])->name('invoices.export');
