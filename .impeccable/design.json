@@ -1,0 +1,245 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-05-25T00:00:00Z",
+  "title": "Design System: Emitfy",
+  "extensions": {
+    "colorMeta": {
+      "amber-operator": {
+        "role": "primary",
+        "displayName": "Amber Operator",
+        "canonical": "oklch(0.62 0.12 80)",
+        "tonalRamp": [
+          "oklch(0.15 0.03 80)",
+          "oklch(0.25 0.06 80)",
+          "oklch(0.35 0.09 80)",
+          "oklch(0.45 0.11 80)",
+          "oklch(0.55 0.12 80)",
+          "oklch(0.62 0.12 80)",
+          "oklch(0.74 0.08 80)",
+          "oklch(0.88 0.05 80)",
+          "oklch(0.96 0.02 80)"
+        ]
+      },
+      "slate-white": {
+        "role": "neutral",
+        "displayName": "Slate White",
+        "canonical": "oklch(0.97 0.01 265)",
+        "tonalRamp": [
+          "oklch(0.14 0.02 265)",
+          "oklch(0.22 0.025 265)",
+          "oklch(0.32 0.02 265)",
+          "oklch(0.48 0.02 265)",
+          "oklch(0.65 0.015 265)",
+          "oklch(0.78 0.012 265)",
+          "oklch(0.88 0.01 265)",
+          "oklch(0.955 0.01 265)",
+          "oklch(0.97 0.01 265)"
+        ]
+      },
+      "success": {
+        "role": "semantic-success",
+        "displayName": "Invoice Green",
+        "canonical": "oklch(0.58 0.17 145)",
+        "tonalRamp": [
+          "oklch(0.18 0.05 145)",
+          "oklch(0.28 0.09 145)",
+          "oklch(0.38 0.13 145)",
+          "oklch(0.48 0.16 145)",
+          "oklch(0.58 0.17 145)",
+          "oklch(0.65 0.15 145)",
+          "oklch(0.75 0.12 145)",
+          "oklch(0.86 0.08 145)",
+          "oklch(0.94 0.04 145)"
+        ]
+      },
+      "warning": {
+        "role": "semantic-warning",
+        "displayName": "Caution Amber",
+        "canonical": "oklch(0.75 0.16 85)",
+        "tonalRamp": [
+          "oklch(0.20 0.05 85)",
+          "oklch(0.30 0.08 85)",
+          "oklch(0.42 0.12 85)",
+          "oklch(0.55 0.15 85)",
+          "oklch(0.65 0.16 85)",
+          "oklch(0.75 0.16 85)",
+          "oklch(0.83 0.12 85)",
+          "oklch(0.90 0.07 85)",
+          "oklch(0.96 0.03 85)"
+        ]
+      },
+      "destructive": {
+        "role": "semantic-error",
+        "displayName": "Alert Red",
+        "canonical": "oklch(0.62 0.22 29)",
+        "tonalRamp": [
+          "oklch(0.18 0.07 29)",
+          "oklch(0.28 0.12 29)",
+          "oklch(0.38 0.17 29)",
+          "oklch(0.48 0.20 29)",
+          "oklch(0.55 0.22 29)",
+          "oklch(0.62 0.22 29)",
+          "oklch(0.72 0.17 29)",
+          "oklch(0.84 0.10 29)",
+          "oklch(0.94 0.04 29)"
+        ]
+      },
+      "info": {
+        "role": "semantic-info",
+        "displayName": "Reference Blue",
+        "canonical": "oklch(0.6 0.15 240)",
+        "tonalRamp": [
+          "oklch(0.18 0.05 240)",
+          "oklch(0.28 0.09 240)",
+          "oklch(0.38 0.12 240)",
+          "oklch(0.48 0.14 240)",
+          "oklch(0.55 0.15 240)",
+          "oklch(0.60 0.15 240)",
+          "oklch(0.70 0.12 240)",
+          "oklch(0.83 0.08 240)",
+          "oklch(0.94 0.03 240)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero headlines on the landing page. Rarely used in the authenticated app." },
+      "headline": { "displayName": "Headline", "purpose": "Page titles, section headings, dialog headers." },
+      "title": { "displayName": "Title", "purpose": "Card titles, list group headers, sidebar labels." },
+      "body": { "displayName": "Body", "purpose": "All running text, table rows, form values. Max 65ch." },
+      "label": { "displayName": "Label", "purpose": "Metadata, timestamps, badge text, input labels." }
+    },
+    "shadows": [
+      { "name": "rest", "value": "0 1px 2px rgba(0,0,0,0.05)", "purpose": "Inputs and checkboxes at rest. Signals interactivity without noise." },
+      { "name": "card-hover", "value": "0 4px 12px rgba(0,0,0,0.08), 0 0 0 1px oklch(0.62 0.12 80 / 0.05)", "purpose": "Card hover state. Amber tint connects to the primary action color." },
+      { "name": "lifted", "value": "0 10px 15px rgba(0,0,0,0.1), 0 4px 6px rgba(0,0,0,0.05)", "purpose": "Dialogs, sheets, command palettes. Clear separation from the page." },
+      { "name": "hero", "value": "0 0 50px -12px rgba(0,0,0,0.3)", "purpose": "Landing page screenshot and hero imagery. Cinematic, not functional." }
+    ],
+    "motion": [
+      { "name": "ease-out-standard", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Default easing for state transitions: hover, focus, active." },
+      { "name": "ease-in-out-gentle", "value": "cubic-bezier(0.4, 0, 0.2, 1)", "purpose": "Color and opacity transitions on interactive surfaces." },
+      { "name": "duration-fast", "value": "150ms", "purpose": "Hover color changes, focus ring appearances." },
+      { "name": "duration-standard", "value": "200ms", "purpose": "State transitions: button hover, card hover." },
+      { "name": "duration-enter", "value": "300ms", "purpose": "Panel entries, dialog open, collapse expand." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The single highest-priority action on any surface. Amber Operator background signals intent.",
+      "html": "<button class=\"ds-btn-primary\">Criar Fatura</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: oklch(0.62 0.12 80); color: oklch(0.98 0 0); font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; font-weight: 500; line-height: 1; padding: 8px 16px; height: 36px; border-radius: 6px; border: none; cursor: pointer; transition: background 150ms cubic-bezier(0.16, 1, 0.3, 1); outline: none; } .ds-btn-primary:hover { background: oklch(0.55 0.12 80); } .ds-btn-primary:focus-visible { background: oklch(0.55 0.12 80); box-shadow: 0 0 0 3px oklch(0.62 0.12 80 / 0.5); } .ds-btn-primary:disabled { opacity: 0.5; pointer-events: none; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary action. Used alongside Primary when two options are presented.",
+      "html": "<button class=\"ds-btn-outline\">Cancelar</button>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: oklch(0.985 0.008 265); color: oklch(0.32 0.02 265); font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; font-weight: 500; line-height: 1; padding: 8px 16px; height: 36px; border-radius: 6px; border: 1px solid oklch(0.88 0.01 265); cursor: pointer; transition: background 150ms cubic-bezier(0.16, 1, 0.3, 1); outline: none; } .ds-btn-outline:hover { background: oklch(0.955 0.01 265); } .ds-btn-outline:focus-visible { box-shadow: 0 0 0 3px oklch(0.62 0.12 80 / 0.5); border-color: oklch(0.62 0.12 80); } .ds-btn-outline:disabled { opacity: 0.5; pointer-events: none; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Tertiary action inside dense layouts: table rows, sidebar items, toolbar controls.",
+      "html": "<button class=\"ds-btn-ghost\">Ver detalhes</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: transparent; color: oklch(0.32 0.02 265); font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; font-weight: 500; line-height: 1; padding: 8px 16px; height: 36px; border-radius: 6px; border: none; cursor: pointer; transition: background 150ms cubic-bezier(0.16, 1, 0.3, 1); outline: none; } .ds-btn-ghost:hover { background: oklch(0.94 0.015 265); } .ds-btn-ghost:focus-visible { box-shadow: 0 0 0 3px oklch(0.62 0.12 80 / 0.5); } .ds-btn-ghost:disabled { opacity: 0.5; pointer-events: none; }"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Content container for dashboard stats, invoice summaries, and client records.",
+      "html": "<div class=\"ds-card\"><div class=\"ds-card-title\">Total pendente</div><div class=\"ds-card-value\">R$ 4.200,00</div><div class=\"ds-card-meta\">3 faturas em aberto</div></div>",
+      "css": ".ds-card { background: oklch(0.985 0.008 265); color: oklch(0.32 0.02 265); border: 1px solid oklch(0.88 0.01 265); border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 8px; transition: box-shadow 200ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08), 0 0 0 1px oklch(0.62 0.12 80 / 0.05); } .ds-card-title { font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 0.75rem; font-weight: 500; color: oklch(0.48 0.02 265); letter-spacing: 0.01em; } .ds-card-value { font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 1.5rem; font-weight: 700; color: oklch(0.32 0.02 265); letter-spacing: -0.01em; } .ds-card-meta { font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 0.75rem; font-weight: 400; color: oklch(0.48 0.02 265); }"
+    },
+    {
+      "name": "Input Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Text input for invoice forms, search, and filters. Focus shifts border to Amber Operator.",
+      "html": "<div class=\"ds-field\"><label class=\"ds-label\" for=\"ds-input-demo\">Nome do cliente</label><input class=\"ds-input\" id=\"ds-input-demo\" type=\"text\" placeholder=\"Ex: Empresa Ltda\" /></div>",
+      "css": ".ds-field { display: flex; flex-direction: column; gap: 6px; } .ds-label { font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; font-weight: 500; color: oklch(0.32 0.02 265); } .ds-input { font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 0.875rem; font-weight: 400; color: oklch(0.32 0.02 265); background: transparent; border: 1px solid oklch(0.88 0.01 265); border-radius: 6px; padding: 4px 12px; height: 36px; width: 100%; box-shadow: 0 1px 2px rgba(0,0,0,0.05); outline: none; transition: border-color 150ms, box-shadow 150ms; } .ds-input::placeholder { color: oklch(0.48 0.02 265); } .ds-input:focus-visible { border-color: oklch(0.62 0.12 80); box-shadow: 0 0 0 3px oklch(0.62 0.12 80 / 0.5); } .ds-input:disabled { opacity: 0.5; cursor: not-allowed; }"
+    },
+    {
+      "name": "Invoice Status Badge — Paid",
+      "kind": "chip",
+      "refersTo": null,
+      "description": "Status badge for paid invoices. Color paired with text label for accessibility.",
+      "html": "<span class=\"ds-badge ds-badge-paid\">Pago</span>",
+      "css": ".ds-badge { display: inline-flex; align-items: center; justify-content: center; border-radius: 9999px; padding: 2px 8px; font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 0.75rem; font-weight: 500; line-height: 1.4; letter-spacing: 0.01em; white-space: nowrap; } .ds-badge-paid { background: oklch(0.58 0.17 145 / 0.15); color: oklch(0.38 0.17 145); border: 1px solid oklch(0.58 0.17 145 / 0.25); }"
+    },
+    {
+      "name": "Invoice Status Badge — Overdue",
+      "kind": "chip",
+      "refersTo": null,
+      "description": "Status badge for overdue invoices. Highest urgency; red tint at 15% opacity.",
+      "html": "<span class=\"ds-badge ds-badge-overdue\">Vencida</span>",
+      "css": ".ds-badge { display: inline-flex; align-items: center; justify-content: center; border-radius: 9999px; padding: 2px 8px; font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 0.75rem; font-weight: 500; line-height: 1.4; letter-spacing: 0.01em; white-space: nowrap; } .ds-badge-overdue { background: oklch(0.62 0.22 29 / 0.15); color: oklch(0.42 0.22 29); border: 1px solid oklch(0.62 0.22 29 / 0.25); }"
+    },
+    {
+      "name": "Invoice Status Badge — Due Soon",
+      "kind": "chip",
+      "refersTo": null,
+      "description": "Status badge for invoices due within 7 days. Caution amber distinct from Amber Operator.",
+      "html": "<span class=\"ds-badge ds-badge-due-soon\">A vencer</span>",
+      "css": ".ds-badge { display: inline-flex; align-items: center; justify-content: center; border-radius: 9999px; padding: 2px 8px; font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 0.75rem; font-weight: 500; line-height: 1.4; letter-spacing: 0.01em; white-space: nowrap; } .ds-badge-due-soon { background: oklch(0.75 0.16 85 / 0.15); color: oklch(0.50 0.16 85); border: 1px solid oklch(0.75 0.16 85 / 0.25); }"
+    },
+    {
+      "name": "App Logo Mark",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "32px square mark. The only surface where Amber Operator fills a non-button element at full saturation.",
+      "html": "<div class=\"ds-logo\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"oklch(0.955 0.01 265)\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z\"/><polyline points=\"14,2 14,8 20,8\"/><line x1=\"16\" y1=\"13\" x2=\"8\" y2=\"13\"/><line x1=\"16\" y1=\"17\" x2=\"8\" y2=\"17\"/><line x1=\"10\" y1=\"9\" x2=\"8\" y2=\"9\"/></svg></div>",
+      "css": ".ds-logo { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: oklch(0.62 0.12 80); border-radius: 6px; flex-shrink: 0; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Amber Ledger",
+    "overview": "Emitfy's visual system is built around one central tension: the warmth of a trusted professional relationship against the precision of a financial tool. The amber accent, cool indigo-tinted neutrals, and Inter's geometric clarity combine into something that feels like a well-worn accountant's journal: functional, deliberate, warm enough to trust, sharp enough to respect.\n\nThis is not a dashboard trying to look futuristic. It is not a productivity tool trying to look delightful. It is a tool for people who need to get paid, and every design decision is made in service of that clarity. The system explicitly rejects: the generic SaaS-cream aesthetic, the ultra-minimal gray-on-white coldness of productivity-tool clones, and the dense enterprise chrome of traditional accounting software.",
+    "keyCharacteristics": [
+      "Single amber accent used sparingly; rarity is the point",
+      "Indigo-tinted neutrals (not pure gray) carry the blue of invoices and ledgers without literalism",
+      "Full dark/light parity; neither mode is an afterthought",
+      "Semantic color used for status only: never decorative, always informative",
+      "Tonal layering as the primary depth signal; shadows reserved for state"
+    ],
+    "rules": [
+      { "name": "The One Voice Rule", "body": "Amber Operator appears on ≤10% of any given screen. It is used exclusively for primary actions and active states. Secondary or decorative use dilutes it.", "section": "colors" },
+      { "name": "The No Pure Gray Rule", "body": "Every neutral carries hue 265 (indigo) at chroma 0.005–0.02. Pure gray (oklch(X 0 0)) is prohibited anywhere in the UI.", "section": "colors" },
+      { "name": "The Status Semantics Rule", "body": "Green, amber-warning, red, and blue are reserved for invoice and transaction status. They do not appear as decorative accents, heading colors, or illustration fills.", "section": "colors" },
+      { "name": "The Weight Contrast Rule", "body": "Every typography level must be at least 100 weight-units apart from adjacent levels. Title (600) next to Body (400) is correct; Title (600) next to Headline (600) at the same size is not.", "section": "typography" },
+      { "name": "The One Size Jump Rule", "body": "Adjacent hierarchy steps must differ by at least 1.25x in computed size.", "section": "typography" },
+      { "name": "The Flat-at-Rest Rule", "body": "Cards, list items, stat blocks, and table rows carry no shadow at rest. Tonal contrast is enough. Shadows are responses to state, not permanent decoration.", "section": "elevation" },
+      { "name": "The Tinted Shadow Rule", "body": "When using shadows on interactive elements, tint toward amber-operator at 5–20% opacity. This connects hover feedback to the primary action color.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do use Amber Operator exclusively for primary actions, active states, and focus rings. One color, one meaning.",
+      "Do tint every neutral surface toward hue 265. Even near-white backgrounds carry chroma 0.005–0.01.",
+      "Do use tonal separation as the first depth tool. Reach for shadows only when state changes demand it.",
+      "Do pair every status color with a text label. Color alone never communicates invoice state.",
+      "Do keep body text under 65ch line length.",
+      "Do keep Inter weight at 600+ for titles and 400 for body. Adjacent hierarchy levels differ by at least 100 weight-units and 1.25x size.",
+      "Do reduce chroma as lightness approaches 0 or 100."
+    ],
+    "donts": [
+      "Don't use teal or blue-teal as an accent. First SaaS reflex for invoice tools.",
+      "Don't build identical card grids: same-sized cards with icon, heading, and paragraph text in a repeating column layout.",
+      "Don't use border-left greater than 1px as a colored stripe on cards, list items, or alerts.",
+      "Don't use gradient text (background-clip: text).",
+      "Don't use glassmorphism decoratively.",
+      "Don't build the hero-metric template: big number, small label, gradient accent, supporting stats.",
+      "Don't use pure gray (oklch(X 0 0)) anywhere.",
+      "Don't use Caution Amber as a decorative accent or positive highlight.",
+      "Don't design toward QuickBooks, Notion/Linear clones, or generic SaaS-cream."
+    ]
+  }
+}
