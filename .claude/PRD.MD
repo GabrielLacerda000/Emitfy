@@ -1,12 +1,12 @@
-# SimpleInvoice – Product Requirements Document (PRD)
+# Emitfy – Product Requirements Document (PRD)
 
 ## 1. Product Overview
 
-**Product Name:** SimpleInvoice
+**Product Name:** Emitfy
 **Product Type:** SaaS (Web Application)
 **Target Users:** Solo freelancers (developers, designers, consultants, writers)
 
-SimpleInvoice is a lightweight invoicing SaaS designed for freelancers who currently rely on spreadsheets to track invoices and payments. The product focuses exclusively on invoicing, payment tracking, and reminders — avoiding full accounting complexity.
+Emitfy is a lightweight invoicing SaaS designed for freelancers who currently rely on spreadsheets to track invoices and payments. The product focuses exclusively on invoicing, payment tracking, and reminders — avoiding full accounting complexity.
 
 The core promise is: **“Create and send your first invoice in 60 seconds.”**
 
