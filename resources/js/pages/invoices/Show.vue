@@ -22,7 +22,6 @@ import InvoiceController from '@/actions/App/Http/Controllers/InvoiceController'
 import InvoicePdfController from '@/actions/App/Http/Controllers/InvoicePdfController';
 import InvoiceItemsTable from '@/components/invoices/InvoiceItemsTable.vue';
 import InvoiceSummary from '@/components/invoices/InvoiceSummary.vue';
-import UpgradeModal from '@/components/UpgradeModal.vue';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -35,6 +34,7 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
+import UpgradeModal from '@/components/UpgradeModal.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { canSendInvoice, canViewPdf } from '@/lib/featureGate';
 import { formatDate } from '@/lib/utils';
